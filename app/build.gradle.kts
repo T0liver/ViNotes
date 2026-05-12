@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "hu.toliver.winotes"
+    namespace = "hu.toliver.vinotes"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1

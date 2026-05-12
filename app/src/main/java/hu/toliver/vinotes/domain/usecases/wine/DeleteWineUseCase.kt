@@ -1,0 +1,11 @@
+package hu.toliver.vinotes.domain.usecases.wine
+
+import hu.toliver.vinotes.domain.model.Wine
+import hu.toliver.vinotes.domain.repository.WineRepository
+import jakarta.inject.Inject
+
+class DeleteWineUseCase@Inject constructor(
+    private val repository: WineRepository
+) {
+    suspend operator fun invoke(wine: Wine): Result<Unit> = repository.delete(wine.id)
+}
