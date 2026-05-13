@@ -66,14 +66,15 @@ dependencies {
     //Kotlin Extensions DateTime - LocalDate
     implementation(libs.kotlinx.datetime)
 
-    //ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    //Navigation3
-    implementation(libs.androidx.navigation3.ui)
+    // Navigation 3
     implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
 
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.kotlinx.serialization.core)
+    implementation(libs.androidx.material3.adaptive.navigation3)
+
+    // JSon serialization
     implementation(libs.kotlinx.serialization.json)
 
     //Room
