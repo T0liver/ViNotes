@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import hu.toliver.vinotes.ui.navigation.VinNoteNavGraph
 import hu.toliver.vinotes.ui.theme.ViNotesTheme
 
 @AndroidEntryPoint
@@ -22,6 +23,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun MainActivityContent() {
     ViNotesTheme() {
-        //AppNavigation(modifier = Modifier.safeDrawingPadding())
+        VinNoteNavGraph()
     }
 }
