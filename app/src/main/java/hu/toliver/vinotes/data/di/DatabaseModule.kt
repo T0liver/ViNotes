@@ -11,7 +11,7 @@ import hu.toliver.vinotes.data.WineDatabase
 import hu.toliver.vinotes.data.dao.SyncMetadataDao
 import hu.toliver.vinotes.data.dao.TasteDao
 import hu.toliver.vinotes.data.dao.WineDao
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

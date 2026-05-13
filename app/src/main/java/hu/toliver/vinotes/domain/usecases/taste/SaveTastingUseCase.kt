@@ -4,7 +4,7 @@ import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.repository.TasteRepository
 import hu.toliver.vinotes.domain.repository.WineRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 
 class SaveTastingUseCase @Inject constructor(
     private val tasteRepository: TasteRepository,

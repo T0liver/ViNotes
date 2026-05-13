@@ -5,7 +5,7 @@ import hu.toliver.vinotes.data.local.entity.toDomain
 import hu.toliver.vinotes.data.local.entity.toEntity
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.repository.TasteRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.UUID
@@ -30,7 +30,7 @@ class TasteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(taste: Taste): Result<Unit> = runCatching {
-        dao.update(taste.toEntity(id = taste.wineId))
+        dao.update(taste.toEntity(id = taste.id))
     }
 
     override suspend fun delete(id: String): Result<Unit> = runCatching {

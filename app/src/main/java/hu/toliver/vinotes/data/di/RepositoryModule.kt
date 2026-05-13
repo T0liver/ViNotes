@@ -10,7 +10,7 @@ import hu.toliver.vinotes.data.repository.WineRepositoryImpl
 import hu.toliver.vinotes.domain.repository.CatalogSyncRepository
 import hu.toliver.vinotes.domain.repository.TasteRepository
 import hu.toliver.vinotes.domain.repository.WineRepository
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

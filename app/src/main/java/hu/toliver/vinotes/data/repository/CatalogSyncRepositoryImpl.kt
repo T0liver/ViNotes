@@ -10,7 +10,7 @@ import hu.toliver.vinotes.domain.model.sync.CatalogManifest
 import hu.toliver.vinotes.domain.model.sync.DeltaInfo
 import hu.toliver.vinotes.domain.model.sync.SyncMetadata
 import hu.toliver.vinotes.domain.repository.CatalogSyncRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

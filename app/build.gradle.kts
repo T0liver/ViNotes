@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "hu.toliver.winotes"
+        applicationId = "hu.toliver.vinotes"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

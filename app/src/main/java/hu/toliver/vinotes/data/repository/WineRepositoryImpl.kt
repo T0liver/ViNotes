@@ -6,7 +6,7 @@ import hu.toliver.vinotes.data.local.entity.toEntity
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.repository.WineRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
