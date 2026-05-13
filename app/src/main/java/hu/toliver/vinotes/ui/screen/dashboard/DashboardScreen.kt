@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun DashboardScreen(
     viewModel:             DashboardViewModel = hiltViewModel(),
     onNavigateToWineList:  () -> Unit,
-    onNavigateToDetail:    (wineId: String) -> Unit,
+    onNavigateToDetail:    (wineId: String, tasteId: String) -> Unit,
     onNavigateToAddTasting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -28,7 +28,7 @@ fun DashboardScreen(
         viewModel.effect.collectLatest { effect ->
             when (effect) {
                 is DashboardEffect.NavigateToDetail ->
-                    onNavigateToDetail(effect.wineId)
+                    onNavigateToDetail(effect.wineId, effect.tasteId)
 
                 DashboardEffect.NavigateToAddTasting ->
                     onNavigateToAddTasting()
@@ -119,7 +119,7 @@ private fun DashboardContent(
             items(
                 items = state.recentTastings,
                 key   = { it.tasteId },
-            ) { tasting -> {}
+            ) { _ ->
                 /*
                 RecentTastingCard(
                     item    = tasting,

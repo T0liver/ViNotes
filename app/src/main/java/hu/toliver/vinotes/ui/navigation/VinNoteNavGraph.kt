@@ -52,7 +52,7 @@ fun VinNoteNavGraph() {
                 entry<Screen.Dashboard> {
                     DashboardScreen(
                         onNavigateToWineList    = { backStack.add(Screen.WineList) },
-                        onNavigateToDetail      = { wineId -> backStack.add(Screen.WineDetail(wineId)) },
+                        onNavigateToDetail      = { wineId, _ -> backStack.add(Screen.WineDetail(wineId)) },
                         onNavigateToAddTasting  = { backStack.add(Screen.AddTasting()) },
                     )
                 }
