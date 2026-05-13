@@ -1,24 +1,17 @@
 package hu.toliver.vinotes.ui.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed interface NavKey {
+@Serializable
+sealed interface Screen : NavKey {
 
-    // ── Bottom nav gyökér képernyők ───────────────────────────────────────────
-    @Serializable data object Dashboard  : NavKey
-    @Serializable data object WineList   : NavKey
-    @Serializable data object Stats      : NavKey
+    @Serializable data object Dashboard : Screen
+    @Serializable data object WineList : Screen
+    @Serializable data object Stats : Screen
 
-    // ── Detail / flow képernyők ───────────────────────────────────────────────
-
-    /**
-     * @param wineId null = manual input, non-null = from catalog prefilled
-     */
-    @Serializable data class AddTasting(val wineId: String? = null) : NavKey
-
-    @Serializable data class WineDetail(val wineId: String) : NavKey
-
-    // TODO: Onboarding / settings / about / etc. screens
+    @Serializable data class AddTasting(val wineId: String? = null) : Screen
+    @Serializable data class WineDetail(val wineId: String) : Screen
 }
 
-val ROOT_KEYS = setOf(NavKey.Dashboard, NavKey.WineList, NavKey.Stats)
+val ROOT_DESTS = setOf<Screen>(Screen.Dashboard, Screen.WineList, Screen.Stats)
