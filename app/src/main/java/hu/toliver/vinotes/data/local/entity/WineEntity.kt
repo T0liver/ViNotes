@@ -3,6 +3,7 @@ package hu.toliver.vinotes.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import hu.toliver.vinotes.data.local.converters.EnumConverter.enumOrNullFromString
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
@@ -38,9 +39,11 @@ fun WineEntity.toDomain(): Wine = Wine(
     isCuvee = isCuvee,
     cuveeComponents = if (cuveeComponents.isBlank()) emptyList()
     else cuveeComponents.split(","),
-    colour = WineColour.valueOf(colour),
+    colour = enumOrNullFromString<WineColour>(colour)
+        ?: WineColour.WHITE, // statistically white is a better choice
     sugar = sugar,
-    sweetness = WineSweetness.valueOf(sweetness),
+    sweetness = enumOrNullFromString<WineSweetness>(sweetness)
+        ?: WineSweetness.DRY,
     country = country,
     region = region,
     alcoholPercentage = alcoholPercentage,

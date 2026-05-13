@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import hu.toliver.vinotes.data.local.converters.EnumConverter.enumOrNullFromString
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.Level
@@ -66,22 +67,34 @@ data class TasteEntity (
 
 fun TasteEntity.toDomain(): Taste = Taste(
     id = id,
-    clarity = WineClarity.valueOf(clarity),
-    colourIntensity = WineColourIntensity.valueOf(colourIntensity),
-    colour = TasteWineColour.valueOf(colour),
+    clarity = enumOrNullFromString<WineClarity>(clarity)
+        ?: WineClarity.CLEAR,
+    colourIntensity = enumOrNullFromString<WineColourIntensity>(colourIntensity)
+        ?: WineColourIntensity.MEDIUM,
+    colour = enumOrNullFromString<TasteWineColour>(colour)
+        ?: TasteWineColour.WHITE,
     otherVisual = otherVisual,
-    noseIntensity = Intensity.valueOf(noseIntensity),
+    noseIntensity = enumOrNullFromString<Intensity>(noseIntensity)
+        ?: Intensity.MEDIUM,
     noseAroma = noseAroma,
-    noseDevelopment = NoseDevelopment.valueOf(noseDevelopment),
+    noseDevelopment = enumOrNullFromString<NoseDevelopment>(noseDevelopment)
+        ?: NoseDevelopment.DEVELOPED,
     otherNose = otherNose,
-    sweetness = WineSweetness.valueOf(sweetness),
-    acidity = Level.valueOf(acidity),
-    tannin = Level.valueOf(tannin),
-    body = Level.valueOf(body),
-    alcohol = Level.valueOf(alcohol),
-    flavourIntensity = Intensity.valueOf(flavourIntensity),
+    sweetness = enumOrNullFromString<WineSweetness>(sweetness)
+        ?: WineSweetness.DRY,
+    acidity = enumOrNullFromString<Level>(acidity)
+        ?: Level.MEDIUM,
+    tannin = enumOrNullFromString<Level>(tannin)
+        ?: Level.MEDIUM,
+    body = enumOrNullFromString<Level>(body)
+        ?: Level.MEDIUM,
+    alcohol = enumOrNullFromString<Level>(alcohol)
+        ?: Level.MEDIUM,
+    flavourIntensity = enumOrNullFromString<Intensity>(flavourIntensity)
+        ?: Intensity.MEDIUM,
     flavourCharacteristics = flavourCharacteristics,
-    finish = Level.valueOf(finish),
+    finish = enumOrNullFromString<Level>(finish)
+        ?: Level.MEDIUM,
     otherPalate = otherPalate,
     rating = rating,
     overallImpression = overallImpression,
