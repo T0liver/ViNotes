@@ -17,7 +17,8 @@ val PlayfairDisplay = FontFamily(
 
 val Inter = FontFamily(
     Font(R.font.inter, FontWeight.Normal),
-    Font(R.font.inter_bold, FontWeight.Bold)
+    Font(R.font.inter_bold, FontWeight.Bold),
+    Font(R.font.inter_italic, FontWeight.Normal, FontStyle.Italic),
 )
 
 val ViNotesTypography = Typography(
