@@ -21,10 +21,10 @@ import java.util.Date
     foreignKeys = [ForeignKey(
         entity = WineEntity::class,
         parentColumns = ["id"],
-        childColumns = ["wineId"],
+        childColumns = ["wine_id"],
         onDelete = ForeignKey.CASCADE
     )],
-    indices = [Index("wineId")]
+    indices = [Index("wine_id")]
 )
 data class TasteEntity (
     @PrimaryKey val id: String,

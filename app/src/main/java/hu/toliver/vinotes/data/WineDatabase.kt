@@ -19,7 +19,7 @@ import hu.toliver.vinotes.data.local.entity.WineEntity
         SyncMetadataEntity::class
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 @TypeConverters(DateConverter::class, ListConverter::class)
 abstract class WineDatabase : RoomDatabase() {
