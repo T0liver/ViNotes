@@ -20,7 +20,7 @@ val Inter = FontFamily(
     Font(R.font.inter_bold, FontWeight.Bold)
 )
 
-val ViNoteTypography = Typography(
+val ViNotesTypography = Typography(
     // Titles
     displaySmall = TextStyle(
         fontFamily = PlayfairDisplay,
