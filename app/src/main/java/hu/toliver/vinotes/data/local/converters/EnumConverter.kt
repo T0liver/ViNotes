@@ -2,6 +2,7 @@ package hu.toliver.vinotes.data.local.converters
 
 import androidx.room.TypeConverter
 import hu.toliver.vinotes.domain.model.enums.Level
+import hu.toliver.vinotes.domain.model.enums.WineColour
 
 object EnumConverter {
     @TypeConverter
@@ -21,5 +22,29 @@ object EnumConverter {
         Level.MEDIUM -> 0.5f
         Level.SOLID -> 0.75f
         Level.HIGH -> 1.0f
+    }
+
+    @TypeConverter
+    fun WineColour.colorHex(): String = when (this) {
+        WineColour.GRAY -> "#A0AAB4"
+        WineColour.ORANGE -> "#E8A041"
+        WineColour.WHITE -> "#F9E5A0"
+        WineColour.YELLOW -> "#E8C441"
+        WineColour.ROSE -> "#E8A0B4"
+        WineColour.SHILLER -> "#D08050"
+        WineColour.TAWNY -> "#B8860B"
+        WineColour.RED -> "#8B2C2C"
+    }
+
+    @TypeConverter
+    fun WineColour.displayName(): String = when (this) {
+        WineColour.GRAY -> "Szürke"
+        WineColour.ORANGE -> "Narancs"
+        WineColour.WHITE -> "Fehér"
+        WineColour.YELLOW -> "Sárga"
+        WineColour.ROSE -> "Rozé"
+        WineColour.SHILLER -> "Rotgold"
+        WineColour.TAWNY -> "Tawny"
+        WineColour.RED -> "Vörös"
     }
 }
