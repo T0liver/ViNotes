@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package hu.toliver.vinotes.ui.screen.dashboard
 
 import androidx.compose.foundation.background
@@ -63,7 +61,7 @@ fun DashboardHeader(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Text(
-                text = "Üdvözöljük a pincédben",
+                text = "Welcome to your wine vault!",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -86,26 +84,26 @@ fun QuickStatsRow(
         StatCard(
             icon = Icons.Outlined.WineBar,
             value = totalWines.toString(),
-            label = "Borok",
+            label = "Wines",
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.AutoMirrored.Outlined.Assignment,
             value = totalTastings.toString(),
-            label = "Kóstolás",
+            label = "Taste",
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.Filled.Star,
             iconTint = RatingGold,
             value = "%.1f".format(averageRating),
-            label = "Átlag pont",
+            label = "Average",
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.Outlined.LocationOn,
             value = topRegion.ifEmpty { "–" },
-            label = "Top régió",
+            label = "Top Region",
             modifier = Modifier.weight(1f),
         )
     }
@@ -210,12 +208,12 @@ fun EmptyTastingsPlaceholder(
             modifier = Modifier.size(64.dp),
         )
         Text(
-            text = "Még nincs kóstolásod",
+            text = "No tasting added yet",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = "Rögzítsd az első borodat,\nés kezd el építeni a pincéd!",
+            text = "Add your first wine,\nand start building your basement!",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -228,7 +226,7 @@ fun EmptyTastingsPlaceholder(
                 modifier = Modifier.size(18.dp),
             )
             Spacer(Modifier.width(8.dp))
-            Text("Első kóstolás")
+            Text("First Tasting")
         }
     }
 }
@@ -330,6 +328,3 @@ private fun RatingBadge(rating: Int) {
 }
 
 private fun String.toComposeColor(): Color = Color(this.toColorInt())
-
-
-

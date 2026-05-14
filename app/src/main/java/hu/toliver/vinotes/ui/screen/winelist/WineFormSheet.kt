@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
@@ -89,7 +90,6 @@ fun WineFormSheet(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // ── Fejléc ──────────────────────────────────────────────
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -97,24 +97,23 @@ fun WineFormSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = if (isNew) "Új bor hozzáadása" else "Bor szerkesztése",
+                        text = if (isNew) "Add new wine" else "Edit wine",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     IconButton(onClick = {
                         scope.launch { sheetState.hide() }
                         onDismiss()
                     }) {
-                        Icon(Icons.Filled.Close, contentDescription = "Bezárás")
+                        Icon(Icons.Filled.Close, contentDescription = "Close")
                     }
                 }
             }
 
-            // ── Form mezők ──────────────────────────────────────────
             item {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Bornév *") },
+                    label = { Text("Wine name *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -124,7 +123,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = producer,
                     onValueChange = { producer = it },
-                    label = { Text("Termelő *") },
+                    label = { Text("Producer *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -134,7 +133,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = year,
                     onValueChange = { year = it },
-                    label = { Text("Évjárat *") },
+                    label = { Text("Year *") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
@@ -145,13 +144,12 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = grape,
                     onValueChange = { grape = it },
-                    label = { Text("Szőlőfajta *") },
+                    label = { Text("Vine type *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
             }
 
-            // ── Cuvée toggle ────────────────────────────────────────
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -163,20 +161,18 @@ fun WineFormSheet(
                 }
             }
 
-            // ── Cuvée összetevők (csak ha isCuvee) ──────────────────
             if (isCuvee) {
                 item {
                     OutlinedTextField(
                         value = cuveeText,
                         onValueChange = { cuveeText = it },
-                        label = { Text("Cuvée összetevők") },
+                        label = { Text("Cuvée ingredient") },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("pl. Merlot, Cabernet Sauvignon") },
                     )
                 }
             }
 
-            // ── Szín (dropdown) ─────────────────────────────────────
             item {
                 WineColourDropdown(
                     selected = selectedColour,
@@ -189,7 +185,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = country,
                     onValueChange = { country = it },
-                    label = { Text("Ország") },
+                    label = { Text("Country") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -199,7 +195,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = region,
                     onValueChange = { region = it },
-                    label = { Text("Régió") },
+                    label = { Text("Region") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -209,7 +205,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = alcoholText,
                     onValueChange = { alcoholText = it },
-                    label = { Text("Alkoholfok (%)") },
+                    label = { Text("Alcohol (%)") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     singleLine = true,
@@ -220,14 +216,13 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("Leírás") },
+                    label = { Text("Description") },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 4,
                     minLines = 3,
                 )
             }
 
-            // ── Törlés gomb (csak szerkesztésnél) ───────────────────
             if (isEdit) {
                 item {
                     OutlinedButton(
@@ -245,12 +240,11 @@ fun WineFormSheet(
                             modifier = Modifier.size(18.dp),
                         )
                         Spacer(Modifier.width(8.dp))
-                        Text("Bor törlése")
+                        Text("Delete wine")
                     }
                 }
             }
 
-            // ── Mentés gomb ─────────────────────────────────────────
             item {
                 val isValid = name.isNotBlank() && producer.isNotBlank()
                     && year.toIntOrNull() != null && grape.isNotBlank()
@@ -283,14 +277,13 @@ fun WineFormSheet(
                         .height(40.dp),
                     enabled = isValid,
                 ) {
-                    Text("Mentés")
+                    Text("Save")
                 }
                 Spacer(Modifier.height(16.dp))
             }
         }
     }
 
-    // ── Törlés megerősítő dialog ────────────────────────────────────
     if (showDeleteDialog && isEdit) {
         DeleteConfirmDialog(
             wineName = editingWine.name,
@@ -320,10 +313,10 @@ fun WineColourDropdown(
         modifier = modifier,
     ) {
         OutlinedTextField(
-            value = selected.getDisplayName(),
+            value = selected.toDisplayName(),
             onValueChange = {},
             readOnly = true,
-            label = { Text("Szín *") },
+            label = { Text("Colour *") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             modifier = Modifier
                 .menuAnchor()
@@ -332,7 +325,7 @@ fun WineColourDropdown(
         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             WineColour.entries.forEach { colour ->
                 DropdownMenuItem(
-                    text = { Text(colour.getDisplayName()) },
+                    text = { Text(colour.toDisplayName()) },
                     onClick = {
                         onSelect(colour)
                         expanded = false
@@ -358,35 +351,19 @@ fun DeleteConfirmDialog(
                     contentColor = MaterialTheme.colorScheme.error
                 ),
             ) {
-                Text("Törlés")
+                Text("Delete")
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Mégse")
+                Text("Cancel")
             }
         },
         title = {
-            Text("Bor törlése")
+            Text("Delete wine")
         },
         text = {
-            Text("Biztosan törlöd a(z) \"$wineName\" bort? Ez a művelet nem vonható vissza.")
+            Text("Are you sure to delete \"$wineName\" wine? This operation cannot be undone.")
         },
     )
 }
-
-fun WineColour.getDisplayName(): String = when (this) {
-    WineColour.GRAY -> "Szürke"
-    WineColour.ORANGE -> "Narancs"
-    WineColour.WHITE -> "Fehér"
-    WineColour.YELLOW -> "Sárga"
-    WineColour.ROSE -> "Rozé"
-    WineColour.SHILLER -> "Rotgold"
-    WineColour.TAWNY -> "Tawny"
-    WineColour.RED -> "Vörös"
-}
-
-
-
-
-
