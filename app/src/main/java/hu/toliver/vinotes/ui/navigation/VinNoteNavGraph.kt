@@ -10,6 +10,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import hu.toliver.vinotes.ui.screen.dashboard.DashboardScreen
+import hu.toliver.vinotes.ui.screen.winelist.WineListScreen
 
 @Composable
 fun VinNoteNavGraph() {
@@ -54,6 +55,12 @@ fun VinNoteNavGraph() {
                         onNavigateToWineList    = { backStack.add(Screen.WineList) },
                         onNavigateToDetail      = { wineId, _ -> backStack.add(Screen.WineDetail(wineId)) },
                         onNavigateToAddTasting  = { backStack.add(Screen.AddTasting()) },
+                    )
+                }
+
+                entry<Screen.WineList> {
+                    WineListScreen(
+                        onNavigateToDetail = { wineId -> backStack.add(Screen.WineDetail(wineId)) },
                     )
                 }
             },
