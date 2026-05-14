@@ -17,6 +17,9 @@ class WineRepositoryImpl @Inject constructor(
     override fun getAll(): Flow<List<Wine>> =
         dao.getAll().map { entities -> entities.map { it.toDomain() } }
 
+    override fun searchWines(query: String): Flow<List<Wine>> =
+        dao.searchWines(query).map { entities -> entities.map { it.toDomain() } }
+
     override suspend fun getById(id: String): Result<Wine> = runCatching {
         dao.getById(id)?.toDomain() ?: error("Not found: $id")
     }

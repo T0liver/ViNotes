@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WineRepository {
     fun getAll(): Flow<List<Wine>>
+    fun searchWines(query: String): Flow<List<Wine>>
     suspend fun getById(id: String): Result<Wine>
     fun getFiltered(
         region: String? = null,
