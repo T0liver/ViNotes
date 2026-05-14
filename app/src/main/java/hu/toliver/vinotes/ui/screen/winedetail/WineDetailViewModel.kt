@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.data.local.converters.EnumConverter.toFloat
+import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
 import hu.toliver.vinotes.domain.usecases.wine.GetWineWithTastingsUseCase
 import hu.toliver.vinotes.domain.usecases.wine.UpdateWineUseCase
@@ -20,13 +20,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WineDetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val getWineWithTastings: GetWineWithTastingsUseCase,
     private val updateWine: UpdateWineUseCase,
     private val deleteWine: DeleteWineUseCase,
 ) : ViewModel() {
 
-    private val wineId: String = checkNotNull(savedStateHandle["wineId"])
+    private val wineId: String = savedStateHandle.get<String>("wineId") ?: ""
+
+    private var initialized = false
 
     private val _state = MutableStateFlow(WineDetailState())
     val state: StateFlow<WineDetailState> = _state.asStateFlow()
@@ -34,7 +36,13 @@ class WineDetailViewModel @Inject constructor(
     private val _effect = Channel<WineDetailEffect>(Channel.BUFFERED)
     val effect = _effect.receiveAsFlow()
 
-    init { onEvent(WineDetailEvent.LoadData) }
+    fun initializeWithWineId(id: String) {
+        if (!initialized && id.isNotEmpty()) {
+            initialized = true
+            savedStateHandle["wineId"] = id
+            onEvent(WineDetailEvent.LoadData)
+        }
+    }
 
     fun onEvent(event: WineDetailEvent) {
         when (event) {
@@ -68,7 +76,8 @@ class WineDetailViewModel @Inject constructor(
             }
 
             WineDetailEvent.AddTastingClicked -> viewModelScope.launch {
-                _effect.send(WineDetailEffect.NavigateToAddTasting(wineId))
+                val currentWineId = savedStateHandle.get<String>("wineId") ?: ""
+                _effect.send(WineDetailEffect.NavigateToAddTasting(currentWineId))
             }
 
             is WineDetailEvent.TastingClicked -> {
@@ -78,9 +87,15 @@ class WineDetailViewModel @Inject constructor(
     }
 
     private fun loadData() {
+        val currentWineId = savedStateHandle.get<String>("wineId") ?: ""
+        if (currentWineId.isEmpty()) {
+            _state.value = _state.value.copy(isLoading = false, errorMessage = "Wine ID is missing")
+            return
+        }
+
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true)
-            getWineWithTastings(wineId)
+            getWineWithTastings(currentWineId)
                 .catch { e ->
                     _state.value = _state.value.copy(isLoading = false, errorMessage = e.message)
                 }
