@@ -4,7 +4,7 @@ import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.repository.TasteRepository
 import javax.inject.Inject
 
-class updateTasingUseCase @Inject constructor(
+class UpdateTasingUseCase @Inject constructor(
     private val repository: TasteRepository
 ) {
     suspend operator fun invoke(taste: Taste): Result<Unit> {

@@ -84,25 +84,25 @@ class WineListViewModel @Inject constructor(
                 }.onSuccess {
                     _state.update { it.copy(isAddSheetOpen = false, editingWine = null) }
                     _effect.send(WineListEffect.ShowSnackbar(
-                        if (event.isNew) "Bor hozzáadva" else "Bor frissítve"
+                        if (event.isNew) "Wine added" else "Wine updated"
                     ))
                 }.onFailure { e ->
-                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: "Hiba történt"))
+                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: "An error occurred"))
                 }
             }
 
             is WineListEvent.WineDeleteRequested -> {
-                // A UI jelenít meg megerősítő dialógot, majd WineDeleteConfirmed-et küld
+                // The UI will show a confirmation dialog, then send WineDeleteConfirmed
             }
 
             is WineListEvent.WineDeleteConfirmed -> viewModelScope.launch {
                 runCatching { deleteWine(event.wine) }
                     .onSuccess {
                         _state.update { it.copy(editingWine = null) }
-                        _effect.send(WineListEffect.ShowSnackbar("Bor törölve"))
+                        _effect.send(WineListEffect.ShowSnackbar("Wine deleted"))
                     }
                     .onFailure { e ->
-                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: "Törlési hiba"))
+                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: "Error on delete"))
                     }
             }
         }
@@ -156,4 +156,3 @@ class WineListViewModel @Inject constructor(
             WineSortOrder.TASTING_DATE_DESC -> compareByDescending { it.latestTastingDate }
         }
 }
-

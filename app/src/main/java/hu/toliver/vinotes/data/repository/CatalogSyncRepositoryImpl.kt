@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 class CatalogSyncRepositoryImpl @Inject constructor(
     private val wineDao: WineDao,
     private val syncMetadataDao: SyncMetadataDao,
-    // private val catalogApi: CatalogApi  ← majd Retrofit után
+    // private val catalogApi: CatalogApi  <- only after retrofit layer is implemented
 ) : CatalogSyncRepository {
 
     override fun getSyncMetadata(): Flow<SyncMetadata?> =

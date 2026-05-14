@@ -125,4 +125,3 @@ private fun List<Taste>.toRadarData(): RadarData? {
         finish = map { it.finish.toFloat() }.average().toFloat(),
     )
 }
-

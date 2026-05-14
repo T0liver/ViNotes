@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import kotlinx.coroutines.launch
 
@@ -68,7 +69,6 @@ fun WineFilterSheet(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // ── Fejléc ──────────────────────────────────────────────
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -76,23 +76,22 @@ fun WineFilterSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = "Szűrők",
+                        text = "Filters",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     IconButton(onClick = {
                         scope.launch { sheetState.hide() }
                         onDismiss()
                     }) {
-                        Icon(Icons.Filled.Close, contentDescription = "Bezárás")
+                        Icon(Icons.Filled.Close, contentDescription = "Close")
                     }
                 }
             }
 
-            // ── Bor színe ───────────────────────────────────────────
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Bor színe",
+                        text = "Colour",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -110,18 +109,17 @@ fun WineFilterSheet(
                                         selectedColours + colour
                                     }
                                 },
-                                label = { Text(getWineColourDisplayName(colour), style = MaterialTheme.typography.labelSmall) },
+                                label = { Text(colour.toDisplayName(), style = MaterialTheme.typography.labelSmall) },
                             )
                         }
                     }
                 }
             }
 
-            // ── Ország ──────────────────────────────────────────────
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Ország",
+                        text = "Region",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -146,11 +144,10 @@ fun WineFilterSheet(
                 }
             }
 
-            // ── Évjárat ────────────────────────────────────────────
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Évjárat",
+                        text = "Year",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -178,7 +175,6 @@ fun WineFilterSheet(
                 }
             }
 
-            // ── Gombok ──────────────────────────────────────────────
             item {
                 Row(
                     modifier = Modifier
@@ -190,7 +186,7 @@ fun WineFilterSheet(
                         onClick = onClear,
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text("Szűrők törlése")
+                        Text("Delete filters")
                     }
                     Button(
                         onClick = {
@@ -205,7 +201,7 @@ fun WineFilterSheet(
                         },
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text("Alkalmazás")
+                        Text("Apply")
                     }
                 }
                 Spacer(Modifier.height(16.dp))
@@ -213,17 +209,3 @@ fun WineFilterSheet(
         }
     }
 }
-
-fun getWineColourDisplayName(colour: WineColour): String = when (colour) {
-    WineColour.GRAY -> "Szürke"
-    WineColour.ORANGE -> "Narancs"
-    WineColour.WHITE -> "Fehér"
-    WineColour.YELLOW -> "Sárga"
-    WineColour.ROSE -> "Rozé"
-    WineColour.SHILLER -> "Rotgold"
-    WineColour.TAWNY -> "Tawny"
-    WineColour.RED -> "Vörös"
-}
-
-
-

@@ -26,7 +26,7 @@ object EnumConverter {
     }
 
     @TypeConverter
-    fun WineColour.colorHex(): String = when (this) {
+    fun WineColour.fromColourToHex(): String = when (this) {
         WineColour.GRAY -> "#A0AAB4"
         WineColour.ORANGE -> "#E8A041"
         WineColour.WHITE -> "#F9E5A0"

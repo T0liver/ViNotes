@@ -35,12 +35,10 @@ fun WineDetailScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    // Initialize the ViewModel with the wineId on first composition
     LaunchedEffect(wineId) {
         viewModel.initializeWithWineId(wineId)
     }
 
-    // Handle effects
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {

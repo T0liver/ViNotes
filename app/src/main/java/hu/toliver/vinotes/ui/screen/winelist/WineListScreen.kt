@@ -32,7 +32,6 @@ fun WineListScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     var showDeleteDialog by remember { mutableStateOf<Wine?>(null) }
 
-    // Effect kezelő
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {
@@ -42,7 +41,6 @@ fun WineListScreen(
         }
     }
 
-    // Törlés megerősítő dialog
     showDeleteDialog?.let { wine ->
         DeleteConfirmDialog(
             wineName = wine.name,
@@ -58,7 +56,7 @@ fun WineListScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.onEvent(WineListEvent.AddWineClicked) }) {
-                Icon(Icons.Filled.Add, contentDescription = "Bor hozzáadása")
+                Icon(Icons.Filled.Add, contentDescription = "Add Wine")
             }
         },
     ) { innerPadding ->
@@ -69,7 +67,6 @@ fun WineListScreen(
                 .padding(innerPadding)
         ) {
 
-            // ── Keresés + szűrő sor ───────────────────────────────────────────
             WineSearchBar(
                 query = state.searchQuery,
                 onQueryChange = { viewModel.onEvent(WineListEvent.SearchQueryChanged(it)) },
@@ -80,7 +77,6 @@ fun WineListScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
 
-            // ── Lista ─────────────────────────────────────────────────────────
             when {
                 state.isLoading -> WineListLoadingContent()
                 state.wines.isEmpty() && state.searchQuery.isBlank() && !state.activeFilters.isActive ->
@@ -97,7 +93,6 @@ fun WineListScreen(
         }
     }
 
-    // ── Szűrő bottom sheet ────────────────────────────────────────────────────
     if (state.isFilterSheetOpen) {
         WineFilterSheet(
             currentFilters = state.activeFilters,
@@ -112,7 +107,6 @@ fun WineListScreen(
         )
     }
 
-    // ── Hozzáadó / szerkesztő sheet ───────────────────────────────────────────
     if (state.isAddSheetOpen || state.editingWine != null) {
         WineFormSheet(
             editingWine = state.editingWine,
@@ -132,5 +126,3 @@ fun WineListScreen(
         )
     }
 }
-
-

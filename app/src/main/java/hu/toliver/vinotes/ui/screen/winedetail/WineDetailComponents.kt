@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import hu.toliver.vinotes.data.local.converters.EnumConverter.colorHex
+import hu.toliver.vinotes.data.local.converters.EnumConverter.fromColourToHex
 import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.model.Wine
@@ -153,7 +153,7 @@ fun WineHeroSection(
                     .width(4.dp)
                     .height(80.dp)
                     .background(
-                        color = wine.colour.colorHex().toComposeColor(),
+                        color = wine.colour.fromColourToHex().toComposeColor(),
                         shape = RoundedCornerShape(2.dp),
                     ),
             )

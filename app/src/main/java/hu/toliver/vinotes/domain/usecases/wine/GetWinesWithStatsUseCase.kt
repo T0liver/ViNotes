@@ -17,7 +17,7 @@ class GetWinesWithStatsUseCase @Inject constructor(
 
             wines.map { wine ->
                 val wineTastes = tastesByWine[wine.id] ?: emptyList()
-                val latest = wineTastes.maxByOrNull { it.date }   // java.util.Date összehasonlítható
+                val latest = wineTastes.maxByOrNull { it.date }
 
                 WineWithStats(
                     wine = wine,
@@ -28,4 +28,3 @@ class GetWinesWithStatsUseCase @Inject constructor(
             }
         }
 }
-

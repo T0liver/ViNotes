@@ -23,7 +23,7 @@ fun VinNoteNavGraph() {
     Scaffold(
         bottomBar = {
             if (currentDest in ROOT_DESTS) {
-                VinNoteBottomBar(
+                ViNotesBottomBar(
                     items       = bottomNavItems,
                     currentDest = currentDest,
                     onItemClick = { item ->
@@ -48,7 +48,6 @@ fun VinNoteNavGraph() {
                 rememberViewModelStoreNavEntryDecorator(),
             ),
 
-            // ── 4. Entry provider ─────────────────────────────────────────────
             entryProvider = entryProvider {
 
                 entry<Screen.Dashboard> {
@@ -80,7 +79,7 @@ fun VinNoteNavGraph() {
 }
 
 @Composable
-private fun VinNoteBottomBar(
+private fun ViNotesBottomBar(
     items:       List<BottomNavItem>,
     currentDest: Screen?,
     onItemClick: (BottomNavItem) -> Unit,
@@ -94,7 +93,7 @@ private fun VinNoteBottomBar(
                 onClick  = { onItemClick(item) },
                 icon = {
                     Icon(
-                        imageVector        = if (selected) item.selectedIcon else item.unselectedIcon,
+                        imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
                         contentDescription = item.label,
                     )
                 },

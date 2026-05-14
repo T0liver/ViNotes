@@ -52,15 +52,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import hu.toliver.vinotes.data.local.converters.EnumConverter.fromColourToHex
+import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.WineWithStats
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.ui.theme.RatingGold
-
-// ──────────────────────────────────────────────────────────────────────────────
-// WineSearchBar – keresés + rendezés + szűrés
-// ──────────────────────────────────────────────────────────────────────────────
 
 @Composable
 fun WineSearchBar(
@@ -87,19 +86,20 @@ fun WineSearchBar(
             modifier = Modifier
                 .weight(1f)
                 .height(48.dp),
-            placeholder = { Text("Keresés...") },
+            placeholder = {
+                Text("Search...", fontSize = 20.sp)
+            },
             leadingIcon = { Icon(Icons.Outlined.WineBar, contentDescription = null, modifier = Modifier.size(20.dp)) },
             shape = MaterialTheme.shapes.medium,
             singleLine = true,
         )
 
-        // Sort button
         Box {
             IconButton(
                 onClick = { sortMenuExpanded = true },
                 modifier = Modifier.size(40.dp),
             ) {
-                Icon(Icons.Outlined.SwapVert, contentDescription = "Rendezés")
+                Icon(Icons.Outlined.SwapVert, contentDescription = "Sort")
             }
 
             DropdownMenu(
@@ -118,7 +118,6 @@ fun WineSearchBar(
             }
         }
 
-        // Filter button
         IconButton(
             onClick = onFilterClick,
             modifier = Modifier.size(40.dp),
@@ -131,25 +130,21 @@ fun WineSearchBar(
                             .background(MaterialTheme.colorScheme.error, RoundedCornerShape(4.dp))
                     )
                 }) {
-                    Icon(Icons.Outlined.FilterList, contentDescription = "Szűrők")
+                    Icon(Icons.Outlined.FilterList, contentDescription = "Filters")
                 }
             } else {
-                Icon(Icons.Outlined.FilterList, contentDescription = "Szűrők")
+                Icon(Icons.Outlined.FilterList, contentDescription = "Filters")
             }
         }
     }
 }
 
 private fun WineSortOrder.displayLabel(): String = when (this) {
-    WineSortOrder.NAME_ASC -> "Név (A → Z)"
-    WineSortOrder.RATING_DESC -> "Legjobb értékelés"
-    WineSortOrder.YEAR_DESC -> "Legújabb évjárat"
-    WineSortOrder.TASTING_DATE_DESC -> "Legutóbbi kóstolás"
+    WineSortOrder.NAME_ASC -> "Name (A -> Z)"
+    WineSortOrder.RATING_DESC -> "Best rating"
+    WineSortOrder.YEAR_DESC -> "Newest vintage"
+    WineSortOrder.TASTING_DATE_DESC -> "Most recently tasted"
 }
-
-// ──────────────────────────────────────────────────────────────────────────────
-// WineList – LazyColumn
-// ──────────────────────────────────────────────────────────────────────────────
 
 @Composable
 fun WineList(
@@ -173,10 +168,6 @@ fun WineList(
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────────
-// WineCard – Kártyakompozíció
-// ──────────────────────────────────────────────────────────────────────────────
-
 @Composable
 fun WineCard(
     item: WineWithStats,
@@ -192,25 +183,22 @@ fun WineCard(
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            // Accent csík (szín alapján)
             Box(
                 modifier = Modifier
                     .width(4.dp)
                     .fillMaxHeight()
                     .background(
-                        color = item.wine.colour.colorHex().toComposeColor(),
+                        color = item.wine.colour.fromColourToHex().toColorInt().let { Color(it) },
                         shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
                     ),
             )
 
-            // Tartalom
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                // Sor 1: Bornév + rating badge
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -229,14 +217,13 @@ fun WineCard(
                         RatingBadge(rating = item.latestRating, tastingCount = item.tastingCount)
                     } else {
                         Text(
-                            text = "Kóstolás nélkül",
+                            text = "No tastings yet",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
 
-                // Sor 2: Termelő · év · ország
                 Text(
                     text = "${item.wine.producer} · ${item.wine.year} · ${item.wine.country}",
                     style = MaterialTheme.typography.bodyMedium,
@@ -245,14 +232,13 @@ fun WineCard(
                     overflow = TextOverflow.Ellipsis,
                 )
 
-                // Sor 3: Szőlőfajta · régió · szín
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "🍇 ${if (item.wine.isCuvee) "Cuvée" else item.wine.grape}",
+                        text = if (item.wine.isCuvee) "Cuvée" else item.wine.grape,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                         maxLines = 1,
@@ -261,7 +247,7 @@ fun WineCard(
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        text = "${item.wine.region} · ${item.wine.colour.displayName()}",
+                        text = "${item.wine.region} · ${item.wine.colour.toDisplayName()}",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -299,10 +285,6 @@ private fun RatingBadge(rating: Int, tastingCount: Int) {
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Placeholder komponensek
-// ──────────────────────────────────────────────────────────────────────────────
-
 @Composable
 fun WineListEmptyContent(
     onAddClick: () -> Unit,
@@ -322,12 +304,12 @@ fun WineListEmptyContent(
             modifier = Modifier.size(64.dp),
         )
         Text(
-            text = "Még nincs bor a pincédben",
+            text = "There are no wines in your basement yet",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = "Hozzáadj egy bort, és kezdd el építeni\na pincéd!",
+            text = "Add a wine to start building\nyour collection and tasting history.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -340,7 +322,7 @@ fun WineListEmptyContent(
                 modifier = Modifier.size(18.dp),
             )
             Spacer(Modifier.width(8.dp))
-            Text("Első bor hozzáadása")
+            Text("Add your first wine")
         }
     }
 }
@@ -361,12 +343,12 @@ fun WineListNoResultsContent(modifier: Modifier = Modifier) {
             modifier = Modifier.size(48.dp),
         )
         Text(
-            text = "Nincs találat",
+            text = "No results found",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = "Próbálj más keresési feltételeket vagy szűrőket.",
+            text = "Try adjusting your search query or filters to find what you're looking for.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -383,33 +365,3 @@ fun WineListLoadingContent(modifier: Modifier = Modifier) {
         CircularProgressIndicator()
     }
 }
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Helper extensions
-// ──────────────────────────────────────────────────────────────────────────────
-
-fun WineColour.displayName(): String = when (this) {
-    WineColour.GRAY -> "Szürke"
-    WineColour.ORANGE -> "Narancs"
-    WineColour.WHITE -> "Fehér"
-    WineColour.YELLOW -> "Sárga"
-    WineColour.ROSE -> "Rozé"
-    WineColour.SHILLER -> "Rotgold"
-    WineColour.TAWNY -> "Tawny"
-    WineColour.RED -> "Vörös"
-}
-
-fun WineColour.colorHex(): String = when (this) {
-    WineColour.GRAY -> "#A0AAB4"
-    WineColour.ORANGE -> "#E8A041"
-    WineColour.WHITE -> "#F9E5A0"
-    WineColour.YELLOW -> "#E8C441"
-    WineColour.ROSE -> "#E8A0B4"
-    WineColour.SHILLER -> "#D08050"
-    WineColour.TAWNY -> "#B8860B"
-    WineColour.RED -> "#8B2C2C"
-}
-
-private fun String.toComposeColor(): Color = Color(this.toColorInt())
-
-

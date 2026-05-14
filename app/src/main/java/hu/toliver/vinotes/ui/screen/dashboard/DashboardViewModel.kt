@@ -21,8 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val getRecentTastings:  GetRecentTastingsUseCase,
-    private val getDashboardStats:  GetDashboardStatsUseCase,
+    private val getRecentTastings: GetRecentTastingsUseCase,
+    private val getDashboardStats: GetDashboardStatsUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -72,12 +72,12 @@ class DashboardViewModel @Inject constructor(
                 ) { tastings, stats ->
                     _state.update {
                         it.copy(
-                            isLoading      = false,
+                            isLoading = false,
                             recentTastings = tastings.map { t -> t.toRecentItem() },
-                            totalWines     = stats.totalWines,
-                            totalTastings  = stats.totalTastings,
-                            averageRating  = stats.averageRating,
-                            topRegion      = stats.topRegion,
+                            totalWines = stats.totalWines,
+                            totalTastings = stats.totalTastings,
+                            averageRating = stats.averageRating,
+                            topRegion = stats.topRegion,
                         )
                     }
                 }.collect()

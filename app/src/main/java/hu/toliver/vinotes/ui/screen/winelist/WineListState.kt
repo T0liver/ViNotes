@@ -33,4 +33,3 @@ enum class WineSortOrder {
     YEAR_DESC,
     TASTING_DATE_DESC,
 }
-
