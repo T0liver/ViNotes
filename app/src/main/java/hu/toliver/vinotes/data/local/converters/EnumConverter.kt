@@ -3,6 +3,7 @@ package hu.toliver.vinotes.data.local.converters
 import androidx.room.TypeConverter
 import hu.toliver.vinotes.domain.model.enums.Level
 import hu.toliver.vinotes.domain.model.enums.WineColour
+import hu.toliver.vinotes.domain.model.enums.WineSweetness
 
 object EnumConverter {
     @TypeConverter
@@ -46,5 +47,17 @@ object EnumConverter {
         WineColour.SHILLER -> "Rotgold"
         WineColour.TAWNY -> "Tawny"
         WineColour.RED -> "Vörös"
+    }
+
+
+    fun WineSweetness.displayName () : String = when (this) {
+        WineSweetness.BRUT_NATURE -> "Brut Nature"
+        WineSweetness.EXTRA_BRUT -> "Extra Brut"
+        WineSweetness.BRUT -> "Brut"
+        WineSweetness.EXTRA_DRY -> "Extra Dry"
+        WineSweetness.DRY -> "Száraz"
+        WineSweetness.SEMI_DRY -> "Félédes"
+        WineSweetness.SWEET -> "Édes"
+        WineSweetness.UNKNOWN -> "Ismeretlen"
     }
 }
