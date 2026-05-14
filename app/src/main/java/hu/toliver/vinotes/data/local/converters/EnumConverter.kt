@@ -38,7 +38,7 @@ object EnumConverter {
     }
 
     @TypeConverter
-    fun WineColour.displayName(): String = when (this) {
+    fun WineColour.toDisplayName(): String = when (this) {
         WineColour.GRAY -> "Szürke"
         WineColour.ORANGE -> "Narancs"
         WineColour.WHITE -> "Fehér"
@@ -50,7 +50,7 @@ object EnumConverter {
     }
 
 
-    fun WineSweetness.displayName () : String = when (this) {
+    fun WineSweetness.toDisplayName () : String = when (this) {
         WineSweetness.BRUT_NATURE -> "Brut Nature"
         WineSweetness.EXTRA_BRUT -> "Extra Brut"
         WineSweetness.BRUT -> "Brut"
