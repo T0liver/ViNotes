@@ -1,7 +1,9 @@
 package hu.toliver.vinotes.data.local.converters
 
+import androidx.compose.ui.graphics.Color
 import androidx.room.TypeConverter
 import hu.toliver.vinotes.domain.model.enums.Level
+import hu.toliver.vinotes.domain.model.enums.TasteWineColour
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
 
@@ -50,7 +52,8 @@ object EnumConverter {
     }
 
 
-    fun WineSweetness.toDisplayName () : String = when (this) {
+    @TypeConverter
+    fun WineSweetness.toDisplayName(): String = when (this) {
         WineSweetness.BRUT_NATURE -> "Brut Nature"
         WineSweetness.EXTRA_BRUT -> "Extra Brut"
         WineSweetness.BRUT -> "Brut"
@@ -59,5 +62,27 @@ object EnumConverter {
         WineSweetness.SEMI_DRY -> "Semi Dry"
         WineSweetness.SWEET -> "Sweet"
         WineSweetness.UNKNOWN -> "Unknown"
+    }
+
+    @TypeConverter
+    fun TasteWineColour.toHexColour(): Color  = when (this) {
+        TasteWineColour.WHITE -> Color(0xFFF5F0A0)
+        TasteWineColour.LEMONGREEN -> Color(0xFFFFF8DC)
+        TasteWineColour.LEMON -> Color(0xFFEDD760)
+        TasteWineColour.GOLD -> Color(0xFFD4A843)
+        TasteWineColour.AMBER -> Color(0xFFCB8A2A)
+        TasteWineColour.WHITEBROWN -> Color(0xFFD2B48C)
+
+        TasteWineColour.ROSE -> Color(0xFFFFB6C1)
+        TasteWineColour.PINK -> Color(0xFFFFC0CB)
+        TasteWineColour.SALMON -> Color(0xFFFA8072)
+        TasteWineColour.ORANGE -> Color(0xFFF4A460)
+
+        TasteWineColour.RED -> Color(0xFFCD5C5C)
+        TasteWineColour.PURPLE -> Color(0xFF9932CC)
+        TasteWineColour.RUBY -> Color(0xFF9B1D30)
+        TasteWineColour.GARNET -> Color(0xFF6B1F2A)
+        TasteWineColour.TAWNY -> Color(0xFF8B4513)
+        TasteWineColour.REDBROWN -> Color(0xFF8B3A3A)
     }
 }
