@@ -2,7 +2,6 @@ package hu.toliver.vinotes.data.local.converters
 
 import androidx.compose.ui.graphics.Color
 import androidx.room.TypeConverter
-import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.Level
 import hu.toliver.vinotes.domain.model.enums.NoseDevelopment
 import hu.toliver.vinotes.domain.model.enums.TasteWineColour
@@ -21,17 +20,6 @@ object EnumConverter {
     fun <T : Enum<T>> toString(enumValue: T): String =
         enumValue.name
 
-
-    @TypeConverter
-    fun Intensity.toDisplayName(): String = when (this) {
-        Intensity.NONE -> "None"
-        Intensity.LIGHT -> "Light"
-        Intensity.SHORT -> "Short"
-        Intensity.MEDIUM -> "Medium"
-        Intensity.LARGE -> "Large"
-        Intensity.PRONOUNCED -> "Pronounced"
-    }
-
     @TypeConverter
     fun Level.toFloat(): Float = when (this) {
         Level.LOW -> 0.2f
@@ -39,15 +27,6 @@ object EnumConverter {
         Level.MEDIUM -> 0.5f
         Level.SOLID -> 0.75f
         Level.HIGH -> 1.0f
-    }
-
-    @TypeConverter
-    fun Level.toDisplayName(): String = when (this) {
-        Level.LOW -> "Low"
-        Level.MILD -> "Mild"
-        Level.MEDIUM -> "Medium"
-        Level.SOLID -> "Solid"
-        Level.HIGH -> "High"
     }
 
     @TypeConverter
