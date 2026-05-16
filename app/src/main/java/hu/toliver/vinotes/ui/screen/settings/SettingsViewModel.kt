@@ -8,6 +8,8 @@ import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
 import hu.toliver.vinotes.domain.usecases.settings.GetAppPreferencesUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveCatalogUrlUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveUsernameUseCase
+import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
+import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +26,8 @@ class SettingsViewModel @Inject constructor(
 	private val saveCatalogUrl: SaveCatalogUrlUseCase,
 	private val saveUsername: SaveUsernameUseCase,
 	private val clearAllData: ClearAllDataUseCase,
+	private val performFullImport: PerformFullImportUseCase,
+	private val performDeltaSync: PerformDeltaSyncUseCase,
 ) : ViewModel() {
 
 	private val _state = MutableStateFlow(SettingsState())
@@ -115,17 +119,26 @@ class SettingsViewModel @Inject constructor(
 					}
 			}
 
-			SettingsEvent.ClearDataDismissed -> _state.update {
-				it.copy(showClearDataDialog = false)
-			}
+		SettingsEvent.ClearDataDismissed -> _state.update {
+			it.copy(showClearDataDialog = false)
+		}
 
-			SettingsEvent.ImportFromFileClicked -> viewModelScope.launch {
-				_effect.send(SettingsEffect.ShowSnackbar("Coming soon"))
-			}
+		is SettingsEvent.ImportFromFileClicked -> viewModelScope.launch {
+			_effect.send(SettingsEffect.ShowSnackbar("Coming soon"))
+		}
 
-			SettingsEvent.UpdateFromWebClicked -> viewModelScope.launch {
-				_effect.send(SettingsEffect.ShowSnackbar("Coming soon"))
-			}
+		SettingsEvent.UpdateFromWebClicked -> viewModelScope.launch {
+			_state.update { it.copy(isSyncingCatalog = true) }
+			performFullImport()
+				.onSuccess {
+					_state.update { it.copy(isSyncingCatalog = false) }
+					_effect.send(SettingsEffect.ShowSnackbar("Full catalog imported"))
+				}
+				.onFailure { error ->
+					_state.update { it.copy(isSyncingCatalog = false) }
+					_effect.send(SettingsEffect.ShowSnackbar(error.message ?: "Error syncing catalog"))
+				}
+		}
 
 			SettingsEvent.AboutInfoClicked -> _state.update {
 				it.copy(showAboutInfoDialog = true)
