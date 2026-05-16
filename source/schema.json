@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id", "name", "producer", "year", "grape", "isCuvee", "colour", "sweetness", "country", "region"],
+  "properties": {
+    "id":                { "type": "string" },
+    "name":              { "type": "string" },
+    "producer":          { "type": "string" },
+    "year":              { "type": "integer", "minimum": 1800, "maximum": 2100 },
+    "grape":             { "type": "string" },
+    "isCuvee":           { "type": "boolean" },
+    "cuveeComponents":   { "type": "array", "items": { "type": "string" } },
+    "colour":            { "type": "string", "enum": ["RED", "WHITE", "ROSE", "ORANGE", "SPARKLING"] },
+    "sugar":             { "type": "number", "minimum": 0 },
+    "sweetness":         { "type": "string", "enum": ["DRY", "OFF_DRY", "MEDIUM_DRY", "MEDIUM_SWEET", "SWEET"] },
+    "country":           { "type": "string" },
+    "region":            { "type": "string" },
+    "alcoholPercentage": { "type": "number", "minimum": 0, "maximum": 25 },
+    "volume":            { "type": "integer" },
+    "description":       { "type": "string" },
+    "imageUrl":          { "type": "string" }
+  }
+}
