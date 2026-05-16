@@ -21,6 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import hu.toliver.vinotes.domain.model.Wine
+import hu.toliver.vinotes.domain.model.enums.WineColour
+import hu.toliver.vinotes.ui.screen.winelist.components.DeleteConfirmDialog
+import hu.toliver.vinotes.ui.screen.winelist.components.WineFilterSheet
+import hu.toliver.vinotes.ui.screen.winelist.components.WineFormSheet
+import hu.toliver.vinotes.ui.screen.winelist.components.WineList
+import hu.toliver.vinotes.ui.screen.winelist.components.WineListEmptyContent
+import hu.toliver.vinotes.ui.screen.winelist.components.WineListLoadingContent
+import hu.toliver.vinotes.ui.screen.winelist.components.WineListNoResultsContent
+import hu.toliver.vinotes.ui.screen.winelist.components.WineSearchBar
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -96,7 +105,7 @@ fun WineListScreen(
     if (state.isFilterSheetOpen) {
         WineFilterSheet(
             currentFilters = state.activeFilters,
-            availableColours = hu.toliver.vinotes.domain.model.enums.WineColour.entries,
+            availableColours = WineColour.entries,
             availableCountries = state.wines
                 .map { it.wine.country }
                 .distinct()

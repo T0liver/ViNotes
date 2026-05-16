@@ -1,4 +1,4 @@
-package hu.toliver.vinotes.ui.screen.winelist
+package hu.toliver.vinotes.ui.screen.winelist.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
+import hu.toliver.vinotes.ui.screen.winelist.WineFilters
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
