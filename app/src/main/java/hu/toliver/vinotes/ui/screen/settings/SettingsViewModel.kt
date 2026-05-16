@@ -1,16 +1,17 @@
 package hu.toliver.vinotes.ui.screen.settings
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.toliver.vinotes.ui.AppConstants
+import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
+import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
 import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
 import hu.toliver.vinotes.domain.usecases.settings.GetAppPreferencesUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveCatalogUrlUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveUsernameUseCase
-import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
-import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
-import javax.inject.Inject
+import hu.toliver.vinotes.ui.AppConstants
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,9 +20,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+	@param:ApplicationContext private val context: Context,
 	private val getAppPreferences: GetAppPreferencesUseCase,
 	private val saveCatalogUrl: SaveCatalogUrlUseCase,
 	private val saveUsername: SaveUsernameUseCase,
@@ -136,7 +139,19 @@ class SettingsViewModel @Inject constructor(
 				}
 				.onFailure { error ->
 					_state.update { it.copy(isSyncingCatalog = false) }
-					_effect.send(SettingsEffect.ShowSnackbar(error.message ?: "Error syncing catalog"))
+					val msg = error.message ?: "Error syncing catalog"
+					// Detect DNS resolution failures and show actionable hint
+					if (msg.contains("DNS resolution failed", ignoreCase = true)
+						|| msg.contains("Unable to resolve host", ignoreCase = true)
+						|| msg.contains("No address associated with hostname", ignoreCase = true)) {
+						_effect.send(
+							SettingsEffect.ShowSnackbar(
+								"Cannot resolve catalog host. Check your device network/DNS or try opening the catalog URL in a browser."
+							)
+						)
+					} else {
+						_effect.send(SettingsEffect.ShowSnackbar(msg))
+					}
 				}
 		}
 

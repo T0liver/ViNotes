@@ -90,6 +90,7 @@ dependencies {
     implementation(libs.retrofit.kotlinx.serialization)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
+    implementation(libs.okhttp.dnsoverhttps)
 
     // Hilt
     implementation(libs.hilt.android)

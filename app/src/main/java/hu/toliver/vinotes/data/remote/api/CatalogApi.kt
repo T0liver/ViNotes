@@ -7,11 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface CatalogApi {
-    @GET("manifest.json")
-    suspend fun getManifest(): ManifestDto
+    @GET
+    suspend fun getManifest(@Url url: String): ManifestDto
 
-    @GET("full.json")
-    suspend fun getFullCatalog(): FullCatalogDto
+    @GET
+    suspend fun getFullCatalog(@Url url: String): FullCatalogDto
 
     @GET
     suspend fun getDelta(@Url url: String): CatalogDeltaDto
