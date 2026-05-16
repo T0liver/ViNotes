@@ -16,11 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.toColorInt
-import hu.toliver.vinotes.data.local.converters.EnumConverter.fromColourToHex
-import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
+import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
+import hu.toliver.vinotes.data.local.converters.UIConverter.toComposeColor
+import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 
 
@@ -101,5 +100,3 @@ fun WineHeroSection(
         }
     }
 }
-
-fun String.toComposeColor(): Color = Color(this.toColorInt())

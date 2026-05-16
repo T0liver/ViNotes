@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
+import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineClarity
 import hu.toliver.vinotes.domain.model.enums.WineColourIntensity
 import hu.toliver.vinotes.ui.screen.addtasting.AddTastingEvent

@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.data.local.converters.UIConverter.toComposeColor
 import hu.toliver.vinotes.ui.screen.dashboard.RecentTastingItem
 
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.toliver.vinotes.data.local.converters.EnumConverter.toFloat
+import hu.toliver.vinotes.data.local.converters.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
 import hu.toliver.vinotes.domain.usecases.wine.GetWineWithTastingsUseCase

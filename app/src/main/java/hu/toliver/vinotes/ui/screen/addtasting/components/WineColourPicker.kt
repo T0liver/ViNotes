@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.data.local.converters.EnumConverter.toHexColour
+import hu.toliver.vinotes.data.local.converters.UIConverter.toHexColour
 import hu.toliver.vinotes.domain.model.enums.TasteWineColour
 
 @Composable

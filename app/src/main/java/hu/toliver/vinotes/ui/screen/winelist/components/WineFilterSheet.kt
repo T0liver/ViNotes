@@ -32,7 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
+import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.ui.screen.winelist.WineFilters
 import kotlinx.coroutines.launch
