@@ -10,4 +10,5 @@ interface TasteRepository {
     suspend fun save(taste: Taste): Result<Unit>
     suspend fun update(taste: Taste): Result<Unit>
     suspend fun delete(id: String): Result<Unit>
+    suspend fun deleteAll(): Result<Unit>
 }

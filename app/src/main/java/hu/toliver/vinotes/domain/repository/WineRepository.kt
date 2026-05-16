@@ -20,4 +20,5 @@ interface WineRepository {
     suspend fun update(wine: Wine): Result<Unit>
     suspend fun delete(id: String): Result<Unit>
     suspend fun deleteAll(ids: List<String>): Result<Unit>
+    suspend fun deleteAll(): Result<Unit>
 }
