@@ -72,7 +72,9 @@ fun DashboardScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
-                title = {},
+                title = {
+                    DashboardHeader(username = state.username)
+                },
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
@@ -124,9 +126,6 @@ private fun DashboardContent(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        item {
-            DashboardHeader(username = state.username)
-        }
 
         item {
             QuickStatsRow(
