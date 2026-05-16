@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package hu.toliver.vinotes.ui.screen.winelist
 
 import androidx.compose.foundation.background
@@ -58,7 +56,6 @@ import hu.toliver.vinotes.data.local.converters.EnumConverter.fromColourToHex
 import hu.toliver.vinotes.data.local.converters.EnumConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.WineWithStats
-import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.ui.theme.RatingGold
 
 @Composable
@@ -87,7 +84,7 @@ fun WineSearchBar(
                 .weight(1f)
                 .height(48.dp),
             placeholder = {
-                Text("Search...", fontSize = 20.sp)
+                Text("Search...", fontSize = 16.sp, lineHeight = 16.sp)
             },
             leadingIcon = { Icon(Icons.Outlined.WineBar, contentDescription = null, modifier = Modifier.size(20.dp)) },
             shape = MaterialTheme.shapes.medium,
