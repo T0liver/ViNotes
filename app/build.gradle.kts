@@ -85,6 +85,12 @@ dependencies {
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
+    // Retrofit & OkHttp
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlinx.serialization)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
+
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.lifecycle.viewmodel.compose)
