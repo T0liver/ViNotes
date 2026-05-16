@@ -1,0 +1,25 @@
+{
+  "type": "delta",
+  "date": "2026-05-16",
+  "added": [
+    {
+      "id": "HU-Taschner-2025-Irsai-Oliver",
+      "name": "Irsai Olivér",
+      "producer": "Taschner borház",
+      "year": 2025,
+      "grape": "Irsai Olivér",
+      "isCuvee": false,
+      "colour": "White",
+      "sugar": 4.7,
+      "sweetness": "DRY",
+      "country": "Hungary",
+      "region": "Sopron",
+      "alcoholPercentage": 11.5,
+      "volume": 750,
+      "description": "Intenzív aromájú, csupa virág, csupa gyümölcs bor.",
+      "imageUrl": "https://vinitaly.winesofhungary.hu/wp-content/uploads/2025/03/taschner_irsai_oliver_2024.png"
+    }
+  ],
+  "updated": [],
+  "removedIds": []
+}

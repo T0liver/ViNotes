@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "deltas": [
+    {
+      "date": "2026-05-16",
+      "url": "delta-2026-05-16.json",
+      "addedCount": 1,
+      "sha256": "575eae9bd9163ac32f9f3ee84863ba541346c55076cf4456831beebee15438dc"
+    }
+  ],
+  "lastUpdated": "2026-05-16",
+  "full": {
+    "url": "full.json",
+    "wineCount": 1,
+    "sha256": "c7f133f734eb7c75b091fbc167f92a70b6bc6f6bc20e5cf9c0bad8ada74f8cd0"
+  }
+}
