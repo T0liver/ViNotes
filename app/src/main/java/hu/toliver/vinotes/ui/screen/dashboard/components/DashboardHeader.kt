@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DashboardHeader(modifier: Modifier = Modifier) {
+fun DashboardHeader(modifier: Modifier = Modifier, username: String? = null) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -37,11 +37,19 @@ fun DashboardHeader(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            Text(
-                text = "Welcome to your wine vault!",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            if (!username.isNullOrBlank()) {
+                Text(
+                    text = "Hi ${username}! Welcome to your wine vault!",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                Text(
+                    text = "Welcome to your wine vault!",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }

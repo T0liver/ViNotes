@@ -8,6 +8,7 @@ data class DashboardState(
     val totalTastings: Int = 0,
     val averageRating: Double = 0.0,
     val topRegion: String = "",
+    val username: String = "",
 
     val errorMessage: String? = null,
 )

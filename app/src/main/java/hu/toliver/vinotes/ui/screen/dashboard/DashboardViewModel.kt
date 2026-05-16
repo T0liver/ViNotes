@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import hu.toliver.vinotes.domain.usecases.stats.GetDashboardStatsUseCase
 import hu.toliver.vinotes.domain.usecases.taste.GetRecentTastingsUseCase
+import hu.toliver.vinotes.domain.usecases.settings.GetAppPreferencesUseCase
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val getRecentTastings: GetRecentTastingsUseCase,
     private val getDashboardStats: GetDashboardStatsUseCase,
+    private val getAppPreferences: GetAppPreferencesUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -69,7 +71,8 @@ class DashboardViewModel @Inject constructor(
                 combine(
                     getRecentTastings(limit = 5),
                     getDashboardStats(),
-                ) { tastings, stats ->
+                    getAppPreferences(),
+                ) { tastings, stats, prefs ->
                     _state.update {
                         it.copy(
                             isLoading = false,
@@ -78,6 +81,7 @@ class DashboardViewModel @Inject constructor(
                             totalTastings = stats.totalTastings,
                             averageRating = stats.averageRating,
                             topRegion = stats.topRegion,
+                            username = prefs.username,
                         )
                     }
                 }.collect()
