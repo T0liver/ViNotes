@@ -8,4 +8,5 @@ interface AppPreferencesRepository {
 
     suspend fun saveCatalogUrl(url: String)
     suspend fun saveUsername(name: String)
+    suspend fun resetUsername()
 }

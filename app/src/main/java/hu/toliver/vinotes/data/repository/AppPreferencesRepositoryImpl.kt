@@ -30,6 +30,8 @@ class AppPreferencesRepositoryImpl @Inject constructor(
     override suspend fun saveUsername(name: String) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.USERNAME] = name }
     }
+
+    override suspend fun resetUsername() {
+        dataStore.edit { prefs -> prefs.remove(AppPreferencesKeys.USERNAME) }
+    }
 }
-
-
