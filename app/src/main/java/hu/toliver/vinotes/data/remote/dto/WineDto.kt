@@ -10,14 +10,14 @@ data class WineDto(
     val year: Int,
     val grape: String,
     val isCuvee: Boolean,
-    val cuveeComponents: List<String>,
+    val cuveeComponents: List<String> = emptyList(),
     val colour: String,
-    val sugar: Int,
+    val sugar: Float,
     val sweetness: String,
     val country: String,
     val region: String,
     val alcoholPercentage: Double,
     val volume: Int,
     val description: String,
-    val image: String
+    val image: String = ""
 )
