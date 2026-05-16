@@ -49,6 +49,9 @@ interface WineDao {
     @Query("DELETE FROM wines WHERE id IN (:ids)")
     suspend fun deleteByIds(ids: List<String>)
 
+    @Query("DELETE FROM wines")
+    suspend fun deleteAll()
+
     @Query("""
         SELECT * FROM wines
         WHERE lower(name) LIKE '%' || lower(:query) || '%'
