@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
+import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 
 @Composable
@@ -113,7 +114,7 @@ fun ColourDonutChart(
                         .background(color, CircleShape)
                     )
                     Text(
-                        text = "${colour.name}  $count",
+                        text = "${colour.toDisplayName()}  $count",
                         style = typography.bodyMedium
                     )
                 }
