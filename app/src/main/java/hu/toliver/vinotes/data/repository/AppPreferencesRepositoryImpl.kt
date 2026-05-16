@@ -34,4 +34,11 @@ class AppPreferencesRepositoryImpl @Inject constructor(
     override suspend fun resetUsername() {
         dataStore.edit { prefs -> prefs.remove(AppPreferencesKeys.USERNAME) }
     }
+
+    override suspend fun clearAllData() {
+        resetUsername()
+        dataStore.edit {
+            prefs -> prefs[AppPreferencesKeys.CATALOG_URL] = AppConstants.DEFAULT_CATALOG_URL
+        }
+    }
 }
