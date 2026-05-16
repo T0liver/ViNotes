@@ -1,12 +1,13 @@
 package hu.toliver.vinotes.domain.usecases.stats
 
 import hu.toliver.vinotes.domain.model.FullStatsData
-import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.repository.TasteRepository
 import hu.toliver.vinotes.domain.repository.WineRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class GetFullStatsUseCase @Inject constructor(
