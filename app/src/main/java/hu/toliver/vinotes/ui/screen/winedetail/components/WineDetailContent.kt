@@ -22,7 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.ui.screen.dashboard.SectionHeader
+import hu.toliver.vinotes.ui.screen.dashboard.components.SectionHeader
 import hu.toliver.vinotes.ui.screen.winedetail.WineDetailEvent
 import hu.toliver.vinotes.ui.screen.winedetail.WineDetailState
 

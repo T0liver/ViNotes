@@ -27,6 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import hu.toliver.vinotes.ui.screen.dashboard.components.DashboardHeader
+import hu.toliver.vinotes.ui.screen.dashboard.components.EmptyTastingsPlaceholder
+import hu.toliver.vinotes.ui.screen.dashboard.components.QuickStatsRow
+import hu.toliver.vinotes.ui.screen.dashboard.components.RecentTastingCard
+import hu.toliver.vinotes.ui.screen.dashboard.components.SectionHeader
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
