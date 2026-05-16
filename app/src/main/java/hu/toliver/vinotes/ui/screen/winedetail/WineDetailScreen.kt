@@ -20,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import hu.toliver.vinotes.ui.screen.winelist.DeleteConfirmDialog
-import hu.toliver.vinotes.ui.screen.winelist.WineFormSheet
+import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailContent
+import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailErrorContent
+import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailLoadingContent
+import hu.toliver.vinotes.ui.screen.winelist.components.DeleteConfirmDialog
+import hu.toliver.vinotes.ui.screen.winelist.components.WineFormSheet
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
