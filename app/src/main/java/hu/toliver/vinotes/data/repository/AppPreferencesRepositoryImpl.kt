@@ -20,7 +20,7 @@ class AppPreferencesRepositoryImpl @Inject constructor(
         .catch { emit(AppConstants.DEFAULT_CATALOG_URL) }
 
     override val username: Flow<String> = dataStore.data
-        .map { prefs -> prefs[AppPreferencesKeys.USERNAME] ?: AppConstants.APP_AUTHOR }
+        .map { prefs -> prefs[AppPreferencesKeys.USERNAME] ?: "" }
         .catch { emit(AppConstants.APP_AUTHOR) }
 
     override suspend fun saveCatalogUrl(url: String) {
