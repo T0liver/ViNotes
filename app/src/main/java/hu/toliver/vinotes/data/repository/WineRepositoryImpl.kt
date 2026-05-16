@@ -60,4 +60,8 @@ class WineRepositoryImpl @Inject constructor(
     override suspend fun deleteAll(ids: List<String>): Result<Unit> = runCatching {
         dao.deleteByIds(ids)
     }
+
+    override suspend fun deleteAll(): Result<Unit> = runCatching {
+        dao.deleteAll()
+    }
 }

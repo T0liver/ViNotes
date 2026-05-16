@@ -36,4 +36,8 @@ class TasteRepositoryImpl @Inject constructor(
     override suspend fun delete(id: String): Result<Unit> = runCatching {
         dao.deleteById(id)
     }
+
+    override suspend fun deleteAll(): Result<Unit> = runCatching {
+        dao.deleteAll()
+    }
 }
