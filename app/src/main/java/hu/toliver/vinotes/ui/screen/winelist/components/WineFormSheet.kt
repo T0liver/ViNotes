@@ -254,7 +254,7 @@ fun WineFormSheet(
                             isCuvee = isCuvee,
                             cuveeComponents = if (isCuvee) cuveeText.split(",").map { it.trim() } else emptyList(),
                             colour = selectedColour,
-                            sugar = 0,
+                            sugar = 0f,
                             sweetness = WineSweetness.DRY,
                             country = country,
                             region = region,

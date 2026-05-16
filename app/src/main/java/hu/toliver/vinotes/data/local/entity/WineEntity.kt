@@ -22,7 +22,7 @@ data class WineEntity (
     val region: String,
     val colour: String,
     val sweetness: String,
-    val sugar: Int,
+    val sugar: Float,
     val alcoholPercentage: Double,
     val volume: Int,
     val description: String,

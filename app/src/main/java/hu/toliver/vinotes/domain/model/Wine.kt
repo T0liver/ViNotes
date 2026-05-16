@@ -15,7 +15,7 @@ data class Wine (
 
     // Origin and class information
     val colour: WineColour,
-    val sugar: Int,
+    val sugar: Float,
     val sweetness: WineSweetness,
     val country: String,
     val region: String,
