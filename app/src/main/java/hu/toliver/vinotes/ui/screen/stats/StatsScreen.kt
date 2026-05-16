@@ -23,7 +23,6 @@ fun StatsScreen(
     viewModel: StatsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    // track which sections have already played their entry animation during this screen session
     val playedSections = remember { mutableStateMapOf<String, Boolean>() }
     fun shouldPlay(id: String) = playedSections[id] != true
     fun markPlayed(id: String) { playedSections[id] = true }
