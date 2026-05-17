@@ -1,15 +1,19 @@
 package hu.toliver.vinotes.data.repository
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Looper
+import androidx.core.app.ActivityCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.data.remote.api.NominatimApi
 import hu.toliver.vinotes.domain.repository.LocationRepository
 import javax.inject.Inject
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 class LocationRepositoryImpl @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -17,36 +21,53 @@ class LocationRepositoryImpl @Inject constructor(
 ) : LocationRepository {
 
     override suspend fun getCurrentLocation(): Result<Pair<Double, Double>> = runCatching {
-        suspendCancellableCoroutine<Pair<Double, Double>> { cont ->
-            try {
-                val client = LocationServices.getFusedLocationProviderClient(context)
-                val tokenSource = CancellationTokenSource()
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-                cont.invokeOnCancellation {
-                    tokenSource.cancel()
+        val hasFinePermission = ActivityCompat.checkSelfPermission(
+            context, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val hasCoarsePermission = ActivityCompat.checkSelfPermission(
+            context, Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasFinePermission && !hasCoarsePermission) {
+            error("No location permission granted. Please approve!")
+        }
+
+        val provider = when {
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ->
+                LocationManager.GPS_PROVIDER
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ->
+                LocationManager.NETWORK_PROVIDER
+            else -> error("No avaliable location provider. Please enable GPS or Network location services!")
+        }
+
+        val lastKnown = locationManager.getLastKnownLocation(provider)
+        val fiveMinutesAgo = System.currentTimeMillis() - 5 * 60 * 1000
+        if (lastKnown != null && lastKnown.time > fiveMinutesAgo) {
+            return@runCatching Pair(lastKnown.latitude, lastKnown.longitude)
+        }
+
+        suspendCancellableCoroutine { continuation ->
+            val listener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    locationManager.removeUpdates(this)
+                    @Suppress("DEPRECATION")
+                    continuation.resume(Pair(location.latitude, location.longitude))
                 }
 
-                client.getCurrentLocation(
-                    Priority.PRIORITY_HIGH_ACCURACY,
-                    tokenSource.token
-                )
-                    .addOnSuccessListener { location: Location? ->
-                        if (!cont.isActive) return@addOnSuccessListener
-                        if (location != null) {
-                            cont.resumeWith(Result.success(location.latitude to location.longitude))
-                        } else {
-                            cont.resumeWith(Result.failure(Exception("Fetching location failed")))
-                        }
-                    }
-                    .addOnFailureListener { error: Exception ->
-                        if (cont.isActive) {
-                            cont.resumeWith(Result.failure(error))
-                        }
-                    }
-            } catch (securityException: SecurityException) {
-                if (cont.isActive) {
-                    cont.resumeWith(Result.failure(securityException))
+                override fun onProviderDisabled(provider: String) {
+                    locationManager.removeUpdates(this)
+                    continuation.cancel(Exception("A helymeghatározási szolgáltató kikapcsolódott"))
                 }
+            }
+
+            @Suppress("DEPRECATION")
+            locationManager.requestSingleUpdate(provider, listener, Looper.getMainLooper())
+
+            continuation.invokeOnCancellation {
+                locationManager.removeUpdates(listener)
             }
         }
     }

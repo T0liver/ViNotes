@@ -9,6 +9,7 @@ import hu.toliver.vinotes.domain.usecases.location.ReverseGeocodeUseCase
 import hu.toliver.vinotes.domain.usecases.taste.AddTasteUseCase
 import hu.toliver.vinotes.domain.usecases.taste.GetTasteByIdUseCase
 import hu.toliver.vinotes.domain.usecases.taste.UpdateTasteUseCase
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import java.util.UUID
 import javax.inject.Inject
 
@@ -102,35 +104,42 @@ class AddTastingViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoadingLocation = true, locationError = null) }
 
-            getCurrentLocation()
-                .onSuccess { (latitude, longitude) ->
-                    reverseGeocode(latitude, longitude)
-                        .onSuccess { place ->
-                            _state.update {
-                                it.copy(
-                                    isLoadingLocation = false,
-                                    place = place,
-                                    latitude = latitude,
-                                    longitude = longitude,
-                                    locationError = null,
-                                )
-                            }
+            try {
+                withTimeout(15_000L) {
+                    getCurrentLocation()
+                        .onSuccess { (latitude, longitude) ->
+                            reverseGeocode(latitude, longitude)
+                                .onSuccess { place ->
+                                    _state.update {
+                                        it.copy(
+                                            isLoadingLocation = false,
+                                            place = place,
+                                            latitude = latitude,
+                                            longitude = longitude,
+                                            locationError = null,
+                                        )
+                                    }
+                                }
+                                .onFailure { error ->
+                                    _state.update {
+                                        it.copy(
+                                            isLoadingLocation = false,
+                                            latitude = latitude,
+                                            longitude = longitude,
+                                        )
+                                    }
+                                    emitLocationError(error.message ?: "Location fetched but reverse geocoding failed")
+                                }
                         }
                         .onFailure { error ->
-                            _state.update {
-                                it.copy(
-                                    isLoadingLocation = false,
-                                    latitude = latitude,
-                                    longitude = longitude,
-                                )
-                            }
-                            emitLocationError(error.message ?: "Fetching location name failed")
+                            _state.update { it.copy(isLoadingLocation = false) }
+                            emitLocationError(error.message ?: "Failed to fetch location")
                         }
                 }
-                .onFailure { error ->
-                    _state.update { it.copy(isLoadingLocation = false) }
-                    emitLocationError(error.message ?: "Fetching position failed")
-                }
+            } catch (_: TimeoutCancellationException) {
+                _state.update { it.copy(isLoadingLocation = false) }
+                emitLocationError("Location fetch timed out. Please try again.")
+            }
         }
     }
 

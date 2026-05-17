@@ -91,7 +91,6 @@ dependencies {
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
     implementation(libs.okhttp.dnsoverhttps)
-    implementation(libs.play.services.location)
 
     // Hilt
     implementation(libs.hilt.android)
