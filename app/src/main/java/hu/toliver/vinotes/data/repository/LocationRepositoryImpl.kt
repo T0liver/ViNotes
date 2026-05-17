@@ -35,7 +35,7 @@ class LocationRepositoryImpl @Inject constructor(
                         if (location != null) {
                             cont.resumeWith(Result.success(location.latitude to location.longitude))
                         } else {
-                            cont.resumeWith(Result.failure(Exception("Nem sikerült lekérni a pozíciót")))
+                            cont.resumeWith(Result.failure(Exception("Fetching location failed")))
                         }
                     }
                     .addOnFailureListener { error: Exception ->
