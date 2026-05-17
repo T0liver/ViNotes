@@ -49,5 +49,7 @@ class Taste (
     val date: Date,
     val wineId: String,
     val place: String,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
     val wouldDrinkAgain: Boolean
 )

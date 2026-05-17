@@ -102,6 +102,8 @@ fun TasteEntity.toDomain(): Taste = Taste(
     date = Date(date),
     wineId = wineId,
     place = place,
+    latitude = latitude,
+    longitude = longitude,
     wouldDrinkAgain = wouldDrinkAgain
 )
 
@@ -131,6 +133,6 @@ fun Taste.toEntity(id: String): TasteEntity = TasteEntity(
     wouldDrinkAgain = wouldDrinkAgain,
     date = date.time,
     place = place,
-    latitude = null,
-    longitude = null
+    latitude = latitude,
+    longitude = longitude
 )
