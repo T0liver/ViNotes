@@ -1,6 +1,7 @@
 package hu.toliver.vinotes.ui.screen.addtasting.steps
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,8 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material.icons.outlined.MyLocation
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -103,23 +107,48 @@ fun SummaryStepContent(
                     label = { Text("Place") },
                     modifier = Modifier.weight(1f),
                 )
-                OutlinedButton(
-                    onClick = { showDatePicker = true },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(56.dp),
+                Spacer(Modifier.width(12.dp))
+                Box(
+                    modifier = Modifier.size(56.dp),
                 ) {
-                    Icon(
-                        Icons.Outlined.CalendarToday,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(Modifier.width(6.dp))
-                    Text(
-                        SimpleDateFormat("yyyy. MM. dd.", Locale.forLanguageTag("hu")).format(state.date),
-                        style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
-                    )
+                    if (state.isLoadingLocation) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .align(androidx.compose.ui.Alignment.Center),
+                            strokeWidth = 2.dp,
+                        )
+                    } else {
+                        IconButton(
+                            onClick = { onEvent(AddTastingEvent.OnFetchLocationClicked) },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Icon(
+                                Icons.Outlined.MyLocation,
+                                contentDescription = "Fetch current location",
+                            )
+                        }
+                    }
                 }
+            }
+        }
+        item {
+            OutlinedButton(
+                onClick = { showDatePicker = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+            ) {
+                Icon(
+                    Icons.Outlined.CalendarToday,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(6.dp))
+                Text(
+                    SimpleDateFormat("yyyy. MM. dd.", Locale.forLanguageTag("hu")).format(state.date),
+                    style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                )
             }
         }
         item {

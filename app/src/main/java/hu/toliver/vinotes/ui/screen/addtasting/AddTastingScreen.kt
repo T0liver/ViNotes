@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.ui.screen.addtasting
 
+import android.Manifest
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -26,6 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hu.toliver.vinotes.ui.screen.addtasting.components.TastingStepIndicator
@@ -45,6 +48,17 @@ fun AddTastingScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+    ) { permissions ->
+        val granted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+        if (granted) {
+            viewModel.onEvent(AddTastingEvent.OnLocationPermissionGranted)
+        } else {
+            viewModel.onEvent(AddTastingEvent.OnLocationPermissionDenied)
+        }
+    }
 
     LaunchedEffect(preselectedWineId) {
         viewModel.onEvent(
@@ -61,8 +75,19 @@ fun AddTastingScreen(
             when (effect) {
                 AddTastingEffect.NavigateUp -> onNavigateUp()
                 is AddTastingEffect.ShowSnackbar -> snackbarHostState.showSnackbar(effect.message)
+                AddTastingEffect.RequestLocationPermission -> locationPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                    )
+                )
+                is AddTastingEffect.ShowLocationError -> Unit
             }
         }
+    }
+
+    LaunchedEffect(state.locationError) {
+        state.locationError?.let { snackbarHostState.showSnackbar(it) }
     }
 
     Scaffold(

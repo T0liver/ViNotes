@@ -44,6 +44,8 @@ sealed interface AddTastingEvent {
     data class WouldDrinkAgainChanged(val v: Boolean) : AddTastingEvent
     data class DateChanged(val v: Date) : AddTastingEvent
     data class PlaceChanged(val v: String) : AddTastingEvent
-
+    data object OnFetchLocationClicked : AddTastingEvent
+    data object OnLocationPermissionGranted : AddTastingEvent
+    data object OnLocationPermissionDenied : AddTastingEvent
     data object SaveTasting : AddTastingEvent
 }

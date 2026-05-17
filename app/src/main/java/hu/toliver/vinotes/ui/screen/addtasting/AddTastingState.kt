@@ -13,11 +13,13 @@ data class AddTastingState(
 
     val isLoading: Boolean = false,
     val isSaving: Boolean = false,
+    val isLoadingLocation: Boolean = false,
     val isEditMode: Boolean = false,
     val editingTasteId: String? = null,
     val wineId: String = "",
     val currentStep: Int = 0,
     val errorMessage: String? = null,
+    val locationError: String? = null,
 
     // Visuals
     val clarity: WineClarity = WineClarity.CLEAR,
@@ -49,4 +51,6 @@ data class AddTastingState(
     val wouldDrinkAgain: Boolean = true,
     val date: Date = Date(),
     val place: String = "",
+    val latitude: Double? = null,
+    val longitude: Double? = null,
 )
