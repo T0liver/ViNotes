@@ -6,10 +6,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hu.toliver.vinotes.data.repository.AppPreferencesRepositoryImpl
 import hu.toliver.vinotes.data.repository.CatalogSyncRepositoryImpl
+import hu.toliver.vinotes.data.repository.LocationRepositoryImpl
 import hu.toliver.vinotes.data.repository.TasteRepositoryImpl
 import hu.toliver.vinotes.data.repository.WineRepositoryImpl
 import hu.toliver.vinotes.domain.repository.AppPreferencesRepository
 import hu.toliver.vinotes.domain.repository.CatalogSyncRepository
+import hu.toliver.vinotes.domain.repository.LocationRepository
 import hu.toliver.vinotes.domain.repository.TasteRepository
 import hu.toliver.vinotes.domain.repository.WineRepository
 import javax.inject.Singleton
@@ -41,4 +43,10 @@ abstract class RepositoryModule {
     abstract fun bindCatalogSyncRepository(
         impl: CatalogSyncRepositoryImpl
     ): CatalogSyncRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLocationRepository(
+        impl: LocationRepositoryImpl
+    ): LocationRepository
 }

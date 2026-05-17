@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hu.toliver.vinotes.data.remote.api.CatalogApi
+import hu.toliver.vinotes.data.remote.api.NominatimApi
 import hu.toliver.vinotes.ui.AppConstants
 import javax.inject.Singleton
 import java.net.InetAddress
@@ -86,6 +87,30 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @NominatimRetrofit
+    fun provideNominatimRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit =
+        Retrofit.Builder()
+            .baseUrl("https://nominatim.openstreetmap.org/")
+            .client(
+                okHttpClient.newBuilder()
+                    .addInterceptor { chain ->
+                        val request = chain.request().newBuilder()
+                            .header("User-Agent", "ViNotes/1.0 (vinotes@toliver.hu)")
+                            .build()
+                        chain.proceed(request)
+                    }
+                    .build()
+            )
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
+
+    @Provides
+    @Singleton
     fun provideCatalogApi(retrofit: Retrofit): CatalogApi =
         retrofit.create(CatalogApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNominatimApi(@NominatimRetrofit retrofit: Retrofit): NominatimApi =
+        retrofit.create(NominatimApi::class.java)
 }
