@@ -2,6 +2,7 @@ package hu.toliver.vinotes.data.local.converters
 
 import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.toColorInt
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.Level
 import hu.toliver.vinotes.domain.model.enums.NoseDevelopment
@@ -15,12 +16,12 @@ object UIConverter {
     fun String.toComposeColor(): Color = Color(this.toColorInt())
 
     fun Intensity.toDisplayName(): String = when (this) {
-        Intensity.NONE -> "None"
-        Intensity.LIGHT -> "Light"
-        Intensity.SHORT -> "Short"
-        Intensity.MEDIUM -> "Medium"
-        Intensity.LARGE -> "Large"
-        Intensity.PRONOUNCED -> "Pronounced"
+        Intensity.NONE -> R.string.none.toString()
+        Intensity.LIGHT -> R.string.light.toString()
+        Intensity.SHORT -> R.string.tshort.toString()
+        Intensity.MEDIUM -> R.string.medium.toString()
+        Intensity.LARGE -> R.string.large.toString()
+        Intensity.PRONOUNCED -> R.string.pronounced.toString()
     }
 
     fun Level.toFloat(): Float = when (this) {
@@ -32,24 +33,24 @@ object UIConverter {
     }
 
     fun Level.toDisplayName(): String = when (this) {
-        Level.LOW -> "Low"
-        Level.MILD -> "Mild"
-        Level.MEDIUM -> "Medium"
-        Level.SOLID -> "Solid"
-        Level.HIGH -> "High"
+        Level.LOW -> R.string.low.toString()
+        Level.MILD -> R.string.mild.toString()
+        Level.MEDIUM -> R.string.medium.toString()
+        Level.SOLID -> R.string.solid.toString()
+        Level.HIGH -> R.string.high.toString()
     }
 
     fun NoseDevelopment.toDisplayName(): String = when (this) {
-        NoseDevelopment.YOUTHFUL -> "Youthful"
-        NoseDevelopment.DEVELOPING -> "Developing"
-        NoseDevelopment.DEVELOPED -> "Developed"
-        NoseDevelopment.AGED -> "Aged"
+        NoseDevelopment.YOUTHFUL -> R.string.youthful.toString()
+        NoseDevelopment.DEVELOPING -> R.string.developing.toString()
+        NoseDevelopment.DEVELOPED -> R.string.developed.toString()
+        NoseDevelopment.AGED -> R.string.aged.toString()
     }
 
     fun WineClarity.toDisplayName(): String = when (this) {
-        WineClarity.CLEAR -> "Clear"
-        WineClarity.HAZY -> "Hazy"
-        WineClarity.CLOUDY -> "Cloudy"
+        WineClarity.CLEAR -> R.string.clear.toString()
+        WineClarity.HAZY -> R.string.hazy.toString()
+        WineClarity.CLOUDY -> R.string.cloudy.toString()
     }
 
     fun WineColour.fromColourToHex(): String = when (this) {
@@ -64,32 +65,32 @@ object UIConverter {
     }
 
     fun WineColour.toDisplayName(): String = when (this) {
-        WineColour.GRAY -> "Gray"
-        WineColour.ORANGE -> "Orange"
-        WineColour.WHITE -> "White"
-        WineColour.YELLOW -> "Yellow"
-        WineColour.ROSE -> "Rosé"
-        WineColour.SHILLER -> "Shiller"
-        WineColour.TAWNY -> "Tawny"
-        WineColour.RED -> "Red"
+        WineColour.GRAY -> R.string.gray.toString()
+        WineColour.ORANGE -> R.string.orange.toString()
+        WineColour.WHITE -> R.string.white.toString()
+        WineColour.YELLOW -> R.string.yellow.toString()
+        WineColour.ROSE -> R.string.rose.toString()
+        WineColour.SHILLER -> R.string.shiller.toString()
+        WineColour.TAWNY -> R.string.tawny.toString()
+        WineColour.RED -> R.string.red.toString()
     }
 
 
     fun WineSweetness.toDisplayName(): String = when (this) {
-        WineSweetness.BRUT_NATURE -> "Brut Nature"
-        WineSweetness.EXTRA_BRUT -> "Extra Brut"
-        WineSweetness.BRUT -> "Brut"
-        WineSweetness.EXTRA_DRY -> "Extra Dry"
-        WineSweetness.DRY -> "Dry"
-        WineSweetness.SEMI_DRY -> "Semi Dry"
-        WineSweetness.SWEET -> "Sweet"
-        WineSweetness.UNKNOWN -> "Unknown"
+        WineSweetness.BRUT_NATURE -> R.string.brut_nature.toString()
+        WineSweetness.EXTRA_BRUT -> R.string.extra_brut.toString()
+        WineSweetness.BRUT -> R.string.brut.toString()
+        WineSweetness.EXTRA_DRY -> R.string.extra_dry.toString()
+        WineSweetness.DRY -> R.string.dry.toString()
+        WineSweetness.SEMI_DRY -> R.string.semi_dry.toString()
+        WineSweetness.SWEET -> R.string.sweet.toString()
+        WineSweetness.UNKNOWN -> R.string.unknown.toString()
     }
 
     fun WineColourIntensity.toDisplayName(): String = when (this) {
-        WineColourIntensity.PALE -> "Pale"
-        WineColourIntensity.MEDIUM -> "Medium"
-        WineColourIntensity.DEEP -> "Deep"
+        WineColourIntensity.PALE -> R.string.pale.toString()
+        WineColourIntensity.MEDIUM -> R.string.medium.toString()
+        WineColourIntensity.DEEP -> R.string.deep.toString()
     }
 
     fun TasteWineColour.toHexColour(): Color  = when (this) {

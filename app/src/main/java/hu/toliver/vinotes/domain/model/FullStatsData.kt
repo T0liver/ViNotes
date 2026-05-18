@@ -19,12 +19,12 @@ data class FullStatsData(
 
     val colourDistribution: Map<WineColour, Int>,
 
-    // Top regions (max 6, descending order) ───────────────────────────────
+    // Top regions (max 6, descending order)
     val topRegions: List<Pair<String, Int>>,
 
     val vintageDistribution: Map<Int, Int>,
 
-    // ── Időszak-specifikus ───────────────────────────────────────────────────
+    // Period-specific
     val tastingsInPeriod: Int,
     val avgRatingInPeriod: Double,
 )
