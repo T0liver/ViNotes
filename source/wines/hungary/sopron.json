@@ -32,5 +32,49 @@
     "volume": 750,
     "description": "Intenzív, mély bíbor színű bor, melynek illatában meggyes, málnás, ibolyás és fűszeres, borsos jegyeket fedezhetünk fel.",
     "imageUrl": "https://vinitaly.winesofhungary.hu/wp-content/uploads/2025/03/taschner_irsai_oliver_2024.png"
+  },
+  {
+    "id": "HU-Taschner-2023-Fidelissima-voros",
+    "name": "Fidelissima Cuvée Vörös",
+    "producer": "Taschner",
+    "year": 2023,
+    "grape": "Cabernet Franc, Zweigelt, Merlot",
+    "isCuvee": true,
+    "colour": "RED",
+    "sweetness": "EXTRA_BRUT",
+    "country": "Magyarország",
+    "region": "Soproni borvidák",
+    "cuveeComponents": [
+      "Cabernet Franc",
+      "Zweigelt",
+      "Merlot"
+    ],
+    "sugar": 2.6,
+    "alcoholPercentage": 13.0,
+    "volume": 750,
+    "description": "Vörös cuvée a hűség városából.",
+    "imageUrl": "https://taschner.hu/wp-content/uploads/2025/10/taschner_3Dlabel_premium_fidelissima-1097x1536.png"
+  },
+  {
+    "id": "HU-Taschner-2024-Fidelissima-feher",
+    "name": "Fidelissima Cuvée Fehér",
+    "producer": "Taschner",
+    "year": 2024,
+    "grape": "Chardonnay, Irsai Olivér, Zöld veltelini",
+    "isCuvee": true,
+    "colour": "WHITE",
+    "sweetness": "EXTRA_BRUT",
+    "country": "Magyarország",
+    "region": "Soproni borvidék",
+    "cuveeComponents": [
+      "Chardonnay",
+      "Irsai Olivér",
+      "Zöld veltelini"
+    ],
+    "sugar": 3.2,
+    "alcoholPercentage": 12.0,
+    "volume": 750,
+    "description": "Fehér cuvée bor a hűség városából. A zamatos illatok, és a finom savak kellemesen egyensúlyba hozzák a bort, amit önmagában és fröccsben is jól esik fogyasztani.",
+    "imageUrl": "https://vinitaly.winesofhungary.hu/wp-content/uploads/2025/03/taschner_fidelissima_feher.png"
   }
 ]
