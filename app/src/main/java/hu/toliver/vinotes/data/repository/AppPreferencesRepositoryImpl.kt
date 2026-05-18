@@ -6,10 +6,11 @@ import androidx.datastore.preferences.core.edit
 import hu.toliver.vinotes.data.local.preferences.AppPreferencesKeys
 import hu.toliver.vinotes.ui.AppConstants
 import hu.toliver.vinotes.domain.repository.AppPreferencesRepository
-import javax.inject.Inject
+import hu.toliver.vinotes.domain.model.enums.ThemeMode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class AppPreferencesRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
@@ -23,12 +24,26 @@ class AppPreferencesRepositoryImpl @Inject constructor(
         .map { prefs -> prefs[AppPreferencesKeys.USERNAME] ?: "" }
         .catch { emit(AppConstants.APP_AUTHOR) }
 
+    override val themeMode: Flow<ThemeMode> = dataStore.data
+        .map { prefs ->
+            when (prefs[AppPreferencesKeys.THEME_MODE]) {
+                ThemeMode.LIGHT.name -> ThemeMode.LIGHT
+                ThemeMode.DARK.name -> ThemeMode.DARK
+                else -> ThemeMode.SYSTEM
+            }
+        }
+        .catch { emit(ThemeMode.SYSTEM) }
+
     override suspend fun saveCatalogUrl(url: String) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.CATALOG_URL] = url }
     }
 
     override suspend fun saveUsername(name: String) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.USERNAME] = name }
+    }
+
+    override suspend fun saveThemeMode(mode: ThemeMode) {
+        dataStore.edit { prefs -> prefs[AppPreferencesKeys.THEME_MODE] = mode.name }
     }
 
     override suspend fun resetUsername() {

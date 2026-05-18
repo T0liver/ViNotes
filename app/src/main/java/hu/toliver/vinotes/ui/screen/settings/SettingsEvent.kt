@@ -1,5 +1,7 @@
 package hu.toliver.vinotes.ui.screen.settings
 
+import hu.toliver.vinotes.domain.model.enums.ThemeMode
+
 sealed interface SettingsEvent {
     data object LoadData : SettingsEvent
 
@@ -23,5 +25,8 @@ sealed interface SettingsEvent {
 
     data object AboutInfoClicked : SettingsEvent
     data object AboutInfoDismissed : SettingsEvent
-}
 
+    data object ThemeClicked : SettingsEvent
+    data class ThemeSelected(val theme: ThemeMode) : SettingsEvent
+    data object ThemeDialogDismissed : SettingsEvent
+}

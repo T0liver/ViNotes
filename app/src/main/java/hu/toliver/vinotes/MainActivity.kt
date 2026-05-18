@@ -4,8 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import hu.toliver.vinotes.ui.screen.settings.ThemeViewModel
+import hu.toliver.vinotes.domain.model.enums.ThemeMode
 import dagger.hilt.android.AndroidEntryPoint
 import hu.toliver.vinotes.ui.navigation.VinNoteNavGraph
 import hu.toliver.vinotes.ui.theme.ViNotesTheme
@@ -24,7 +30,15 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 private fun MainActivityContent() {
-    ViNotesTheme() {
+    val vm: ThemeViewModel = hiltViewModel()
+    val theme by vm.themeMode.collectAsState()
+    val dark = when (theme) {
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+    }
+
+    ViNotesTheme(darkTheme = dark) {
         VinNoteNavGraph()
     }
 }

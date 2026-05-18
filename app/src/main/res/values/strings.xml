@@ -110,6 +110,7 @@
     <string name="latest_tastings">Latest Tastings</string>
     <string name="less">Less</string>
     <string name="light">Light</string>
+    <string name="system_settings">System settings</string>
     <string name="load_json_file_from_device">Load JSON file from device</string>
     <string name="locale">hu</string>
     <string name="location_and_date"><![CDATA[Location & Date]]></string>
@@ -218,7 +219,8 @@
     <string name="very_low">Very Low</string>
     <string name="vine_type">Vine type</string>
     <string name="vine_type_req">Vine type *</string>
-    <string name="visual">Visual</string><string name="rating">Rating</string>
+    <string name="visual">Visual</string>
+    <string name="rating">Rating</string>
     <string name="weak">Weak</string>
     <string name="welcome">Welcome to your wine vault!</string>
     <string name="welcome_name_set">Hi %1$s! Welcome to your wine vault!</string>

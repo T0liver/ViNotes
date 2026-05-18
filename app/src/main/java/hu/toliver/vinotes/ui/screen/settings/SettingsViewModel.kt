@@ -11,6 +11,7 @@ import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
 import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
 import hu.toliver.vinotes.domain.usecases.settings.GetAppPreferencesUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveCatalogUrlUseCase
+import hu.toliver.vinotes.domain.usecases.settings.SaveThemeModeUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveUsernameUseCase
 import hu.toliver.vinotes.ui.AppConstants
 import kotlinx.coroutines.channels.Channel
@@ -29,6 +30,7 @@ class SettingsViewModel @Inject constructor(
 	private val getAppPreferences: GetAppPreferencesUseCase,
 	private val saveCatalogUrl: SaveCatalogUrlUseCase,
 	private val saveUsername: SaveUsernameUseCase,
+	private val saveThemeMode: SaveThemeModeUseCase,
 	private val clearAllData: ClearAllDataUseCase,
 	private val performFullImport: PerformFullImportUseCase,
 	private val performDeltaSync: PerformDeltaSyncUseCase,
@@ -53,6 +55,7 @@ class SettingsViewModel @Inject constructor(
 							isLoading = false,
 							catalogUrl = prefs.catalogUrl,
 							username = prefs.username,
+							themeMode = prefs.themeMode,
 						)
 					}
 				}
@@ -164,6 +167,19 @@ class SettingsViewModel @Inject constructor(
 
 			SettingsEvent.AboutInfoDismissed -> _state.update {
 				it.copy(showAboutInfoDialog = false)
+			}
+
+			SettingsEvent.ThemeClicked -> _state.update {
+				it.copy(showThemeDialog = true)
+			}
+
+			is SettingsEvent.ThemeSelected -> viewModelScope.launch {
+				saveThemeMode(event.theme)
+				_state.update { it.copy(showThemeDialog = false, themeMode = event.theme) }
+			}
+
+			SettingsEvent.ThemeDialogDismissed -> _state.update {
+				it.copy(showThemeDialog = false)
 			}
 		}
 	}
