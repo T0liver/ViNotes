@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
 import kotlin.math.atan2
@@ -118,7 +119,7 @@ fun RatingArcSlider(
                 color = ratingColor,
             )
             Text(
-                text = ratingLabel(rating),
+                text = stringResource(ratingLabel(rating)),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -126,13 +127,13 @@ fun RatingArcSlider(
     }
 }
 
-private fun ratingLabel(rating: Int): String = when {
-    rating >= 95 -> R.string.classic.toString()
-    rating >= 90 -> R.string.superior.toString()
-    rating >= 85 -> R.string.very_good.toString()
-    rating >= 80 -> R.string.good.toString()
-    rating >= 70 -> R.string.average.toString()
-    rating >= 60 -> R.string.below_average.toString()
-    rating >= 50 -> R.string.unacceptable.toString()
-    else -> R.string.simple.toString()
+private fun ratingLabel(rating: Int): Int = when {
+    rating >= 95 -> R.string.classic
+    rating >= 90 -> R.string.superior
+    rating >= 85 -> R.string.very_good
+    rating >= 80 -> R.string.good
+    rating >= 70 -> R.string.average
+    rating >= 60 -> R.string.below_average
+    rating >= 50 -> R.string.unacceptable
+    else -> R.string.simple
 }

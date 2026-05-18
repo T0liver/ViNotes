@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -110,6 +111,7 @@ fun TastingDetailScreen(
             )
         },
     ) { innerPadding ->
+        val context = LocalContext.current
         when {
             state.isLoading -> {
                 Box(
@@ -138,7 +140,7 @@ fun TastingDetailScreen(
             }
 
             else -> {
-                val uiData = state.taste!!.toUiData(state.wine!!)
+                val uiData = state.taste!!.toUiData(state.wine!!, context)
                 TastingDetailContent(
                     uiData = uiData,
                     modifier = Modifier.padding(innerPadding),

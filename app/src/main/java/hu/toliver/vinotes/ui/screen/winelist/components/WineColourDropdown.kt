@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
+import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 
 @OptIn(ExperimentalMaterial3Api::class)

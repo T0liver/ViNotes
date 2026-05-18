@@ -8,10 +8,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
+import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineClarity
 import hu.toliver.vinotes.domain.model.enums.WineColourIntensity
 import hu.toliver.vinotes.ui.screen.addtasting.AddTastingEvent
@@ -26,6 +27,7 @@ fun VisualStepContent(
     onEvent: (AddTastingEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
@@ -42,7 +44,7 @@ fun VisualStepContent(
                 entries = WineClarity.entries,
                 current = state.clarity,
                 label = stringResource(R.string.clarity),
-                labelOf = { it.toDisplayName() },
+                labelOf = { it.toDisplayName(context) },
                 onChange = { onEvent(AddTastingEvent.ClarityChanged(it)) },
             )
         }

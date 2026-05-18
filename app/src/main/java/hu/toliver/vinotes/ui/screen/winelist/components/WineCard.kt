@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
-import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
+import hu.toliver.vinotes.ui.screen.UIConverter.fromColourToHex
+import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.WineWithStats
 
 

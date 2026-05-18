@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
-import hu.toliver.vinotes.data.local.converters.UIConverter.toComposeColor
-import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
+import hu.toliver.vinotes.ui.screen.UIConverter.fromColourToHex
+import hu.toliver.vinotes.ui.screen.UIConverter.toComposeColor
+import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 
 

@@ -1,6 +1,6 @@
 package hu.toliver.vinotes.ui.screen.dashboard
 
-import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
+import hu.toliver.vinotes.ui.screen.UIConverter.fromColourToHex
 import hu.toliver.vinotes.domain.model.TasteWithWine
 import java.text.SimpleDateFormat
 import java.util.Locale

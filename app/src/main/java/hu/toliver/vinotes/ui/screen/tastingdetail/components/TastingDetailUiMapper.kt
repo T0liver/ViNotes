@@ -1,7 +1,8 @@
 package hu.toliver.vinotes.ui.screen.tastingdetail.components
 
-import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
-import hu.toliver.vinotes.data.local.converters.UIConverter.toFloat
+import android.content.Context
+import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
+import hu.toliver.vinotes.ui.screen.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.model.Wine
 import java.text.SimpleDateFormat
@@ -46,7 +47,7 @@ data class TastingDetailUiData(
     val wouldDrinkAgain: Boolean,
 )
 
-fun Taste.toUiData(wine: Wine): TastingDetailUiData {
+fun Taste.toUiData(wine: Wine, context: Context): TastingDetailUiData {
     val year = wine.year
     return TastingDetailUiData(
         tasteId = this.id,
@@ -58,24 +59,24 @@ fun Taste.toUiData(wine: Wine): TastingDetailUiData {
         date = SimpleDateFormat("yyyy. MMM d. HH:mm", Locale.getDefault()).format(this.date),
         place = this.place,
 
-        clarity = this.clarity.toDisplayName(),
-        colourIntensity = this.colourIntensity.toDisplayName(),
+        clarity = this.clarity.toDisplayName(context.resources),
+        colourIntensity = this.colourIntensity.toDisplayName(context.resources),
         colour = this.colour.name,
         otherVisual = this.otherVisual,
 
-        noseIntensity = this.noseIntensity.toDisplayName(),
+        noseIntensity = this.noseIntensity.toDisplayName(context.resources),
         noseAroma = this.noseAroma,
-        noseDevelopment = this.noseDevelopment.toDisplayName(),
+        noseDevelopment = this.noseDevelopment.toDisplayName(context.resources),
         otherNose = this.otherNose,
 
-        sweetness = this.sweetness.toDisplayName(),
-        acidity = this.acidity.toDisplayName() to this.acidity.toFloat(),
-        tannin = this.tannin.toDisplayName() to this.tannin.toFloat(),
-        body = this.body.toDisplayName() to this.body.toFloat(),
-        alcohol = this.alcohol.toDisplayName() to this.alcohol.toFloat(),
-        flavourIntensity = this.flavourIntensity.toDisplayName(),
+        sweetness = this.sweetness.toDisplayName(context.resources),
+        acidity = this.acidity.toDisplayName(context.resources) to this.acidity.toFloat(),
+        tannin = this.tannin.toDisplayName(context.resources) to this.tannin.toFloat(),
+        body = this.body.toDisplayName(context.resources) to this.body.toFloat(),
+        alcohol = this.alcohol.toDisplayName(context.resources) to this.alcohol.toFloat(),
+        flavourIntensity = this.flavourIntensity.toDisplayName(context.resources),
         flavourCharacteristics = this.flavourCharacteristics,
-        finish = this.finish.toDisplayName() to this.finish.toFloat(),
+        finish = this.finish.toDisplayName(context.resources) to this.finish.toFloat(),
         otherPalate = this.otherPalate,
 
         overallImpression = this.overallImpression,
