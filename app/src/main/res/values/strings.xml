@@ -229,6 +229,8 @@
     <string name="very_low">Very Low</string>
     <string name="vine_type">Vine type</string>
     <string name="vine_type_req">Vine type *</string>
+    <string name="view_image">View image</string>
+    <string name="image_load_failed">Failed to load image</string>
     <string name="visual">Visual</string>
     <string name="rating">Rating</string>
     <string name="weak">Weak</string>

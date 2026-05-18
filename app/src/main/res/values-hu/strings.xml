@@ -45,7 +45,7 @@
     <string name="catalog_updated">Katalógus frissítve</string>
     <string name="clarity">Tisztaság</string>
     <string name="classic">Klasszik</string>
-    <string name="clear">Törlés</string>
+    <string name="clear">Tiszta</string>
     <string name="clear_all_data">Minden adat törlése?</string>
     <string name="close">Bezárás</string>
     <string name="cloudy">Zavaros</string>
@@ -108,6 +108,7 @@
     <string name="home">Kezdőlap</string>
     <string name="hungarian">Magyar</string>
     <string name="icons_by">"Ikonok forrása: "</string>
+    <string name="image_load_failed">Nem sikerült a fotó betöltése</string>
     <string name="import_wines_from_file">Borok importálása fájlból</string>
     <string name="catalog_imported_from_file">Katalógus importálva fájlból</string>
     <string name="impression">Benyomás</string>
@@ -227,6 +228,7 @@
     <string name="very_good">Nagyon jó</string>
     <string name="very_high">Nagyon magas</string>
     <string name="very_low">Nagyon alacsony</string>
+    <string name="view_image">Fotó a borról</string>
     <string name="vine_type">Bor típusa</string>
     <string name="vine_type_req">Bor típusa *</string>
     <string name="visual">Vizuális</string>
