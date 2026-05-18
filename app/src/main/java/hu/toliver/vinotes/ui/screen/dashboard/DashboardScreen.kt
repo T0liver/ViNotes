@@ -60,11 +60,7 @@ fun DashboardScreen(
                     onNavigateToTastingDetail(effect.tasteId)
                 }
 
-                is DashboardEffect.NavigateToWineDetail -> {
-                    Unit
-                }
-
-                DashboardEffect.NavigateToAddTasting -> {
+                is DashboardEffect.NavigateToAddTasting -> {
                     onNavigateToAddTasting()
                 }
 
