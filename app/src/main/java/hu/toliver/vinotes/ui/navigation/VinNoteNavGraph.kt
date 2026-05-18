@@ -36,7 +36,7 @@ fun VinNoteNavGraph() {
         bottomBar = {
             if (currentDest in ROOT_DESTS) {
                 ViNotesBottomBar(
-                    items       = bottomNavItems,
+                    items = getBottomNavItems(),
                     currentDest = currentDest,
                     onItemClick = { item ->
                         if (currentDest != item.key) {
@@ -51,8 +51,8 @@ fun VinNoteNavGraph() {
 
         NavDisplay(
             backStack = backStack,
-            modifier  = Modifier.padding(innerPadding),
-            onBack    = {
+            modifier = Modifier.padding(innerPadding),
+            onBack = {
                 if (backStack.size > 1) backStack.removeLastOrNull()
             },
             entryDecorators = listOf(
@@ -64,9 +64,15 @@ fun VinNoteNavGraph() {
 
                 entry<Screen.Dashboard> {
                     DashboardScreen(
-                        onNavigateToSettings   = { backStack.add(Screen.Settings) },
-                        onNavigateToWineList    = { backStack.add(Screen.WineList) },
-                        onNavigateToTastingDetail = { tasteId -> backStack.add(Screen.TastingDetail(tasteId)) },
+                        onNavigateToSettings = { backStack.add(Screen.Settings) },
+                        onNavigateToWineList = { backStack.add(Screen.WineList) },
+                        onNavigateToTastingDetail = { tasteId ->
+                            backStack.add(
+                                Screen.TastingDetail(
+                                    tasteId
+                                )
+                            )
+                        },
                         onNavigateToWineSelection = { backStack.add(Screen.WineSelection) },
                     )
                 }
@@ -127,7 +133,7 @@ fun VinNoteNavGraph() {
 
 @Composable
 private fun ViNotesBottomBar(
-    items:       List<BottomNavItem>,
+    items: List<BottomNavItem>,
     currentDest: Screen?,
     onItemClick: (BottomNavItem) -> Unit,
 ) {
@@ -139,10 +145,19 @@ private fun ViNotesBottomBar(
                 selected = selected,
                 onClick  = { onItemClick(item) },
                 icon = {
-                    Icon(
-                        imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = stringResource(item.labelRes),
-                    )
+                    val imageVector = if (selected) item.selectedIcon else item.unselectedIcon
+                    val painter = if (selected) item.selectedPainter else item.unselectedPainter
+
+                    when {
+                        imageVector != null -> Icon(
+                            imageVector = imageVector,
+                            contentDescription = stringResource(item.labelRes),
+                        )
+                        painter != null -> Icon(
+                            painter = painter,
+                            contentDescription = stringResource(item.labelRes),
+                        )
+                    }
                 },
                 label = { Text(stringResource(item.labelRes)) },
             )

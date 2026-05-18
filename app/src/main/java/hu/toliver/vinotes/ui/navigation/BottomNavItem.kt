@@ -4,17 +4,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import hu.toliver.vinotes.R
 
 data class BottomNavItem(
     val key: Screen,
-    @StringRes val labelRes: Int,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
+    @param:StringRes val labelRes: Int,
+    val selectedIcon: ImageVector? = null,
+    val unselectedIcon: ImageVector? = null,
+    val selectedPainter: Painter? = null,
+    val unselectedPainter: Painter? = null,
 )
 
-val bottomNavItems = listOf(
+@Composable
+fun getBottomNavItems(): List<BottomNavItem> = listOf(
     BottomNavItem(
         key = Screen.Dashboard,
         labelRes = R.string.home,
@@ -24,8 +30,8 @@ val bottomNavItems = listOf(
     BottomNavItem(
         key = Screen.WineList,
         labelRes = R.string.basement,
-        selectedIcon = Icons.Filled.LocalBar,
-        unselectedIcon = Icons.Outlined.LocalBar,
+        selectedPainter = painterResource(id = R.drawable.cask_filled),
+        unselectedPainter = painterResource(id = R.drawable.cask_outlined),
     ),
     BottomNavItem(
         key = Screen.Stats,
