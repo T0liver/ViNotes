@@ -2,7 +2,7 @@
   {
     "id": "HU-Taschner-2025-Irsai-Oliver",
     "name": "Irsai Olivér",
-    "producer": "Taschner borház",
+    "producer": "Taschner Bor- és Pezsgőház",
     "year": 2025,
     "grape": "Irsai Olivér",
     "isCuvee": false,
@@ -19,7 +19,7 @@
   {
     "id": "HU-Taschner-2024-Kekfrankos",
     "name": "Kékfrankos",
-    "producer": "Taschner borház",
+    "producer": "Taschner Bor- és Pezsgőház",
     "year": 2024,
     "grape": "Kékfrankos",
     "isCuvee": false,
@@ -78,24 +78,6 @@
     "imageUrl": "https://vinitaly.winesofhungary.hu/wp-content/uploads/2025/03/taschner_fidelissima_feher.png"
   },
   {
-    "id": "taschner-irsai-oliver-2024",
-    "name": "Irsai Olivér",
-    "producer": "Taschner Bor- és Pezsgőház",
-    "year": 2024,
-    "grape": "Irsai Olivér",
-    "isCuvee": false,
-    "cuveeComponents": [],
-    "colour": "WHITE",
-    "sugar": 2.4,
-    "sweetness": "DRY",
-    "country": "Magyarország",
-    "region": "Soproni borvidék",
-    "alcoholPercentage": 11.5,
-    "volume": 750,
-    "description": "Friss, illatos fehérbor bodzás-citrusos karakterrel és ropogós savakkal. Könnyed nyári estékhez, salátákhoz és baráti beszélgetésekhez készült, üde és játékos stílusban.",
-    "imageUrl": "https://taschner.hu/wp-content/uploads/2024/01/irsai-oliver.jpg"
-  },
-  {
     "id": "taschner-edes-zenit-2024",
     "name": "Édes Zenit",
     "producer": "Taschner Bor- és Pezsgőház",
@@ -130,24 +112,6 @@
     "volume": 750,
     "description": "Komplex és elegáns chardonnay finom hordós érleléssel. Vajkaramellás, vaníliás és érett almás jegyei hosszú, krémes lecsengéssel párosulnak.",
     "imageUrl": "https://taschner.hu/wp-content/uploads/2024/01/chardonnay-premium.jpg"
-  },
-  {
-    "id": "taschner-kekfrankos-2024",
-    "name": "Kékfrankos",
-    "producer": "Taschner Bor- és Pezsgőház",
-    "year": 2024,
-    "grape": "Kékfrankos",
-    "isCuvee": false,
-    "cuveeComponents": [],
-    "colour": "RED",
-    "sugar": 2.8,
-    "sweetness": "DRY",
-    "country": "Magyarország",
-    "region": "Soproni borvidék",
-    "alcoholPercentage": 12.5,
-    "volume": 750,
-    "description": "Lendületes soproni vörösbor meggyes és fűszeres aromákkal. A bársonyos tanninok és a vibráló savak harmonikus egyensúlyt teremtenek minden kortyban.",
-    "imageUrl": "https://taschner.hu/wp-content/uploads/2024/01/kekfrankos.jpg"
   },
   {
     "id": "taschner-pinot-meunier-2018",
