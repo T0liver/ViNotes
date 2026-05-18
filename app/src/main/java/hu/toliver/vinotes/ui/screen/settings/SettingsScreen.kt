@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.CloudSync
@@ -63,6 +65,11 @@ fun SettingsScreen(
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val uriHandler = LocalUriHandler.current
+    val importFileLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument(),
+    ) { uri ->
+        uri?.let { viewModel.onEvent(SettingsEvent.ImportFileSelected(it)) }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest { effect ->
@@ -70,6 +77,13 @@ fun SettingsScreen(
                 SettingsEffect.NavigateUp -> onNavigateUp()
                 is SettingsEffect.ShowSnackbar -> snackbarHostState.showSnackbar(effect.message)
                 is SettingsEffect.OpenUrl -> uriHandler.openUri(effect.url)
+                SettingsEffect.OpenImportFilePicker -> importFileLauncher.launch(
+                    arrayOf(
+                        "application/json",
+                        "text/json",
+                        "text/plain",
+                    )
+                )
             }
         }
     }
@@ -252,6 +266,7 @@ fun SettingsScreen(
                     title = stringResource(R.string.import_wines_from_file),
                     subtitle = stringResource(R.string.load_json_file_from_device),
                     onClick = { viewModel.onEvent(SettingsEvent.ImportFromFileClicked) },
+                    isLoading = state.isImportingCatalog,
                 )
             }
             item {

@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.ui.screen.settings
 
+import android.net.Uri
 import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.model.enums.ThemeMode
 
@@ -22,6 +23,7 @@ sealed interface SettingsEvent {
     data object ClearDataDismissed : SettingsEvent
 
     data object ImportFromFileClicked : SettingsEvent
+    data class ImportFileSelected(val uri: Uri) : SettingsEvent
     data object UpdateFromWebClicked : SettingsEvent
     data object UpdateDeltaSyncClicked : SettingsEvent
 

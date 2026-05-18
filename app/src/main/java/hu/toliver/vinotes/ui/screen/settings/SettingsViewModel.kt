@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.domain.usecases.catalog.ImportFromFileUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
 import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
@@ -34,6 +35,7 @@ class SettingsViewModel @Inject constructor(
 	private val saveThemeMode: SaveThemeModeUseCase,
 	private val saveAppLanguage: SaveAppLanguageUseCase,
 	private val clearAllData: ClearAllDataUseCase,
+	private val importFromFile: ImportFromFileUseCase,
 	private val performFullImport: PerformFullImportUseCase,
 	private val performDeltaSync: PerformDeltaSyncUseCase,
 ) : ViewModel() {
@@ -135,8 +137,25 @@ class SettingsViewModel @Inject constructor(
 			it.copy(showClearDataDialog = false)
 		}
 
-		is SettingsEvent.ImportFromFileClicked -> viewModelScope.launch {
-			_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.coming_soon)))
+			SettingsEvent.ImportFromFileClicked -> viewModelScope.launch {
+				_effect.send(SettingsEffect.OpenImportFilePicker)
+			}
+
+			is SettingsEvent.ImportFileSelected -> viewModelScope.launch {
+				_state.update { it.copy(isImportingCatalog = true) }
+				importFromFile(event.uri)
+					.onSuccess {
+						_state.update { it.copy(isImportingCatalog = false) }
+						_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.catalog_imported_from_file)))
+					}
+					.onFailure { error ->
+						_state.update { it.copy(isImportingCatalog = false) }
+						_effect.send(
+							SettingsEffect.ShowSnackbar(
+								error.message ?: context.getString(R.string.error_importing_catalog_from_file)
+							)
+						)
+					}
 		}
 
 		SettingsEvent.UpdateFromWebClicked -> viewModelScope.launch {

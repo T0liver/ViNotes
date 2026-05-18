@@ -20,4 +20,5 @@ data class SettingsState(
     val showAboutInfoDialog: Boolean = false,
     val isClearingData: Boolean = false,
     val isSyncingCatalog: Boolean = false,
+    val isImportingCatalog: Boolean = false,
 )

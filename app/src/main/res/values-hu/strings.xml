@@ -88,6 +88,7 @@
     <string name="error_on_delete">Hiba törlés közben</string>
     <string name="error_on_save">Hiba mentés közben</string>
     <string name="error_syncing_catalog">Hiba a katalógus szinkronizálásakor</string>
+    <string name="error_importing_catalog_from_file">Hiba a katalógus fájlból történő importálásakor</string>
     <string name="extra_brut">Extra Brut</string>
     <string name="extra_dry">Extra száraz</string>
     <string name="failed_to_fetch_location">Nem sikerült lekérni a helyet</string>
@@ -108,6 +109,7 @@
     <string name="hungarian">Magyar</string>
     <string name="icons_by">"Ikonok forrása: "</string>
     <string name="import_wines_from_file">Borok importálása fájlból</string>
+    <string name="catalog_imported_from_file">Katalógus importálva fájlból</string>
     <string name="impression">Benyomás</string>
     <string name="intensity">Intenzitás</string>
     <string name="large">Nagy</string>
@@ -117,6 +119,7 @@
     <string name="light_colour">Világos</string>
     <string name="system_settings">Rendszerbeállítások</string>
     <string name="load_json_file_from_device">JSON fájl betöltése eszközről</string>
+    <string name="invalid_wine_catalog_file">A kiválasztott fájl nem érvényes bor katalógus: %1$s</string>
     <string name="location_and_date"><![CDATA[Helyszín és dátum]]></string>
     <string name="location_fetch_timed_out">A helylekérés időtúllépés miatt megszakadt. Próbáld újra.</string>
     <string name="location_permission_missing">Helyhozzáférési engedély szükséges a jelenlegi hely lekéréséhez</string>

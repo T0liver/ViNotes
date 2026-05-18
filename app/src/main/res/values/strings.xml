@@ -87,6 +87,7 @@
     <string name="error_on_delete">Error on delete</string>
     <string name="error_on_save">Error on save</string>
     <string name="error_syncing_catalog">Error syncing catalog</string>
+    <string name="error_importing_catalog_from_file">Error importing catalog from file</string>
     <string name="extra_brut">Extra Brut</string>
     <string name="extra_dry">Extra Dry</string>
     <string name="failed_to_fetch_location">Failed to fetch location</string>
@@ -107,6 +108,7 @@
     <string name="home">Home</string>
     <string name="icons_by">"Icons by "</string>
     <string name="import_wines_from_file">Import wines from file</string>
+    <string name="catalog_imported_from_file">Catalog imported from file</string>
     <string name="impression">Impression</string>
     <string name="intensity">Intensity</string>
     <string name="large">Large</string>
@@ -116,6 +118,7 @@
     <string name="light_colour">Light</string>
     <string name="system_settings">System settings</string>
     <string name="load_json_file_from_device">Load JSON file from device</string>
+    <string name="invalid_wine_catalog_file">Selected file is not a valid wine catalog: %1$s</string>
     <string name="location_and_date"><![CDATA[Location & Date]]></string>
     <string name="location_fetch_timed_out">Location fetch timed out. Please try again.</string>
     <string name="location_permission_missing">Needs location permission to fetch current location</string>
