@@ -36,12 +36,13 @@
     <string name="best_rating">Legjobb értékelés</string>
     <string name="best_with">Legjobb párosítás</string>
     <string name="body">Test</string>
-    <string name="bold">Erőteljes</string>
+    <string name="bold">Testes</string>
     <string name="brut">Brut</string>
     <string name="brut_nature">Brut Nature</string>
     <string name="cancel">Mégse</string>
     <string name="cannot_resolve_catalog_host">A katalógus hosztneve nem oldható fel. Ellenőrizd az eszköz hálózatát/DNS-ét, vagy próbáld meg megnyitni a katalógus URL-jét böngészőben.</string>
     <string name="catalog_url">Katalógus URL</string>
+    <string name="catalog_updated">Katalógus frissítve</string>
     <string name="clarity">Tisztaság</string>
     <string name="classic">Klasszik</string>
     <string name="clear">Törlés</string>
@@ -214,6 +215,8 @@
     <string name="unknown">Ismeretlen</string>
     <string name="unknown_error">Ismeretlen hiba</string>
     <string name="update_catalog_from_web">Katalógus frissítése weben keresztül</string>
+    <string name="update_catalog_delta">Katalógus frissítése</string>
+    <string name="sync_delta_changes">Csak az új katalógus módosítások szinkronizálása</string>
     <string name="url">URL</string>
     <string name="url_saved">URL mentve</string>
     <string name="url_set_to_default">URL visszaállítva alapértelmezettre</string>

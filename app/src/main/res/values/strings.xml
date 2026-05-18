@@ -215,6 +215,9 @@
     <string name="unknown_error">Unknown error</string>
     <string name="update_catalog_from_web">Update catalog from web</string>
     <string name="url">URL</string>
+    <string name="update_catalog_delta">Update catalog</string>
+    <string name="sync_delta_changes">Sync only new changes to catalog</string>
+    <string name="catalog_updated">Catalog updated</string>
     <string name="url_saved">URL saved</string>
     <string name="url_set_to_default">URL set to default</string>
     <string name="username">Username</string>

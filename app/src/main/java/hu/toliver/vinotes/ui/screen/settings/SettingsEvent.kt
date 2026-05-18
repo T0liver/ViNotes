@@ -23,6 +23,7 @@ sealed interface SettingsEvent {
 
     data object ImportFromFileClicked : SettingsEvent
     data object UpdateFromWebClicked : SettingsEvent
+    data object UpdateDeltaSyncClicked : SettingsEvent
 
     data object AboutInfoClicked : SettingsEvent
     data object AboutInfoDismissed : SettingsEvent

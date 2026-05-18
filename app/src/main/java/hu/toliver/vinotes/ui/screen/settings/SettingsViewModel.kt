@@ -164,6 +164,31 @@ class SettingsViewModel @Inject constructor(
 				}
 		}
 
+		SettingsEvent.UpdateDeltaSyncClicked -> viewModelScope.launch {
+			_state.update { it.copy(isSyncingCatalog = true) }
+			performDeltaSync()
+				.onSuccess {
+					_state.update { it.copy(isSyncingCatalog = false) }
+					_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.catalog_updated)))
+				}
+				.onFailure { error ->
+					_state.update { it.copy(isSyncingCatalog = false) }
+					val msg = error.message ?: context.getString(R.string.error_syncing_catalog)
+					// Detect DNS resolution failures and show actionable hint
+					if (msg.contains(context.getString(R.string.dns_resolution_failed), ignoreCase = true)
+						|| msg.contains(context.getString(R.string.unable_to_resolve_host), ignoreCase = true)
+						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)) {
+						_effect.send(
+							SettingsEffect.ShowSnackbar(
+								context.getString(R.string.cannot_resolve_catalog_host)
+							)
+						)
+					} else {
+						_effect.send(SettingsEffect.ShowSnackbar(msg))
+					}
+				}
+		}
+
 			SettingsEvent.AboutInfoClicked -> _state.update {
 				it.copy(showAboutInfoDialog = true)
 			}

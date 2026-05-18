@@ -274,6 +274,15 @@ fun SettingsScreen(
                     },
                 )
             }
+            item {
+                SettingsActionItem(
+                    icon = Icons.Outlined.CloudSync,
+                    title = stringResource(R.string.update_catalog_delta),
+                    subtitle = stringResource(R.string.sync_delta_changes),
+                    onClick = { viewModel.onEvent(SettingsEvent.UpdateDeltaSyncClicked) },
+                    isLoading = state.isSyncingCatalog,
+                )
+            }
 
             item { SettingsSectionHeader(stringResource(R.string.datas)) }
             item {
