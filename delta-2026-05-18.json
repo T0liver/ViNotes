@@ -1,7 +1,7 @@
 {
-  "type": "full",
-  "exportedAt": "2026-05-18",
-  "wines": [
+  "type": "delta",
+  "date": "2026-05-18",
+  "added": [
     {
       "id": "HU-Taschner-2025-Irsai-Oliver",
       "name": "Irsai Olivér",
@@ -36,5 +36,7 @@
       "description": "Intenzív, mély bíbor színű bor, melynek illatában meggyes, málnás, ibolyás és fűszeres, borsos jegyeket fedezhetünk fel.",
       "imageUrl": "https://vinitaly.winesofhungary.hu/wp-content/uploads/2025/03/taschner_irsai_oliver_2024.png"
     }
-  ]
+  ],
+  "updated": [],
+  "removedIds": []
 }
