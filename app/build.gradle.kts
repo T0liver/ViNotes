@@ -95,6 +95,9 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-    implementation(libs.hilt.lifecycle.viewmodel.compose)
     ksp(libs.hilt.compiler)
+    // Hilt - navigation / hiltViewModel support for Compose
+    implementation(libs.androidx.hilt.navigation.compose)
+    // Image loading
+    implementation(libs.coil.compose)
 }
