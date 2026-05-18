@@ -21,7 +21,7 @@
     <string name="amount_tastings">%1$d tastings</string>
     <string name="amount_wine">%1$d wine</string>
     <string name="an_error_occurred">An error occurred</string>
-    <string name="app_name">ViNotes</string>
+    <string name="app_name" translatable="false">ViNotes</string>
     <string name="apply">Apply</string>
     <string name="are_you_sure_to_delete">Are you sure you want to delete this tasting? This action cannot be undone.</string>
     <string name="are_you_sure_to_delete_wine">Are you sure to delete \"%1$s\" wine? This operation cannot be undone.</string>
@@ -127,7 +127,7 @@
     <string name="newest_vintage">Newest vintage</string>
     <string name="next">Next</string>
     <string name="no_address_associated_with_hostname">No address associated with hostname</string>
-    <string name="no_avaliable_location_provider">No avaliable location provider. Please enable GPS or Network location services!</string>
+    <string name="no_avaliable_location_provider">No available location provider. Please enable GPS or Network location services!</string>
     <string name="no_location_permission_granted">No location permission granted. Please approve!</string>
     <string name="no_results_found">No results found</string>
     <string name="no_streak_yet">No streak yet</string>
@@ -164,7 +164,7 @@
     <string name="reverse_geocoding_failed">Location fetched but reverse geocoding failed</string>
     <string name="rose">Rosé</string>
     <string name="save">Save</string>
-    <string name="search_dots">Search...</string>
+    <string name="search_dots">Search…</string>
     <string name="semi_dry">Semi Dry</string>
     <string name="sensory_profile">Sensory Profile</string>
     <string name="set_to_default">Set to default</string>
