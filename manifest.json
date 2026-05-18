@@ -4,14 +4,14 @@
     {
       "date": "2026-05-18",
       "url": "delta-2026-05-18.json",
-      "addedCount": 2,
-      "sha256": "a05782c2753751a4d0975e34a33b0dd25e593c86d908d85bd4d6c98360286263"
+      "addedCount": 11,
+      "sha256": "5b8b038926ec3d187a53a60fd40c0564e902e3d9447e2e7695b1e29386a4b007"
     }
   ],
   "lastUpdated": "2026-05-18",
   "full": {
     "url": "full.json",
-    "wineCount": 2,
-    "sha256": "a0003b4488ae0d61dbba7619d3db0cdd73e8c00a7e8e2d314183ca726ab48b42"
+    "wineCount": 11,
+    "sha256": "2dd4b2493bc267ec5dc0fe5d815de16d4a3fd719404cbec51b90664950678769"
   }
 }
