@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.data.local.preferences
 
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 object AppPreferencesKeys {
@@ -7,4 +8,5 @@ object AppPreferencesKeys {
     val USERNAME = stringPreferencesKey("username")
     val THEME_MODE = stringPreferencesKey("theme_mode")
     val APP_LANGUAGE = stringPreferencesKey("app_language")
+    val WELCOME_SHOWN = booleanPreferencesKey("welcome_shown")
 }

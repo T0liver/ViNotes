@@ -231,6 +231,7 @@
     <string name="weak">Weak</string>
     <string name="welcome">Welcome to your wine vault!</string>
     <string name="welcome_name_set">Hi %1$s! Welcome to your wine vault!</string>
+    <string name="welcome_catalog_message">You can download the catalog from the web to populate wines in your collection. Tap OK to download the full catalog now.</string>
     <string name="white">White</string>
     <string name="wine_added">Wine added</string>
     <string name="wine_deleted">Wine deleted</string>

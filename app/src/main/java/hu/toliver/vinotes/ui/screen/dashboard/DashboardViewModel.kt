@@ -3,7 +3,11 @@ package hu.toliver.vinotes.ui.screen.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
+import hu.toliver.vinotes.domain.usecases.settings.SaveWelcomeShownUseCase
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.Job
@@ -23,9 +27,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val getRecentTastings: GetRecentTastingsUseCase,
     private val getDashboardStats: GetDashboardStatsUseCase,
     private val getAppPreferences: GetAppPreferencesUseCase,
+    private val saveWelcomeShown: SaveWelcomeShownUseCase,
+    private val performFullImport: PerformFullImportUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -60,6 +67,35 @@ class DashboardViewModel @Inject constructor(
             DashboardEvent.ErrorDismissed -> {
                 _state.update { it.copy(errorMessage = null) }
             }
+
+            DashboardEvent.WelcomeDialogConfirmed -> viewModelScope.launch {
+                // mark as shown immediately to avoid re-show on rotation
+                _state.update { it.copy(showWelcomeDialog = false) }
+                runCatching { saveWelcomeShown(true) }
+                // start full import and notify user
+                _state.update { it.copy(isLoading = true) }
+                performFullImport()
+                    .onSuccess {
+                        _state.update { it.copy(isLoading = false) }
+                        _effect.send(DashboardEffect.ShowSnackbar(context.getString(R.string.full_catalog_imported)))
+                    }
+                    .onFailure { error ->
+                        _state.update { it.copy(isLoading = false) }
+                        val msg = error.message ?: context.getString(R.string.error_syncing_catalog)
+                        // DNS resolution hints as in SettingsViewModel
+                        if (msg.contains(context.getString(R.string.dns_resolution_failed), ignoreCase = true)
+                            || msg.contains(context.getString(R.string.unable_to_resolve_host), ignoreCase = true)
+                            || msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)) {
+                            _effect.send(
+                                DashboardEffect.ShowSnackbar(
+                                    context.getString(R.string.cannot_resolve_catalog_host)
+                                )
+                            )
+                        } else {
+                            _effect.send(DashboardEffect.ShowSnackbar(msg))
+                        }
+                    }
+            }
         }
     }
 
@@ -70,10 +106,10 @@ class DashboardViewModel @Inject constructor(
 
             try {
                 combine(
-                    getRecentTastings(limit = 5),
-                    getDashboardStats(),
-                    getAppPreferences(),
-                ) { tastings, stats, prefs ->
+                        getRecentTastings(limit = 5),
+                            getDashboardStats(),
+                            getAppPreferences(),
+                        ) { tastings, stats, prefs ->
                     _state.update {
                         it.copy(
                             isLoading = false,
@@ -82,7 +118,8 @@ class DashboardViewModel @Inject constructor(
                             totalTastings = stats.totalTastings,
                             averageRating = stats.averageRating,
                             topRegion = stats.topRegion,
-                            username = prefs.username,
+                                    username = prefs.username,
+                                    showWelcomeDialog = !prefs.welcomeShown,
                         )
                     }
                 }.collect()
@@ -97,4 +134,6 @@ class DashboardViewModel @Inject constructor(
             }
         }
     }
+
+
 }

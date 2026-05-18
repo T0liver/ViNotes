@@ -231,6 +231,7 @@
     <string name="weak">Gyenge</string>
     <string name="welcome">Üdvözlet a borospincédben!</string>
     <string name="welcome_name_set">Szia %1$s! Üdvözlet a borospincédben!</string>
+    <string name="welcome_catalog_message">A katalógust letöltheted a webről, hogy feltöltsd a pincédet borokkal.\nNyomj OK-t a teljes katalógus letöltéséhez most.</string>
     <string name="white">Fehér</string>
     <string name="wine_added">Bor hozzáadva</string>
     <string name="wine_deleted">Bor törölve</string>

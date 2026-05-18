@@ -18,6 +18,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -73,6 +75,9 @@ fun DashboardScreen(
                 is DashboardEffect.ShowError -> {
                     snackbarHostState.showSnackbar(effect.message)
                 }
+                is DashboardEffect.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(effect.message)
+                }
             }
         }
     }
@@ -106,6 +111,19 @@ fun DashboardScreen(
             )
         },
     ) { innerPadding ->
+
+        if (state.showWelcomeDialog) {
+            AlertDialog(
+                onDismissRequest = { /* don't dismiss by tapping outside */ },
+                title = { Text(text = stringResource(R.string.welcome)) },
+                text = { Text(text = stringResource(R.string.welcome_catalog_message)) },
+                confirmButton = {
+                    TextButton(onClick = { viewModel.onEvent(DashboardEvent.WelcomeDialogConfirmed) }) {
+                        Text(text = stringResource(android.R.string.ok))
+                    }
+                }
+            )
+        }
         val pullState = rememberPullToRefreshState()
         PullToRefreshBox(
             isRefreshing = state.isLoading,

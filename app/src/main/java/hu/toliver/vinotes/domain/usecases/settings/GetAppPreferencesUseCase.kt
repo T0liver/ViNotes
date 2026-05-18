@@ -15,10 +15,11 @@ class GetAppPreferencesUseCase @Inject constructor(
         val username: String,
         val themeMode: ThemeMode,
         val appLanguage: AppLanguage,
+        val welcomeShown: Boolean,
     )
 
     operator fun invoke(): Flow<Prefs> =
-        combine(repo.catalogUrl, repo.username, repo.themeMode, repo.appLanguage) { url, name, theme, language ->
-            Prefs(catalogUrl = url, username = name, themeMode = theme, appLanguage = language)
+        combine(repo.catalogUrl, repo.username, repo.themeMode, repo.appLanguage, repo.welcomeShown) { url, name, theme, language, shown ->
+            Prefs(catalogUrl = url, username = name, themeMode = theme, appLanguage = language, welcomeShown = shown)
         }
 }

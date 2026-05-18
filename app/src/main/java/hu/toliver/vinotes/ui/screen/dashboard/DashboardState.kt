@@ -9,6 +9,7 @@ data class DashboardState(
     val averageRating: Double = 0.0,
     val topRegion: String = "",
     val username: String = "",
+    val showWelcomeDialog: Boolean = false,
 
     val errorMessage: String? = null,
 )

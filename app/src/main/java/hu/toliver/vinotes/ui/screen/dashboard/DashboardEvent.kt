@@ -7,4 +7,5 @@ sealed interface DashboardEvent {
     data object AddTastingClicked : DashboardEvent
     data object SeeAllTastingsClicked : DashboardEvent
     data object ErrorDismissed : DashboardEvent
+    data object WelcomeDialogConfirmed : DashboardEvent
 }

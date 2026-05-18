@@ -21,6 +21,10 @@ class AppPreferencesRepositoryImpl @Inject constructor(
         .map { prefs -> prefs[AppPreferencesKeys.CATALOG_URL] ?: AppConstants.DEFAULT_CATALOG_URL }
         .catch { emit(AppConstants.DEFAULT_CATALOG_URL) }
 
+    override val welcomeShown: Flow<Boolean> = dataStore.data
+        .map { prefs -> prefs[AppPreferencesKeys.WELCOME_SHOWN] ?: false }
+        .catch { emit(false) }
+
     override val username: Flow<String> = dataStore.data
         .map { prefs -> prefs[AppPreferencesKeys.USERNAME] ?: "" }
         .catch { emit(AppConstants.APP_AUTHOR) }
@@ -47,6 +51,10 @@ class AppPreferencesRepositoryImpl @Inject constructor(
 
     override suspend fun saveCatalogUrl(url: String) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.CATALOG_URL] = url }
+    }
+
+    override suspend fun saveWelcomeShown(shown: Boolean) {
+        dataStore.edit { prefs -> prefs[AppPreferencesKeys.WELCOME_SHOWN] = shown }
     }
 
     override suspend fun saveUsername(name: String) {
