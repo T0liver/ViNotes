@@ -13,6 +13,8 @@ import hu.toliver.vinotes.domain.repository.AppPreferencesRepository
 import hu.toliver.vinotes.data.remote.dto.FullCatalogDto
 import hu.toliver.vinotes.data.remote.mapper.toDomain
 import hu.toliver.vinotes.domain.model.Wine
+import hu.toliver.vinotes.domain.model.enums.WineColour
+import hu.toliver.vinotes.domain.model.enums.WineSweetness
 import hu.toliver.vinotes.domain.model.sync.CatalogDelta
 import hu.toliver.vinotes.domain.model.sync.CatalogManifest
 import hu.toliver.vinotes.domain.model.sync.DeltaInfo
@@ -177,16 +179,16 @@ class CatalogSyncRepositoryImpl @Inject constructor(
 
         if (wine.year !in 1800..2100) invalidCatalog("$wineLabel has an invalid vintage year")
         if (wine.sugar < 0f) invalidCatalog("$wineLabel has a negative sugar value")
-        if (wine.alcoholPercentage < 0.0 || wine.alcoholPercentage > 25.0) {
+        if (wine.alcoholPercentage !in 0.0..25.0) {
             invalidCatalog("$wineLabel has an invalid alcohol percentage")
         }
         if (wine.volume <= 0) invalidCatalog("$wineLabel has an invalid volume")
 
-        if (hu.toliver.vinotes.domain.model.enums.WineColour.entries.none { it.name == wine.colour }) {
+        if (WineColour.entries.none { it.name == wine.colour }) {
             invalidCatalog("$wineLabel has an invalid colour value")
         }
 
-        if (hu.toliver.vinotes.domain.model.enums.WineSweetness.entries.none { it.name == wine.sweetness }) {
+        if (WineSweetness.entries.none { it.name == wine.sweetness }) {
             invalidCatalog("$wineLabel has an invalid sweetness value")
         }
     }
