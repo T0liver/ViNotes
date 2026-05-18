@@ -13,6 +13,7 @@ import hu.toliver.vinotes.ui.screen.addtasting.AddTastingScreen
 import hu.toliver.vinotes.ui.screen.dashboard.DashboardScreen
 import hu.toliver.vinotes.ui.screen.settings.SettingsScreen
 import hu.toliver.vinotes.ui.screen.stats.StatsScreen
+import hu.toliver.vinotes.ui.screen.tastingdetail.TastingDetailScreen
 import hu.toliver.vinotes.ui.screen.winelist.WineListScreen
 import hu.toliver.vinotes.ui.screen.winedetail.WineDetailScreen
 
@@ -57,7 +58,7 @@ fun VinNoteNavGraph() {
                     DashboardScreen(
                         onNavigateToSettings   = { backStack.add(Screen.Settings) },
                         onNavigateToWineList    = { backStack.add(Screen.WineList) },
-                        onNavigateToDetail      = { wineId, _ -> backStack.add(Screen.WineDetail(wineId)) },
+                        onNavigateToTastingDetail = { tasteId -> backStack.add(Screen.TastingDetail(tasteId)) },
                         onNavigateToAddTasting  = { backStack.add(Screen.AddTasting()) },
                     )
                 }
@@ -91,6 +92,13 @@ fun VinNoteNavGraph() {
                 entry<Screen.AddTasting> { key ->
                     AddTastingScreen(
                         preselectedWineId = key.wineId,
+                        onNavigateUp = { backStack.removeLastOrNull() },
+                    )
+                }
+
+                entry<Screen.TastingDetail> { key ->
+                    TastingDetailScreen(
+                        tasteId = key.tasteId,
                         onNavigateUp = { backStack.removeLastOrNull() },
                     )
                 }

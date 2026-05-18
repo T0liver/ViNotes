@@ -13,6 +13,7 @@ sealed interface Screen : NavKey {
 
     @Serializable data class AddTasting(val wineId: String? = null) : Screen
     @Serializable data class WineDetail(val wineId: String) : Screen
+    @Serializable data class TastingDetail(val tasteId: String) : Screen
 }
 
 val ROOT_DESTS = setOf(Screen.Dashboard, Screen.WineList, Screen.Stats)
