@@ -100,30 +100,32 @@ fun WineDetailsCard(
                 )
             }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .padding(top = 8.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                SubcomposeAsyncImage(
-                    model = wine.image,
-                    contentDescription = wine.name,
+            if (wine.image.isNotBlank()) {
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(),
-                    contentScale = ContentScale.Fit,
+                        .height(200.dp)
+                        .padding(top = 8.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
-                    when (painter.state) {
-                        is coil.compose.AsyncImagePainter.State.Loading -> {
-                            CircularProgressIndicator()
-                        }
-                        is coil.compose.AsyncImagePainter.State.Error -> {
-                            Text(text = stringResource(R.string.image_load_failed) + "\n(${wine.image})")
-                        }
-                        else -> {
-                            SubcomposeAsyncImageContent()
+                    SubcomposeAsyncImage(
+                        model = wine.image,
+                        contentDescription = wine.name,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        contentScale = ContentScale.Fit,
+                    ) {
+                        when (painter.state) {
+                            is coil.compose.AsyncImagePainter.State.Loading -> {
+                                CircularProgressIndicator()
+                            }
+                            is coil.compose.AsyncImagePainter.State.Error -> {
+                                Text(text = stringResource(R.string.image_load_failed) + "\n(${wine.image})")
+                            }
+                            else -> {
+                                SubcomposeAsyncImageContent()
+                            }
                         }
                     }
                 }
