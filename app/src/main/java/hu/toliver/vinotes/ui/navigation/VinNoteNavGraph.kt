@@ -59,7 +59,7 @@ fun VinNoteNavGraph() {
                         onNavigateToSettings   = { backStack.add(Screen.Settings) },
                         onNavigateToWineList    = { backStack.add(Screen.WineList) },
                         onNavigateToTastingDetail = { tasteId -> backStack.add(Screen.TastingDetail(tasteId)) },
-                        onNavigateToAddTasting  = { backStack.add(Screen.AddTasting()) },
+                        onNavigateToWineSelection = { backStack.add(Screen.WineSelection) },
                     )
                 }
 
@@ -72,6 +72,16 @@ fun VinNoteNavGraph() {
                 entry<Screen.WineList> {
                     WineListScreen(
                         onNavigateToDetail = { wineId -> backStack.add(Screen.WineDetail(wineId)) },
+                    )
+                }
+
+                entry<Screen.WineSelection> {
+                    WineListScreen(
+                        onNavigateToDetail = { _ -> },
+                        onWineSelected = { wineId ->
+                            backStack.removeLastOrNull()
+                            backStack.add(Screen.AddTasting(wineId))
+                        },
                     )
                 }
 

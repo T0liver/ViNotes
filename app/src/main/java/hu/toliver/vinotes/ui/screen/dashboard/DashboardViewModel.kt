@@ -49,7 +49,7 @@ class DashboardViewModel @Inject constructor(
             }
 
             DashboardEvent.AddTastingClicked -> viewModelScope.launch {
-                _effect.send(DashboardEffect.NavigateToAddTasting)
+                _effect.send(DashboardEffect.NavigateToWineSelection)
             }
 
             DashboardEvent.SeeAllTastingsClicked -> viewModelScope.launch {

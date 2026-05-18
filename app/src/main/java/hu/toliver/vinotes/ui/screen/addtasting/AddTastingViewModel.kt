@@ -194,6 +194,11 @@ class AddTastingViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = _state.value.copy(isSaving = true)
             val s = _state.value
+            if (s.wineId.isBlank()) {
+                _state.value = _state.value.copy(isSaving = false)
+                _effect.send(AddTastingEffect.ShowSnackbar("Please select a wine first"))
+                return@launch
+            }
             val taste = Taste(
                 id = s.editingTasteId ?: UUID.randomUUID().toString(),
                 clarity = s.clarity,

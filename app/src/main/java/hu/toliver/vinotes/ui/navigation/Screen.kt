@@ -8,6 +8,7 @@ sealed interface Screen : NavKey {
 
     @Serializable data object Dashboard : Screen
     @Serializable data object WineList : Screen
+    @Serializable data object WineSelection : Screen
     @Serializable data object Stats : Screen
     @Serializable data object Settings : Screen
 

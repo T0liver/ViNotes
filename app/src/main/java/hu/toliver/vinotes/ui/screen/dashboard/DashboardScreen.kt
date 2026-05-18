@@ -48,7 +48,7 @@ fun DashboardScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToWineList: () -> Unit,
     onNavigateToTastingDetail: (tasteId: String) -> Unit,
-    onNavigateToAddTasting: () -> Unit,
+    onNavigateToWineSelection: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -60,8 +60,8 @@ fun DashboardScreen(
                     onNavigateToTastingDetail(effect.tasteId)
                 }
 
-                is DashboardEffect.NavigateToAddTasting -> {
-                    onNavigateToAddTasting()
+                is DashboardEffect.NavigateToWineSelection -> {
+                    onNavigateToWineSelection()
                 }
 
                 DashboardEffect.NavigateToWineList -> {

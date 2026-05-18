@@ -36,10 +36,13 @@ import kotlinx.coroutines.flow.collectLatest
 fun WineListScreen(
     viewModel: WineListViewModel = hiltViewModel(),
     onNavigateToDetail: (wineId: String) -> Unit,
+    onWineSelected: ((wineId: String) -> Unit)? = null,
 ) {
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     var showDeleteDialog by remember { mutableStateOf<Wine?>(null) }
+    val selectionMode = onWineSelected != null
+    val selectionCallback = onWineSelected ?: { _: String -> }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest { effect ->
@@ -61,43 +64,85 @@ fun WineListScreen(
         )
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { viewModel.onEvent(WineListEvent.AddWineClicked) }) {
-                Icon(Icons.Filled.Add, contentDescription = "Add Wine")
+    if (selectionMode) {
+        Scaffold(
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+        ) { innerPadding ->
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+
+                WineSearchBar(
+                    query = state.searchQuery,
+                    onQueryChange = { viewModel.onEvent(WineListEvent.SearchQueryChanged(it)) },
+                    sortOrder = state.sortOrder,
+                    onSortChange = { viewModel.onEvent(WineListEvent.SortOrderChanged(it)) },
+                    filterActive = state.activeFilters.isActive,
+                    onFilterClick = { viewModel.onEvent(WineListEvent.FilterSheetOpened) },
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+
+                when {
+                    state.isLoading -> WineListLoadingContent()
+                    state.wines.isEmpty() && state.searchQuery.isBlank() && !state.activeFilters.isActive ->
+                        WineListEmptyContent(onAddClick = { viewModel.onEvent(WineListEvent.AddWineClicked) })
+                    state.wines.isEmpty() ->
+                        WineListNoResultsContent()
+                    else ->
+                        WineList(
+                            wines = state.wines,
+                            onCardClick = { wineId -> selectionCallback(wineId) },
+                            onCardLongPress = { _ -> },
+                        )
+                }
             }
-        },
-    ) { innerPadding ->
+        }
+    } else {
+        Scaffold(
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+            floatingActionButton = {
+                FloatingActionButton(onClick = { viewModel.onEvent(WineListEvent.AddWineClicked) }) {
+                    Icon(Icons.Filled.Add, contentDescription = "Add Wine")
+                }
+            },
+        ) { innerPadding ->
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
 
-            WineSearchBar(
-                query = state.searchQuery,
-                onQueryChange = { viewModel.onEvent(WineListEvent.SearchQueryChanged(it)) },
-                sortOrder = state.sortOrder,
-                onSortChange = { viewModel.onEvent(WineListEvent.SortOrderChanged(it)) },
-                filterActive = state.activeFilters.isActive,
-                onFilterClick = { viewModel.onEvent(WineListEvent.FilterSheetOpened) },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            )
+                WineSearchBar(
+                    query = state.searchQuery,
+                    onQueryChange = { viewModel.onEvent(WineListEvent.SearchQueryChanged(it)) },
+                    sortOrder = state.sortOrder,
+                    onSortChange = { viewModel.onEvent(WineListEvent.SortOrderChanged(it)) },
+                    filterActive = state.activeFilters.isActive,
+                    onFilterClick = { viewModel.onEvent(WineListEvent.FilterSheetOpened) },
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
 
-            when {
-                state.isLoading -> WineListLoadingContent()
-                state.wines.isEmpty() && state.searchQuery.isBlank() && !state.activeFilters.isActive ->
-                    WineListEmptyContent(onAddClick = { viewModel.onEvent(WineListEvent.AddWineClicked) })
-                state.wines.isEmpty() ->
-                    WineListNoResultsContent()
-                else ->
-                    WineList(
-                        wines = state.wines,
-                        onCardClick = { viewModel.onEvent(WineListEvent.WineCardClicked(it)) },
-                        onCardLongPress = { viewModel.onEvent(WineListEvent.WineCardLongPressed(it)) },
-                    )
+                when {
+                    state.isLoading -> WineListLoadingContent()
+                    state.wines.isEmpty() && state.searchQuery.isBlank() && !state.activeFilters.isActive ->
+                        WineListEmptyContent(onAddClick = { viewModel.onEvent(WineListEvent.AddWineClicked) })
+                    state.wines.isEmpty() ->
+                        WineListNoResultsContent()
+                    else ->
+                        WineList(
+                            wines = state.wines,
+                            onCardClick = { wineId ->
+                                viewModel.onEvent(WineListEvent.WineCardClicked(wineId))
+                            },
+                            onCardLongPress = { wine ->
+                                viewModel.onEvent(WineListEvent.WineCardLongPressed(wine))
+                            },
+                        )
+                }
             }
         }
     }
