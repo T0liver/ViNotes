@@ -10,6 +10,7 @@ import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
 import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
 import hu.toliver.vinotes.domain.usecases.settings.GetAppPreferencesUseCase
+import hu.toliver.vinotes.domain.usecases.settings.SaveAppLanguageUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveCatalogUrlUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveThemeModeUseCase
 import hu.toliver.vinotes.domain.usecases.settings.SaveUsernameUseCase
@@ -31,6 +32,7 @@ class SettingsViewModel @Inject constructor(
 	private val saveCatalogUrl: SaveCatalogUrlUseCase,
 	private val saveUsername: SaveUsernameUseCase,
 	private val saveThemeMode: SaveThemeModeUseCase,
+	private val saveAppLanguage: SaveAppLanguageUseCase,
 	private val clearAllData: ClearAllDataUseCase,
 	private val performFullImport: PerformFullImportUseCase,
 	private val performDeltaSync: PerformDeltaSyncUseCase,
@@ -56,6 +58,7 @@ class SettingsViewModel @Inject constructor(
 							catalogUrl = prefs.catalogUrl,
 							username = prefs.username,
 							themeMode = prefs.themeMode,
+							appLanguage = prefs.appLanguage,
 						)
 					}
 				}
@@ -180,6 +183,19 @@ class SettingsViewModel @Inject constructor(
 
 			SettingsEvent.ThemeDialogDismissed -> _state.update {
 				it.copy(showThemeDialog = false)
+			}
+
+			SettingsEvent.LanguageClicked -> _state.update {
+				it.copy(showLanguageDialog = true)
+			}
+
+			is SettingsEvent.LanguageSelected -> viewModelScope.launch {
+				saveAppLanguage(event.language)
+				_state.update { it.copy(showLanguageDialog = false, appLanguage = event.language) }
+			}
+
+			SettingsEvent.LanguageDialogDismissed -> _state.update {
+				it.copy(showLanguageDialog = false)
 			}
 		}
 	}

@@ -1,14 +1,11 @@
 package hu.toliver.vinotes.ui.screen.tastingdetail.components
 
-import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.data.local.converters.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.model.Wine
 import java.text.SimpleDateFormat
 import java.util.Locale
-
-private val dateFormatter = SimpleDateFormat("yyyy. MMM d. HH:mm", Locale.forLanguageTag(R.string.locale.toString()))
 
 data class TastingDetailUiData(
     val tasteId: String,
@@ -58,7 +55,7 @@ fun Taste.toUiData(wine: Wine): TastingDetailUiData {
         year = year,
         vintage = if (year > 0) year.toString() else wine.year.toString(),
         rating = this.rating,
-        date = dateFormatter.format(this.date),
+        date = SimpleDateFormat("yyyy. MMM d. HH:mm", Locale.getDefault()).format(this.date),
         place = this.place,
 
         clarity = this.clarity.toDisplayName(),

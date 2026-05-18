@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -40,6 +41,7 @@ import hu.toliver.vinotes.ui.screen.addtasting.components.WouldDrinkAgainToggle
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.ui.platform.LocalLocale
 
 @Composable
 fun SummaryStepContent(
@@ -148,8 +150,8 @@ fun SummaryStepContent(
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    SimpleDateFormat("yyyy. MM. dd.", Locale.forLanguageTag(stringResource(R.string.locale))).format(state.date),
-                    style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                    SimpleDateFormat("yyyy. MM. dd.", LocalLocale.current.platformLocale).format(state.date),
+                    style = typography.bodyMedium,
                 )
             }
         }

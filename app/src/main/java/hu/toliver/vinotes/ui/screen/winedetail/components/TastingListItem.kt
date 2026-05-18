@@ -16,13 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Taste
 import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Composable
 fun TastingListItem(
@@ -49,7 +49,7 @@ fun TastingListItem(
                 RatingBadgeWineDetail(rating = taste.rating)
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = dateFormatter.format(taste.date),
+                    text = SimpleDateFormat("yyyy. MMM d.", LocalLocale.current.platformLocale).format(taste.date),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -94,5 +94,3 @@ fun TastingListItem(
         }
     }
 }
-
-private val dateFormatter = SimpleDateFormat("yyyy. MMM d.", Locale.forLanguageTag("hu"))

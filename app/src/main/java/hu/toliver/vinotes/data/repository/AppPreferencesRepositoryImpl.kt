@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import hu.toliver.vinotes.data.local.preferences.AppPreferencesKeys
 import hu.toliver.vinotes.ui.AppConstants
+import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.repository.AppPreferencesRepository
 import hu.toliver.vinotes.domain.model.enums.ThemeMode
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +35,16 @@ class AppPreferencesRepositoryImpl @Inject constructor(
         }
         .catch { emit(ThemeMode.SYSTEM) }
 
+    override val appLanguage: Flow<AppLanguage> = dataStore.data
+        .map { prefs ->
+            when (prefs[AppPreferencesKeys.APP_LANGUAGE]) {
+                AppLanguage.ENGLISH.name -> AppLanguage.ENGLISH
+                AppLanguage.HUNGARIAN.name -> AppLanguage.HUNGARIAN
+                else -> AppLanguage.SYSTEM
+            }
+        }
+        .catch { emit(AppLanguage.SYSTEM) }
+
     override suspend fun saveCatalogUrl(url: String) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.CATALOG_URL] = url }
     }
@@ -44,6 +55,10 @@ class AppPreferencesRepositoryImpl @Inject constructor(
 
     override suspend fun saveThemeMode(mode: ThemeMode) {
         dataStore.edit { prefs -> prefs[AppPreferencesKeys.THEME_MODE] = mode.name }
+    }
+
+    override suspend fun saveAppLanguage(language: AppLanguage) {
+        dataStore.edit { prefs -> prefs[AppPreferencesKeys.APP_LANGUAGE] = language.name }
     }
 
     override suspend fun resetUsername() {

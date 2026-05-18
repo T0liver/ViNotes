@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.FileUpload
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.ModeNight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -49,6 +50,7 @@ import hu.toliver.vinotes.ui.screen.settings.components.SettingsActionItem
 import hu.toliver.vinotes.ui.screen.settings.components.SettingsSectionHeader
 import hu.toliver.vinotes.ui.screen.settings.components.UrlEditDialog
 import hu.toliver.vinotes.ui.screen.settings.components.UsernameEditDialog
+import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.model.enums.ThemeMode
 import kotlinx.coroutines.flow.collectLatest
 
@@ -146,6 +148,48 @@ fun SettingsScreen(
         )
     }
 
+    if (state.showLanguageDialog) {
+        AlertDialog(
+            onDismissRequest = { viewModel.onEvent(SettingsEvent.LanguageDialogDismissed) },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(onClick = { viewModel.onEvent(SettingsEvent.LanguageDialogDismissed) }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            },
+            title = { Text(stringResource(R.string.app_language)) },
+            text = {
+                Column {
+                    val current = state.appLanguage
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(selected = current == AppLanguage.SYSTEM, onClick = { viewModel.onEvent(SettingsEvent.LanguageSelected(AppLanguage.SYSTEM)) })
+                        Text(text = stringResource(R.string.system_settings))
+                    }
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(selected = current == AppLanguage.ENGLISH, onClick = { viewModel.onEvent(SettingsEvent.LanguageSelected(AppLanguage.ENGLISH)) })
+                        Text(text = stringResource(R.string.english))
+                    }
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(selected = current == AppLanguage.HUNGARIAN, onClick = { viewModel.onEvent(SettingsEvent.LanguageSelected(AppLanguage.HUNGARIAN)) })
+                        Text(text = stringResource(R.string.hungarian))
+                    }
+                }
+            },
+        )
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
@@ -185,6 +229,19 @@ fun SettingsScreen(
                         ThemeMode.SYSTEM -> stringResource(R.string.system_settings)
                     },
                     onClick = { viewModel.onEvent(SettingsEvent.ThemeClicked) },
+                )
+            }
+
+            item {
+                SettingsActionItem(
+                    icon = Icons.Outlined.Language,
+                    title = stringResource(R.string.app_language),
+                    subtitle = when (state.appLanguage) {
+                        AppLanguage.SYSTEM -> stringResource(R.string.system_settings)
+                        AppLanguage.ENGLISH -> stringResource(R.string.english)
+                        AppLanguage.HUNGARIAN -> stringResource(R.string.hungarian)
+                    },
+                    onClick = { viewModel.onEvent(SettingsEvent.LanguageClicked) },
                 )
             }
 
