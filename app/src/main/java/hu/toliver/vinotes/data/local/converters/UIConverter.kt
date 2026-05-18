@@ -2,15 +2,26 @@ package hu.toliver.vinotes.data.local.converters
 
 import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.toColorInt
+import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.Level
 import hu.toliver.vinotes.domain.model.enums.NoseDevelopment
 import hu.toliver.vinotes.domain.model.enums.TasteWineColour
 import hu.toliver.vinotes.domain.model.enums.WineClarity
 import hu.toliver.vinotes.domain.model.enums.WineColour
+import hu.toliver.vinotes.domain.model.enums.WineColourIntensity
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
 
 object UIConverter {
     fun String.toComposeColor(): Color = Color(this.toColorInt())
+
+    fun Intensity.toDisplayName(): String = when (this) {
+        Intensity.NONE -> "None"
+        Intensity.LIGHT -> "Light"
+        Intensity.SHORT -> "Short"
+        Intensity.MEDIUM -> "Medium"
+        Intensity.LARGE -> "Large"
+        Intensity.PRONOUNCED -> "Pronounced"
+    }
 
     fun Level.toFloat(): Float = when (this) {
         Level.LOW -> 0.2f
@@ -18,6 +29,14 @@ object UIConverter {
         Level.MEDIUM -> 0.5f
         Level.SOLID -> 0.75f
         Level.HIGH -> 1.0f
+    }
+
+    fun Level.toDisplayName(): String = when (this) {
+        Level.LOW -> "Low"
+        Level.MILD -> "Mild"
+        Level.MEDIUM -> "Medium"
+        Level.SOLID -> "Solid"
+        Level.HIGH -> "High"
     }
 
     fun NoseDevelopment.toDisplayName(): String = when (this) {
@@ -65,6 +84,12 @@ object UIConverter {
         WineSweetness.SEMI_DRY -> "Semi Dry"
         WineSweetness.SWEET -> "Sweet"
         WineSweetness.UNKNOWN -> "Unknown"
+    }
+
+    fun WineColourIntensity.toDisplayName(): String = when (this) {
+        WineColourIntensity.PALE -> "Pale"
+        WineColourIntensity.MEDIUM -> "Medium"
+        WineColourIntensity.DEEP -> "Deep"
     }
 
     fun TasteWineColour.toHexColour(): Color  = when (this) {
