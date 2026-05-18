@@ -31,7 +31,6 @@ interface TasteDao {
     @Query("DELETE FROM tastings")
     suspend fun deleteAll()
 
-    // Stats lekérdezések
     @Query("SELECT * FROM tastings ORDER BY rating DESC LIMIT :limit")
     fun getTopRated(limit: Int): Flow<List<TasteEntity>>
 }
