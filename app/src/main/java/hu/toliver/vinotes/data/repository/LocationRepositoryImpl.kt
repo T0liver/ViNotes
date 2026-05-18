@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.remote.api.NominatimApi
 import hu.toliver.vinotes.domain.repository.LocationRepository
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class LocationRepositoryImpl @Inject constructor(
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!hasFinePermission && !hasCoarsePermission) {
-            error("No location permission granted. Please approve!")
+            error(context.getString(R.string.no_location_permission_granted))
         }
 
         val provider = when {
@@ -40,7 +41,7 @@ class LocationRepositoryImpl @Inject constructor(
                 LocationManager.GPS_PROVIDER
             locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ->
                 LocationManager.NETWORK_PROVIDER
-            else -> error("No avaliable location provider. Please enable GPS or Network location services!")
+            else -> error(context.getString(R.string.no_avaliable_location_provider))
         }
 
         val lastKnown = locationManager.getLastKnownLocation(provider)
@@ -59,7 +60,7 @@ class LocationRepositoryImpl @Inject constructor(
 
                 override fun onProviderDisabled(provider: String) {
                     locationManager.removeUpdates(this)
-                    continuation.cancel(Exception("A helymeghatározási szolgáltató kikapcsolódott"))
+                    continuation.cancel(Exception(context.getString(R.string.the_location_provider_was_disabled)))
                 }
             }
 

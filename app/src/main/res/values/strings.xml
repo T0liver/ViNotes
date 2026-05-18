@@ -200,4 +200,13 @@
     <string name="unable_to_resolve_host">Unable to resolve host</string>
     <string name="no_address_associated_with_hostname">No address associated with hostname</string>
     <string name="cannot_resolve_catalog_host">Cannot resolve catalog host. Check your device network/DNS or try opening the catalog URL in a browser.</string>
+    <string name="dns_resolution_failed_for_host_when_fetching_manifest">DNS resolution failed for host when fetching manifest: %1$s</string>
+    <string name="dns_resolution_failed_for_host_when_downloading_full_catalog">DNS resolution failed for host when downloading full catalog: %1$s</string>
+    <string name="dns_resolution_failed_for_host_when_downloading_delta">DNS resolution failed for host when downloading delta: %1$s</string>
+    <string name="could_not_open_file">Could not open file: %1$s</string>
+    <string name="no_location_permission_granted">No location permission granted. Please approve!</string>
+    <string name="no_avaliable_location_provider">No avaliable location provider. Please enable GPS or Network location services!</string>
+    <string name="the_location_provider_was_disabled">The location provider was disabled.</string>
+    <string name="tasting_not_found_id">Tasting not found: </string>
+    <string name="not_found_id">Not found: </string>
 </resources>

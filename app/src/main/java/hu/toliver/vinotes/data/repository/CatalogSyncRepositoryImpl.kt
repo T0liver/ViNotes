@@ -3,6 +3,7 @@ package hu.toliver.vinotes.data.repository
 import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.dao.SyncMetadataDao
 import hu.toliver.vinotes.data.dao.WineDao
 import hu.toliver.vinotes.data.local.entity.toDomain
@@ -47,7 +48,11 @@ class CatalogSyncRepositoryImpl @Inject constructor(
         try {
             catalogApi.getManifest(url).toDomain()
         } catch (e: UnknownHostException) {
-            throw Exception("DNS resolution failed for host when fetching manifest: ${e.message}", e)
+            throw Exception(
+                context.getString(
+                    R.string.dns_resolution_failed_for_host_when_fetching_manifest,
+                    e.message
+                ), e)
         } catch (e: Exception) {
             throw e
         }
@@ -60,7 +65,11 @@ class CatalogSyncRepositoryImpl @Inject constructor(
         try {
             catalogApi.getFullCatalog(url).toDomain()
         } catch (e: UnknownHostException) {
-            throw Exception("DNS resolution failed for host when downloading full catalog: ${e.message}", e)
+            throw Exception(
+                context.getString(
+                    R.string.dns_resolution_failed_for_host_when_downloading_full_catalog,
+                    e.message
+                ), e)
         } catch (e: Exception) {
             throw e
         }
@@ -79,7 +88,11 @@ class CatalogSyncRepositoryImpl @Inject constructor(
         try {
             catalogApi.getDelta(fullUrl).toDomain()
         } catch (e: UnknownHostException) {
-            throw Exception("DNS resolution failed for host when downloading delta: ${e.message}", e)
+            throw Exception(
+                context.getString(
+                    R.string.dns_resolution_failed_for_host_when_downloading_delta,
+                    e.message
+                ), e)
         } catch (e: Exception) {
             throw e
         }
@@ -91,7 +104,7 @@ class CatalogSyncRepositoryImpl @Inject constructor(
             isLenient = true
         }
         val inputStream = context.contentResolver.openInputStream(uri)
-            ?: throw IllegalArgumentException("Could not open file: $uri")
+            ?: throw IllegalArgumentException(context.getString(R.string.could_not_open_file, uri))
         val content = inputStream.bufferedReader().use { it.readText() }
         val fullCatalogDto = json.decodeFromString<FullCatalogDto>(content)
         fullCatalogDto.toDomain()

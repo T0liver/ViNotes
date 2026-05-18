@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.data.repository
 
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.dao.TasteDao
 import hu.toliver.vinotes.data.local.entity.toDomain
 import hu.toliver.vinotes.data.local.entity.toEntity
@@ -21,7 +22,7 @@ class TasteRepositoryImpl @Inject constructor(
         dao.getByWineId(wineId).map { entities -> entities.map { it.toDomain() } }
 
     override suspend fun getById(id: String): Result<Taste> = runCatching {
-        dao.getById(id)?.toDomain() ?: error("Tasting not found: $id")
+        dao.getById(id)?.toDomain() ?: error(R.string.tasting_not_found_id.toString() + id)
     }
 
     override suspend fun save(taste: Taste): Result<Unit> = runCatching {
