@@ -77,12 +77,12 @@ fun RecentTastingCard(
                 ) {
                     Text(
                         text = "${item.producer} · ${item.year}",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
                     )
+
                     Text(
                         text = item.date,
                         style = MaterialTheme.typography.labelSmall,

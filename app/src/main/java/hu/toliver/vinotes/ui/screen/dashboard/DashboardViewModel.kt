@@ -45,7 +45,7 @@ class DashboardViewModel @Inject constructor(
             DashboardEvent.RefreshRequested -> loadDashboard()
 
             is DashboardEvent.TastingCardClicked -> viewModelScope.launch {
-                _effect.send(DashboardEffect.NavigateToDetail(event.wineId, event.tasteId))
+                _effect.send(DashboardEffect.NavigateToTastingDetail(event.tasteId))
             }
 
             DashboardEvent.AddTastingClicked -> viewModelScope.launch {

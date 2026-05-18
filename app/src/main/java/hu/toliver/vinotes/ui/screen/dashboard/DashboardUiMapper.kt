@@ -13,6 +13,7 @@ fun TasteWithWine.toRecentItem(): RecentTastingItem = RecentTastingItem(
     wineName = wine.name,
     producer = wine.producer,
     year = wine.year,
+    place = taste.place,
     rating = taste.rating,
     date = dateFormatter.format(taste.date),
     colourHex = wine.colour.fromColourToHex(),

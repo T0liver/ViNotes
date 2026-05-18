@@ -47,7 +47,7 @@ fun DashboardScreen(
     viewModel: DashboardViewModel = hiltViewModel(),
     onNavigateToSettings: () -> Unit,
     onNavigateToWineList: () -> Unit,
-    onNavigateToDetail: (wineId: String, tasteId: String) -> Unit,
+    onNavigateToTastingDetail: (tasteId: String) -> Unit,
     onNavigateToAddTasting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -56,14 +56,25 @@ fun DashboardScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {
-                is DashboardEffect.NavigateToDetail -> onNavigateToDetail(
-                    effect.wineId,
-                    effect.tasteId
-                )
+                is DashboardEffect.NavigateToTastingDetail -> {
+                    onNavigateToTastingDetail(effect.tasteId)
+                }
 
-                DashboardEffect.NavigateToAddTasting -> onNavigateToAddTasting()
-                DashboardEffect.NavigateToWineList -> onNavigateToWineList()
-                is DashboardEffect.ShowError -> snackbarHostState.showSnackbar(effect.message)
+                is DashboardEffect.NavigateToWineDetail -> {
+                    Unit
+                }
+
+                DashboardEffect.NavigateToAddTasting -> {
+                    onNavigateToAddTasting()
+                }
+
+                DashboardEffect.NavigateToWineList -> {
+                    onNavigateToWineList()
+                }
+
+                is DashboardEffect.ShowError -> {
+                    snackbarHostState.showSnackbar(effect.message)
+                }
             }
         }
     }
@@ -158,7 +169,7 @@ private fun DashboardContent(
                 RecentTastingCard(
                     item = tasting,
                     onClick = {
-                        onEvent(DashboardEvent.TastingCardClicked(tasting.tasteId, tasting.wineId))
+                        onEvent(DashboardEvent.TastingCardClicked(tasting.tasteId))
                     },
                 )
             }

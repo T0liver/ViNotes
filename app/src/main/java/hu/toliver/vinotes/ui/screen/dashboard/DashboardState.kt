@@ -19,6 +19,7 @@ data class RecentTastingItem(
     val wineName: String,
     val producer: String,
     val year: Int,
+    val place: String,
     val rating: Int,
     val date: String,
     val colourHex: String,
