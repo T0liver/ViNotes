@@ -3,6 +3,7 @@ package hu.toliver.vinotes.ui.screen.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.toliver.vinotes.R
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.Job
@@ -90,9 +91,9 @@ class DashboardViewModel @Inject constructor(
                 throw e
             } catch (e: Exception) {
                 _state.update {
-                    it.copy(isLoading = false, errorMessage = e.message ?: "Unknown error")
+                    it.copy(isLoading = false, errorMessage = e.message ?: R.string.unknown_error.toString())
                 }
-                _effect.send(DashboardEffect.ShowError(e.message ?: "Unknown error"))
+                _effect.send(DashboardEffect.ShowError(e.message ?: R.string.unknown_error.toString()))
             }
         }
     }

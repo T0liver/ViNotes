@@ -30,8 +30,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.settings.components.AboutInfoDialog
 import hu.toliver.vinotes.ui.screen.settings.components.AboutSection
 import hu.toliver.vinotes.ui.screen.settings.components.ClearDataConfirmDialog
@@ -97,10 +99,10 @@ fun SettingsScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
-                title = { Text("Settings", style = typography.titleLarge) },
+                title = { Text(stringResource(R.string.settings), style = typography.titleLarge) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
             )
@@ -113,33 +115,33 @@ fun SettingsScreen(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            item { SettingsSectionHeader("Datas") }
+            item { SettingsSectionHeader(stringResource(R.string.datas)) }
             item {
                 SettingsActionItem(
                     icon = Icons.Outlined.DeleteForever,
                     iconTint = colorScheme.error,
-                    title = "Delete all data",
-                    subtitle = "All wine and tastings get deleted.",
+                    title = stringResource(R.string.delete_all_data),
+                    subtitle = stringResource(R.string.all_wine_and_tastings_get_deleted),
                     isDestructive = true,
                     isLoading = state.isClearingData,
                     onClick = { viewModel.onEvent(SettingsEvent.ClearDataClicked) },
                 )
             }
 
-            item { SettingsSectionHeader("Synchronization") }
+            item { SettingsSectionHeader(stringResource(R.string.synchronization)) }
             item {
                 SettingsActionItem(
                     icon = Icons.Outlined.FileUpload,
-                    title = "Import wines from file",
-                    subtitle = "Load JSON file from device",
+                    title = stringResource(R.string.import_wines_from_file),
+                    subtitle = stringResource(R.string.load_json_file_from_device),
                     onClick = { viewModel.onEvent(SettingsEvent.ImportFromFileClicked) },
                 )
             }
             item {
                 SettingsActionItem(
                     icon = Icons.Outlined.CloudSync,
-                    title = "Update catalog from web",
-                    subtitle = "Download catalog: ${state.catalogUrl}",
+                    title = stringResource(R.string.update_catalog_from_web),
+                    subtitle = stringResource(R.string.download_catalog, state.catalogUrl),
                     onClick = { viewModel.onEvent(SettingsEvent.UpdateFromWebClicked) },
                     trailingContent = {
                         IconButton(
@@ -148,7 +150,7 @@ fun SettingsScreen(
                         ) {
                             Icon(
                                 Icons.Outlined.Edit,
-                                contentDescription = "Edit URL",
+                                contentDescription = stringResource(R.string.edit_url),
                                 tint = colorScheme.onSurfaceVariant,
                             )
                         }
@@ -159,13 +161,13 @@ fun SettingsScreen(
             item {
                 SettingsActionItem(
                     icon = Icons.Outlined.Edit,
-                    title = "Set username",
-                    subtitle = state.username.ifBlank { "Not set" },
+                    title = stringResource(R.string.set_username),
+                    subtitle = state.username.ifBlank { stringResource(R.string.not_set) },
                     onClick = { viewModel.onEvent(SettingsEvent.EditUsernameClicked) },
                 )
             }
 
-            item { SettingsSectionHeader("About") }
+            item { SettingsSectionHeader(stringResource(R.string.about)) }
             item {
                 AboutSection(
                     onInfoClick = { viewModel.onEvent(SettingsEvent.AboutInfoClicked) },

@@ -30,7 +30,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.addtasting.AddTastingEvent
 import hu.toliver.vinotes.ui.screen.addtasting.AddTastingState
 import hu.toliver.vinotes.ui.screen.addtasting.components.RatingArcSlider
@@ -62,7 +64,7 @@ fun SummaryStepContent(
                 }) { Text("OK") }
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) { Text("Cancel") }
+                TextButton(onClick = { showDatePicker = false }) { Text(stringResource(R.string.cancel)) }
             },
         ) { DatePicker(state = datePickerState) }
     }
@@ -85,7 +87,7 @@ fun SummaryStepContent(
             OutlinedTextField(
                 value = state.overallImpression,
                 onValueChange = { onEvent(AddTastingEvent.OverallImpressionChanged(it)) },
-                label = { Text("Overall impression") },
+                label = { Text(stringResource(R.string.overall_impression)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
                 maxLines = 6,
@@ -95,7 +97,7 @@ fun SummaryStepContent(
             OutlinedTextField(
                 value = state.bestWith,
                 onValueChange = { onEvent(AddTastingEvent.BestWithChanged(it)) },
-                label = { Text("Best with") },
+                label = { Text(stringResource(R.string.best_with)) },
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -104,7 +106,7 @@ fun SummaryStepContent(
                 OutlinedTextField(
                     value = state.place,
                     onValueChange = { onEvent(AddTastingEvent.PlaceChanged(it)) },
-                    label = { Text("Place") },
+                    label = { Text(stringResource(R.string.place)) },
                     modifier = Modifier.weight(1f),
                 )
                 Spacer(Modifier.width(12.dp))
@@ -125,7 +127,7 @@ fun SummaryStepContent(
                         ) {
                             Icon(
                                 Icons.Outlined.MyLocation,
-                                contentDescription = "Fetch current location",
+                                contentDescription = stringResource(R.string.fetch_current_location),
                             )
                         }
                     }
@@ -146,7 +148,7 @@ fun SummaryStepContent(
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    SimpleDateFormat("yyyy. MM. dd.", Locale.forLanguageTag("hu")).format(state.date),
+                    SimpleDateFormat("yyyy. MM. dd.", Locale.forLanguageTag(stringResource(R.string.locale))).format(state.date),
                     style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
                 )
             }

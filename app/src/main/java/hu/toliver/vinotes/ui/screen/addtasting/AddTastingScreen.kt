@@ -29,8 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.addtasting.components.TastingStepIndicator
 import hu.toliver.vinotes.ui.screen.addtasting.components.TastingStepNavBar
 import hu.toliver.vinotes.ui.screen.addtasting.steps.NoseStepContent
@@ -64,8 +66,7 @@ fun AddTastingScreen(
         viewModel.onEvent(
             AddTastingEvent.Init(
                 wineId = preselectedWineId ?: "",
-                editTasteId = null,
-                // TODO: On edit Screen.AddTasting needs to extended more
+                editTasteId = null
             )
         )
     }
@@ -96,14 +97,14 @@ fun AddTastingScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = if (state.isEditMode) "Edit tasting"
-                        else "New tasting",
+                        text = if (state.isEditMode) stringResource(R.string.edit_tasting)
+                        else stringResource(R.string.new_tasting),
                         style = MaterialTheme.typography.titleLarge,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
             )
@@ -118,7 +119,8 @@ fun AddTastingScreen(
             TastingStepIndicator(
                 stepCount = viewModel.stepCount,
                 currentStep = state.currentStep,
-                stepLabels = listOf("Visual", "Nose", "Taste", "Rating"),
+                stepLabels = listOf(stringResource(R.string.visual), stringResource(R.string.nose),
+                    stringResource(R.string.taste), stringResource(R.string.rating)),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
 

@@ -14,7 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 @Composable
 fun DashboardHeader(modifier: Modifier = Modifier, username: String? = null) {
@@ -39,13 +41,13 @@ fun DashboardHeader(modifier: Modifier = Modifier, username: String? = null) {
             )
             if (!username.isNullOrBlank()) {
                 Text(
-                    text = "Hi ${username}! Welcome to your wine vault!",
+                    text = stringResource(R.string.welcome_name_set, username),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
                 Text(
-                    text = "Welcome to your wine vault!",
+                    text = stringResource(R.string.welcome),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

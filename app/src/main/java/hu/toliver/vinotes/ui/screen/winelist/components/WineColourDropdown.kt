@@ -14,6 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 
@@ -35,7 +37,7 @@ fun WineColourDropdown(
             value = selected.toDisplayName(),
             onValueChange = {},
             readOnly = true,
-            label = { Text("Colour *") },
+            label = { Text(stringResource(R.string.colour_req)) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },

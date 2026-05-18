@@ -8,7 +8,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.Level
@@ -33,7 +35,7 @@ fun PalateStepContent(
             SegmentedSelector(
                 entries = WineSweetness.entries,
                 current = state.sweetness,
-                label = "Sweetness",
+                label = stringResource(R.string.sweetness),
                 labelOf = { it.toDisplayName() },
                 onChange = { onEvent(AddTastingEvent.SweetnessChanged(it)) },
             )
@@ -42,9 +44,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Level.entries,
                 current = state.acidity,
-                label = "Acidity",
-                startLabel = "Very Low",
-                endLabel = "Very High",
+                label = stringResource(R.string.acidity),
+                startLabel = stringResource(R.string.very_low),
+                endLabel = stringResource(R.string.very_high),
                 onChange = { onEvent(AddTastingEvent.AcidityChanged(it)) },
             )
         }
@@ -52,9 +54,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Level.entries,
                 current = state.tannin,
-                label = "Tannin",
-                startLabel = "Soft",
-                endLabel = "Bold",
+                label = stringResource(R.string.tannin),
+                startLabel = stringResource(R.string.soft),
+                endLabel = stringResource(R.string.bold),
                 onChange = { onEvent(AddTastingEvent.TanninChanged(it)) },
             )
         }
@@ -62,9 +64,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Level.entries,
                 current = state.body,
-                label = "Body",
-                startLabel = "Light",
-                endLabel = "Full",
+                label = stringResource(R.string.body),
+                startLabel = stringResource(R.string.light),
+                endLabel = stringResource(R.string.full),
                 onChange = { onEvent(AddTastingEvent.BodyChanged(it)) },
             )
         }
@@ -72,9 +74,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Level.entries,
                 current = state.alcohol,
-                label = "Alcohol",
-                startLabel = "Low",
-                endLabel = "High",
+                label = stringResource(R.string.alcohol),
+                startLabel = stringResource(R.string.low),
+                endLabel = stringResource(R.string.high),
                 onChange = { onEvent(AddTastingEvent.AlcoholChanged(it)) },
             )
         }
@@ -82,9 +84,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Intensity.entries,
                 current = state.flavourIntensity,
-                label = "Flavour intensity",
-                startLabel = "Weak",
-                endLabel = "Strong",
+                label = stringResource(R.string.flavour_intensity),
+                startLabel = stringResource(R.string.weak),
+                endLabel = stringResource(R.string.strong),
                 onChange = { onEvent(AddTastingEvent.FlavourIntensityChanged(it)) },
             )
         }
@@ -92,9 +94,9 @@ fun PalateStepContent(
             TastingSlider(
                 entries = Level.entries,
                 current = state.finish,
-                label = "Finish",
-                startLabel = "Short",
-                endLabel = "Long",
+                label = stringResource(R.string.finish),
+                startLabel = stringResource(R.string.tshort),
+                endLabel = stringResource(R.string.tlong),
                 onChange = { onEvent(AddTastingEvent.FinishChanged(it)) },
             )
         }
@@ -102,7 +104,7 @@ fun PalateStepContent(
             OutlinedTextField(
                 value = state.flavourCharacteristics,
                 onValueChange = { onEvent(AddTastingEvent.FlavourCharacteristicsChanged(it)) },
-                label = { Text("Flavour characteristics") },
+                label = { Text(stringResource(R.string.flavour_characteristics)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
                 maxLines = 6,
@@ -112,7 +114,7 @@ fun PalateStepContent(
             OutlinedTextField(
                 value = state.otherPalate,
                 onValueChange = { onEvent(AddTastingEvent.OtherPalateChanged(it)) },
-                label = { Text("Other palate notes") },
+                label = { Text(stringResource(R.string.other_palate_notes)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 2,
                 maxLines = 4,

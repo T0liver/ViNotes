@@ -12,7 +12,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 @Composable
 fun UrlEditDialog(
@@ -24,22 +26,22 @@ fun UrlEditDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Catalog URL") },
+        title = { Text(stringResource(R.string.catalog_url)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = value,
                     onValueChange = onChange,
-                    label = { Text("URL") },
+                    label = { Text(stringResource(R.string.url)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 TextButton(onClick = onReset, modifier = Modifier.align(Alignment.End)) {
-                    Text("Set to default", style = typography.labelSmall)
+                    Text(stringResource(R.string.set_to_default), style = typography.labelSmall)
                 }
             }
         },
-        confirmButton = { Button(onClick = onConfirm) { Text("Save") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+        confirmButton = { Button(onClick = onConfirm) { Text(stringResource(R.string.save)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
     )
 }

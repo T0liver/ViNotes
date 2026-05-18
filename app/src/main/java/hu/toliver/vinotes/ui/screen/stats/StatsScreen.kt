@@ -16,6 +16,8 @@ import hu.toliver.vinotes.domain.model.FullStatsData
 import hu.toliver.vinotes.ui.screen.stats.charts.*
 import hu.toliver.vinotes.ui.screen.stats.components.*
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.ui.res.stringResource
+import hu.toliver.vinotes.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +32,7 @@ fun StatsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Statistics", style = typography.titleLarge) },
+                title = { Text(stringResource(R.string.statistics), style = typography.titleLarge) },
                 colors = topAppBarColors(containerColor = Transparent),
             )
         },
@@ -45,7 +47,7 @@ fun StatsScreen(
 
             state.data == null -> Box(Modifier.padding(innerPadding)) {
                 Text(
-                    state.errorMessage ?: "Could not load"
+                    state.errorMessage ?: stringResource(R.string.could_not_load)
                 )
             }
 
@@ -88,7 +90,7 @@ private fun StatsContent(
         }
 
         item {
-            SectionCard(title = "Tasting activity") {
+            SectionCard(title = stringResource(R.string.tasting_activity)) {
                 TastingHeatmap(
                     tastingsByDay = data.tastingsByDay,
                     selectedDay = state.selectedDay,
@@ -113,14 +115,14 @@ private fun StatsContent(
         }
 
         item {
-            SectionCard(title = "Ratings distribution") {
+            SectionCard(title = stringResource(R.string.ratings_distribution)) {
                 RatingDistributionChart(buckets = data.ratingBuckets, playAnimations = shouldPlay("ratings"), onPlayed = { markPlayed("ratings") })
             }
         }
 
         if (data.colourDistribution.isNotEmpty()) {
             item {
-                SectionCard(title = "Wines by colour") {
+                SectionCard(title = stringResource(R.string.wines_by_colour)) {
                     ColourDonutChart(distribution = data.colourDistribution, playAnimations = shouldPlay("donut"), onPlayed = { markPlayed("donut") })
                 }
             }
@@ -128,7 +130,7 @@ private fun StatsContent(
 
         if (data.topRegions.isNotEmpty()) {
             item {
-                SectionCard(title = "Top regions") {
+                SectionCard(title = stringResource(R.string.top_regions)) {
                     TopRegionsChart(regions = data.topRegions, playAnimations = shouldPlay("regions"), onPlayed = { markPlayed("regions") })
                 }
             }
@@ -136,7 +138,7 @@ private fun StatsContent(
 
         if (data.vintageDistribution.isNotEmpty()) {
             item {
-                SectionCard(title = "Years") {
+                SectionCard(title = stringResource(R.string.years)) {
                     VintageBarChart(distribution = data.vintageDistribution, playAnimations = shouldPlay("vintage"), onPlayed = { markPlayed("vintage") })
                 }
             }

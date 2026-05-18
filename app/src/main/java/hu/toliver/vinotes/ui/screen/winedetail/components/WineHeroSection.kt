@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
 import hu.toliver.vinotes.data.local.converters.UIConverter.toComposeColor
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
@@ -78,7 +80,7 @@ fun WineHeroSection(
                             Text("·", color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Text(
-                            text = "$tastingCount tasting",
+                            text = stringResource(R.string.amount_tasting, tastingCount),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -91,7 +93,7 @@ fun WineHeroSection(
                     }
                 } else {
                     Text(
-                        text = "No tasting yet",
+                        text = stringResource(R.string.no_tasting_yet),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

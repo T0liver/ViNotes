@@ -3,6 +3,7 @@ package hu.toliver.vinotes.ui.screen.addtasting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.location.GetCurrentLocationUseCase
 import hu.toliver.vinotes.domain.usecases.location.ReverseGeocodeUseCase
@@ -92,7 +93,7 @@ class AddTastingViewModel @Inject constructor(
             AddTastingEvent.OnLocationPermissionGranted -> fetchLocation()
             AddTastingEvent.OnLocationPermissionDenied -> {
                 viewModelScope.launch {
-                    emitLocationError("Needs location permission to fetch current location")
+                    emitLocationError(R.string.location_permission_missing.toString())
                 }
             }
 
@@ -128,17 +129,17 @@ class AddTastingViewModel @Inject constructor(
                                             longitude = longitude,
                                         )
                                     }
-                                    emitLocationError(error.message ?: "Location fetched but reverse geocoding failed")
+                                    emitLocationError(error.message ?: R.string.reverse_geocoding_failed.toString())
                                 }
                         }
                         .onFailure { error ->
                             _state.update { it.copy(isLoadingLocation = false) }
-                            emitLocationError(error.message ?: "Failed to fetch location")
+                            emitLocationError(error.message ?: R.string.failed_to_fetch_location.toString())
                         }
                 }
             } catch (_: TimeoutCancellationException) {
                 _state.update { it.copy(isLoadingLocation = false) }
-                emitLocationError("Location fetch timed out. Please try again.")
+                emitLocationError(R.string.location_fetch_timed_out.toString())
             }
         }
     }
@@ -196,7 +197,7 @@ class AddTastingViewModel @Inject constructor(
             val s = _state.value
             if (s.wineId.isBlank()) {
                 _state.value = _state.value.copy(isSaving = false)
-                _effect.send(AddTastingEffect.ShowSnackbar("Please select a wine first"))
+                _effect.send(AddTastingEffect.ShowSnackbar(R.string.please_select_a_wine_first.toString()))
                 return@launch
             }
             val taste = Taste(
@@ -236,7 +237,8 @@ class AddTastingViewModel @Inject constructor(
                 }
                 .onFailure { e ->
                     _state.value = _state.value.copy(isSaving = false)
-                    viewModelScope.launch { _effect.send(AddTastingEffect.ShowSnackbar(e.message ?: "Error on save")) }
+                    viewModelScope.launch { _effect.send(AddTastingEffect.ShowSnackbar(e.message ?:
+                        R.string.error_on_save.toString())) }
                 }
         }
     }

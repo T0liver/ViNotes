@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.usecases.taste.DeleteTasteUseCase
 import hu.toliver.vinotes.domain.usecases.taste.GetTasteWithWineUseCase
 import kotlinx.coroutines.channels.Channel
@@ -51,7 +52,7 @@ class TastingDetailViewModel @Inject constructor(
                         _state.value = _state.value.copy(showDeleteDialog = false)
                         _effect.send(TastingDetailEffect.NavigateUp)
                     }
-                    .onFailure { e -> _effect.send(TastingDetailEffect.ShowSnackbar(e.message ?: "Error on delete")) }
+                    .onFailure { e -> _effect.send(TastingDetailEffect.ShowSnackbar(e.message ?: R.string.error_on_delete.toString())) }
             }
 
             TastingDetailEvent.DeleteTastingDismissed ->
@@ -62,7 +63,7 @@ class TastingDetailViewModel @Inject constructor(
     private fun loadData() {
         val currentTasteId = savedStateHandle.get<String>("tasteId") ?: ""
         if (currentTasteId.isEmpty()) {
-            _state.value = _state.value.copy(isLoading = false, errorMessage = "Tasting ID is missing")
+            _state.value = _state.value.copy(isLoading = false, errorMessage = R.string.tasting_id_is_missing.toString())
             return
         }
 
@@ -79,7 +80,7 @@ class TastingDetailViewModel @Inject constructor(
                 .onFailure { e ->
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        errorMessage = e.message ?: "The tasting could not be found."
+                        errorMessage = e.message ?: R.string.the_tasting_could_not_be_found.toString()
                     )
                 }
         }

@@ -25,7 +25,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.FullStatsData
 
 @Composable
@@ -77,11 +79,14 @@ fun StreakSection(data: FullStatsData, modifier: Modifier = Modifier) {
                 }
                 Column {
                     Text(
-                        text = if (hasStreak) "${data.currentStreak} day streak" else "No streak yet",
+                        text = if (hasStreak) stringResource(
+                            R.string.amount_day_streak,
+                            data.currentStreak
+                        ) else stringResource(R.string.no_streak_yet),
                         style = typography.titleMedium
                     )
                     Text(
-                        text = "Taste today!",
+                        text = stringResource(R.string.taste_today),
                         style = typography.bodyMedium,
                         color = colorScheme.onSurfaceVariant
                     )
@@ -90,12 +95,12 @@ fun StreakSection(data: FullStatsData, modifier: Modifier = Modifier) {
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = "Longest",
+                    text = stringResource(R.string.longest),
                     style = typography.labelSmall,
                     color = colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "${data.longestStreak} day",
+                    text = stringResource(R.string.amount_day, data.longestStreak),
                     style = typography.titleMedium,
                     color = colorScheme.primary
                 )
@@ -103,4 +108,3 @@ fun StreakSection(data: FullStatsData, modifier: Modifier = Modifier) {
         }
     }
 }
-

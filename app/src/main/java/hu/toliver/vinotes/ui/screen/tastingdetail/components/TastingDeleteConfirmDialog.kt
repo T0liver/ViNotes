@@ -4,6 +4,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import hu.toliver.vinotes.R
 
 @Composable
 fun TastingDeleteConfirmDialog(
@@ -12,16 +14,16 @@ fun TastingDeleteConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Delete Tasting") },
-        text = { Text("Are you sure you want to delete this tasting? This action cannot be undone.") },
+        title = { Text(stringResource(R.string.delete_tasting)) },
+        text = { Text(stringResource(R.string.are_you_sure_to_delete)) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("Delete")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         },
     )

@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import hu.toliver.vinotes.R
 
 data class BottomNavItem(
     val key: Screen,
@@ -15,19 +16,19 @@ data class BottomNavItem(
 val bottomNavItems = listOf(
     BottomNavItem(
         key = Screen.Dashboard,
-        label = "Home",
+        label = R.string.home.toString(),
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
     ),
     BottomNavItem(
         key = Screen.WineList,
-        label = "Basement",
+        label = R.string.basement.toString(),
         selectedIcon = Icons.Filled.LocalBar,
         unselectedIcon = Icons.Outlined.LocalBar,
     ),
     BottomNavItem(
         key = Screen.Stats,
-        label = "Stats",
+        label = R.string.stats.toString(),
         selectedIcon = Icons.Filled.BarChart,
         unselectedIcon = Icons.Outlined.BarChart,
     ),

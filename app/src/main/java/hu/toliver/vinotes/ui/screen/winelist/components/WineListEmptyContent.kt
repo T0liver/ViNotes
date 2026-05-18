@@ -17,8 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 
 @Composable
@@ -40,12 +42,12 @@ fun WineListEmptyContent(
             modifier = Modifier.size(64.dp),
         )
         Text(
-            text = "There are no wines in your basement yet",
+            text = stringResource(R.string.no_wines_in_basement),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = "Add a wine to start building\nyour collection and tasting history.",
+            text = stringResource(R.string.add_a_wine_to_start_collection),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -58,7 +60,7 @@ fun WineListEmptyContent(
                 modifier = Modifier.size(18.dp),
             )
             Spacer(Modifier.width(8.dp))
-            Text("Add your first wine")
+            Text(stringResource(R.string.add_your_first_wine))
         }
     }
 }

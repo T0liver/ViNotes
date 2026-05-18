@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.ui.screen.tastingdetail.components
 
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.data.local.converters.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
@@ -7,7 +8,7 @@ import hu.toliver.vinotes.domain.model.Wine
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-private val dateFormatter = SimpleDateFormat("yyyy. MMM d. HH:mm", Locale.forLanguageTag("hu"))
+private val dateFormatter = SimpleDateFormat("yyyy. MMM d. HH:mm", Locale.forLanguageTag(R.string.locale.toString()))
 
 data class TastingDetailUiData(
     val tasteId: String,
@@ -33,7 +34,7 @@ data class TastingDetailUiData(
 
     // Palate
     val sweetness: String,
-    val acidity: Pair<String, Float>,  // Display name and float value for charts
+    val acidity: Pair<String, Float>,
     val tannin: Pair<String, Float>,
     val body: Pair<String, Float>,
     val alcohol: Pair<String, Float>,

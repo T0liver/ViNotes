@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 @Composable
 fun WouldDrinkAgainToggle(
@@ -33,9 +35,9 @@ fun WouldDrinkAgainToggle(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
-                Text("Would drink again?", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.would_drink_again), style = MaterialTheme.typography.titleMedium)
                 Text(
-                    text = if (value) "Yes, definitely!" else "Not necessarily",
+                    text = if (value) stringResource(R.string.yes_definitely) else stringResource(R.string.not_necessarily),
                     style = MaterialTheme.typography.bodyMedium,
                     color = if (value) MaterialTheme.colorScheme.primary
                     else MaterialTheme.colorScheme.onSurfaceVariant,

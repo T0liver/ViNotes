@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 
 @Composable
@@ -42,12 +44,12 @@ fun EmptyTastingsPlaceholder(
             modifier = Modifier.size(64.dp),
         )
         Text(
-            text = "No tasting added yet",
+            text = stringResource(R.string.no_tasting_added_yet),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = "Add your first wine,\nand start building your basement!",
+            text = stringResource(R.string.add_first_wine),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -60,7 +62,7 @@ fun EmptyTastingsPlaceholder(
                 modifier = Modifier.size(18.dp),
             )
             Spacer(Modifier.width(8.dp))
-            Text("First Tasting")
+            Text(stringResource(R.string.first_tasting))
         }
     }
 }

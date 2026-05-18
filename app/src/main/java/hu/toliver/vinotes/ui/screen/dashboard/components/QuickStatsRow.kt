@@ -10,7 +10,9 @@ import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.WineBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.theme.RatingGold
 
 
@@ -29,26 +31,26 @@ fun QuickStatsRow(
         StatCard(
             icon = Icons.Outlined.WineBar,
             value = totalWines.toString(),
-            label = "Wines",
+            label = stringResource(R.string.wines),
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.AutoMirrored.Outlined.Assignment,
             value = totalTastings.toString(),
-            label = "Taste",
+            label = stringResource(R.string.taste),
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.Filled.Star,
             iconTint = RatingGold,
             value = "%.1f".format(averageRating),
-            label = "Average",
+            label = stringResource(R.string.average),
             modifier = Modifier.weight(1f),
         )
         StatCard(
             icon = Icons.Outlined.LocationOn,
             value = topRegion.ifEmpty { "–" },
-            label = "Top Region",
+            label = stringResource(R.string.top_region),
             modifier = Modifier.weight(1f),
         )
     }

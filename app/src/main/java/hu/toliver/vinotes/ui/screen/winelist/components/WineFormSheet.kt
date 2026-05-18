@@ -33,8 +33,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
@@ -91,14 +93,16 @@ fun WineFormSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = if (isNew) "Add new wine" else "Edit wine",
+                        text = if (isNew) stringResource(R.string.add_new_wine) else stringResource(
+                            R.string.edit_wine
+                        ),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     IconButton(onClick = {
                         scope.launch { sheetState.hide() }
                         onDismiss()
                     }) {
-                        Icon(Icons.Filled.Close, contentDescription = "Close")
+                        Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close))
                     }
                 }
             }
@@ -107,7 +111,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Wine name *") },
+                    label = { Text(stringResource(R.string.wine_name_req)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -117,7 +121,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = producer,
                     onValueChange = { producer = it },
-                    label = { Text("Producer *") },
+                    label = { Text(stringResource(R.string.producer_req)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -127,7 +131,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = year,
                     onValueChange = { year = it },
-                    label = { Text("Year *") },
+                    label = { Text(stringResource(R.string.year_req)) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
@@ -138,7 +142,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = grape,
                     onValueChange = { grape = it },
-                    label = { Text("Vine type *") },
+                    label = { Text(stringResource(R.string.vine_type_req)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -150,7 +154,7 @@ fun WineFormSheet(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text("Cuvée?", style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(R.string.cuvee_q), style = MaterialTheme.typography.bodyMedium)
                     Switch(checked = isCuvee, onCheckedChange = { isCuvee = it })
                 }
             }
@@ -160,7 +164,7 @@ fun WineFormSheet(
                     OutlinedTextField(
                         value = cuveeText,
                         onValueChange = { cuveeText = it },
-                        label = { Text("Cuvée ingredient") },
+                        label = { Text(stringResource(R.string.cuvee_ingredient)) },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("pl. Merlot, Cabernet Sauvignon") },
                     )
@@ -179,7 +183,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = country,
                     onValueChange = { country = it },
-                    label = { Text("Country") },
+                    label = { Text(stringResource(R.string.country)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -189,7 +193,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = region,
                     onValueChange = { region = it },
-                    label = { Text("Region") },
+                    label = { Text(stringResource(R.string.region)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                 )
@@ -199,7 +203,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = alcoholText,
                     onValueChange = { alcoholText = it },
-                    label = { Text("Alcohol (%)") },
+                    label = { Text(stringResource(R.string.alcohol_perc)) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     singleLine = true,
@@ -210,7 +214,7 @@ fun WineFormSheet(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("Description") },
+                    label = { Text(stringResource(R.string.description)) },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 4,
                     minLines = 3,
@@ -234,7 +238,7 @@ fun WineFormSheet(
                             modifier = Modifier.size(18.dp),
                         )
                         Spacer(Modifier.width(8.dp))
-                        Text("Delete wine")
+                        Text(stringResource(R.string.delete_wine))
                     }
                 }
             }
@@ -271,7 +275,7 @@ fun WineFormSheet(
                         .height(40.dp),
                     enabled = isValid,
                 ) {
-                    Text("Save")
+                    Text(stringResource(R.string.save))
                 }
                 Spacer(Modifier.height(16.dp))
             }

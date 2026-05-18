@@ -10,7 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.Wine
 
@@ -28,12 +30,15 @@ fun WineDetailsCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 DetailRow(
-                    label = "Vine type",
-                    value = if (wine.isCuvee) "Cuvée: ${wine.cuveeComponents.joinToString(", ")}" else wine.grape,
+                    label = stringResource(R.string.vine_type),
+                    value = if (wine.isCuvee) stringResource(
+                        R.string.cuvee_list,
+                        wine.cuveeComponents.joinToString(", ")
+                    ) else wine.grape,
                     modifier = Modifier.weight(1f),
                 )
                 DetailRow(
-                    label = "Region",
+                    label = stringResource(R.string.region),
                     value = wine.region.ifBlank { "–" },
                     modifier = Modifier.weight(1f),
                 )
@@ -46,12 +51,12 @@ fun WineDetailsCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 DetailRow(
-                    label = "Country",
+                    label = stringResource(R.string.country),
                     value = wine.country.ifBlank { "–" },
                     modifier = Modifier.weight(1f),
                 )
                 DetailRow(
-                    label = "Alcohol",
+                    label = stringResource(R.string.alcohol),
                     value = "${wine.alcoholPercentage}%",
                     modifier = Modifier.weight(1f),
                 )
@@ -64,12 +69,12 @@ fun WineDetailsCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 DetailRow(
-                    label = "Sweetness",
+                    label = stringResource(R.string.sweetness),
                     value = wine.sweetness.toDisplayName(),
                     modifier = Modifier.weight(1f),
                 )
                 DetailRow(
-                    label = "Colour",
+                    label = stringResource(R.string.colour),
                     value = wine.colour.toDisplayName(),
                     modifier = Modifier.weight(1f),
                 )
@@ -77,7 +82,7 @@ fun WineDetailsCard(
 
             if (wine.description.isNotBlank()) {
                 Text(
-                    text = "Description",
+                    text = stringResource(R.string.description),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

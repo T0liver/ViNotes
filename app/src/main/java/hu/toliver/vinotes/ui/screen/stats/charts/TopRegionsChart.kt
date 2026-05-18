@@ -23,7 +23,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 @Composable
 fun TopRegionsChart(
@@ -63,7 +65,7 @@ fun TopRegionsChart(
                 ) {
                     Text(region, style = typography.bodyMedium)
                     Text(
-                        "$count wine",
+                        stringResource(R.string.amount_wine, count),
                         style = typography.bodyMedium,
                         color = colorScheme.onSurfaceVariant
                     )

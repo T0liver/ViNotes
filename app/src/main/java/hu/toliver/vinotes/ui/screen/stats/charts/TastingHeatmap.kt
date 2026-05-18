@@ -32,8 +32,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import java.text.SimpleDateFormat
 import java.util.Calendar.DAY_OF_WEEK
 import java.util.Calendar.DAY_OF_YEAR
@@ -144,7 +146,7 @@ fun TastingHeatmap(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                "Less",
+                stringResource(R.string.less),
                 style = typography.labelSmall,
                 color = colorScheme.onSurfaceVariant
             )
@@ -159,7 +161,7 @@ fun TastingHeatmap(
                 Spacer(Modifier.width(3.dp))
             }
             Text(
-                "More",
+                stringResource(R.string.more),
                 style = typography.labelSmall,
                 color = colorScheme.onSurfaceVariant
             )
@@ -190,7 +192,9 @@ fun HeatmapTooltip(day: String, count: Int, onDismiss: () -> Unit, modifier: Mod
         ) {
             Text(formatted, style = typography.bodyMedium)
             Text(
-                text = if (count == 0) "No tastings yet" else "$count tastings",
+                text = if (count == 0) stringResource(R.string.no_tastings_yet) else stringResource(
+                    R.string.amount_tastings, count
+                ),
                 style = typography.bodyMedium,
                 color = if (count > 0) colorScheme.primary else colorScheme.onSurfaceVariant
             )

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
 import hu.toliver.vinotes.domain.usecases.settings.ClearAllDataUseCase
@@ -70,7 +71,7 @@ class SettingsViewModel @Inject constructor(
 				if (url.isNotBlank()) {
 					saveCatalogUrl(url)
 					_state.update { it.copy(showUrlEditDialog = false) }
-					_effect.send(SettingsEffect.ShowSnackbar("URL saved"))
+					_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.url_saved)))
 				}
 			}
 
@@ -81,7 +82,7 @@ class SettingsViewModel @Inject constructor(
 			SettingsEvent.UrlResetToDefault -> viewModelScope.launch {
 				saveCatalogUrl(AppConstants.DEFAULT_CATALOG_URL)
 				_state.update { it.copy(showUrlEditDialog = false) }
-				_effect.send(SettingsEffect.ShowSnackbar("URL set to default"))
+				_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.url_set_to_default)))
 			}
 
 			SettingsEvent.EditUsernameClicked -> _state.update {
@@ -97,7 +98,7 @@ class SettingsViewModel @Inject constructor(
 				if (name.isNotBlank()) {
 					saveUsername(name)
 					_state.update { it.copy(showUsernameEditDialog = false) }
-					_effect.send(SettingsEffect.ShowSnackbar("Name saved"))
+					_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.name_saved)))
 				}
 			}
 
@@ -114,11 +115,13 @@ class SettingsViewModel @Inject constructor(
 				runCatching { clearAllData() }
 					.onSuccess {
 						_state.update { it.copy(isClearingData = false) }
-						_effect.send(SettingsEffect.ShowSnackbar("All data cleared"))
+						_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.all_data_cleared)))
 					}
 					.onFailure { error ->
 						_state.update { it.copy(isClearingData = false) }
-						_effect.send(SettingsEffect.ShowSnackbar(error.message ?: "Error clearing data"))
+						_effect.send(SettingsEffect.ShowSnackbar(error.message ?: context.getString(
+							R.string.error_clearing_data
+						)))
 					}
 			}
 
@@ -127,7 +130,7 @@ class SettingsViewModel @Inject constructor(
 		}
 
 		is SettingsEvent.ImportFromFileClicked -> viewModelScope.launch {
-			_effect.send(SettingsEffect.ShowSnackbar("Coming soon"))
+			_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.coming_soon)))
 		}
 
 		SettingsEvent.UpdateFromWebClicked -> viewModelScope.launch {
@@ -135,18 +138,18 @@ class SettingsViewModel @Inject constructor(
 			performFullImport()
 				.onSuccess {
 					_state.update { it.copy(isSyncingCatalog = false) }
-					_effect.send(SettingsEffect.ShowSnackbar("Full catalog imported"))
+					_effect.send(SettingsEffect.ShowSnackbar(context.getString(R.string.full_catalog_imported)))
 				}
 				.onFailure { error ->
 					_state.update { it.copy(isSyncingCatalog = false) }
-					val msg = error.message ?: "Error syncing catalog"
+					val msg = error.message ?: context.getString(R.string.error_syncing_catalog)
 					// Detect DNS resolution failures and show actionable hint
-					if (msg.contains("DNS resolution failed", ignoreCase = true)
-						|| msg.contains("Unable to resolve host", ignoreCase = true)
-						|| msg.contains("No address associated with hostname", ignoreCase = true)) {
+					if (msg.contains(context.getString(R.string.dns_resolution_failed), ignoreCase = true)
+						|| msg.contains(context.getString(R.string.unable_to_resolve_host), ignoreCase = true)
+						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)) {
 						_effect.send(
 							SettingsEffect.ShowSnackbar(
-								"Cannot resolve catalog host. Check your device network/DNS or try opening the catalog URL in a browser."
+								context.getString(R.string.cannot_resolve_catalog_host)
 							)
 						)
 					} else {

@@ -18,8 +18,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailContent
 import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailErrorContent
 import hu.toliver.vinotes.ui.screen.winedetail.components.WineDetailLoadingContent
@@ -47,8 +49,10 @@ fun WineDetailScreen(
             when (effect) {
                 WineDetailEffect.NavigateUp ->
                     onNavigateUp()
+
                 is WineDetailEffect.NavigateToAddTasting ->
                     onAddTasting(effect.wineId)
+
                 is WineDetailEffect.ShowSnackbar ->
                     snackbarHostState.showSnackbar(effect.message)
             }
@@ -79,13 +83,19 @@ fun WineDetailScreen(
                 title = { },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {
                     if (state.wine != null) {
                         IconButton(onClick = { viewModel.onEvent(WineDetailEvent.EditWineClicked) }) {
-                            Icon(Icons.Outlined.Edit, contentDescription = "Edit")
+                            Icon(
+                                Icons.Outlined.Edit,
+                                contentDescription = stringResource(R.string.edit)
+                            )
                         }
                     }
                 },
@@ -98,10 +108,11 @@ fun WineDetailScreen(
         when {
             state.isLoading -> WineDetailLoadingContent(Modifier.padding(innerPadding))
             state.wine == null -> WineDetailErrorContent(
-                message = state.errorMessage ?: "The wine could not be found.",
+                message = state.errorMessage ?: stringResource(R.string.the_wine_could_not_be_found),
                 onBack = onNavigateUp,
                 modifier = Modifier.padding(innerPadding),
             )
+
             else -> WineDetailContent(
                 state = state,
                 onEvent = viewModel::onEvent,
@@ -110,4 +121,3 @@ fun WineDetailScreen(
         }
     }
 }
-

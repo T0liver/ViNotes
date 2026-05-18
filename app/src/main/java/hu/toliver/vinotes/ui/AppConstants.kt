@@ -6,7 +6,4 @@ object AppConstants {
     const val ICONS8_URL = "https://icons8.com"
     const val APP_AUTHOR = "T0liver"
     const val APP_YEAR = "2026"
-    const val ABOUT_TEXT =
-        "Made in $APP_YEAR by $APP_AUTHOR with love," +
-                "supporting the cultured enjoyment of wine. "
 }

@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import hu.toliver.vinotes.R
 
 @Composable
 fun UsernameEditDialog(
@@ -18,12 +20,12 @@ fun UsernameEditDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Username") },
+        title = { Text(stringResource(R.string.username)) },
         text = {
             OutlinedTextField(
                 value = value,
                 onValueChange = onChange,
-                label = { Text("Name") },
+                label = { Text(stringResource(R.string.name)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -32,8 +34,8 @@ fun UsernameEditDialog(
             Button(
                 onClick = onConfirm,
                 enabled = value.isNotBlank()
-            ) { Text("Save") }
+            ) { Text(stringResource(R.string.save)) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
     )
 }

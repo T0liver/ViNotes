@@ -18,8 +18,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.ui.screen.winelist.components.DeleteConfirmDialog
@@ -105,7 +107,7 @@ fun WineListScreen(
             snackbarHost = { SnackbarHost(snackbarHostState) },
             floatingActionButton = {
                 FloatingActionButton(onClick = { viewModel.onEvent(WineListEvent.AddWineClicked) }) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add Wine")
+                    Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_wine))
                 }
             },
         ) { innerPadding ->

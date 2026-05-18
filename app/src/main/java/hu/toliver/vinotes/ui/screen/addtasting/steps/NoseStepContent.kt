@@ -8,7 +8,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.Intensity
 import hu.toliver.vinotes.domain.model.enums.NoseDevelopment
@@ -32,9 +34,9 @@ fun NoseStepContent(
             TastingSlider(
                 entries = Intensity.entries,
                 current = state.noseIntensity,
-                label = "Nose intensity",
-                startLabel = "Weak",
-                endLabel = "Strong",
+                label = stringResource(R.string.nose_intensity),
+                startLabel = stringResource(R.string.weak),
+                endLabel = stringResource(R.string.strong),
                 onChange = { onEvent(AddTastingEvent.NoseIntensityChanged(it)) },
             )
         }
@@ -42,7 +44,7 @@ fun NoseStepContent(
             SegmentedSelector(
                 entries = NoseDevelopment.entries,
                 current = state.noseDevelopment,
-                label = "Nose development",
+                label = stringResource(R.string.nose_development),
                 labelOf = { it.toDisplayName() },
                 onChange = { onEvent(AddTastingEvent.NoseDevelopmentChanged(it)) },
             )
@@ -51,7 +53,7 @@ fun NoseStepContent(
             OutlinedTextField(
                 value = state.noseAroma,
                 onValueChange = { onEvent(AddTastingEvent.NoseAromaChanged(it)) },
-                label = { Text("Aroma characteristics") },
+                label = { Text(stringResource(R.string.aroma_characteristics)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
                 maxLines = 6,
@@ -61,7 +63,7 @@ fun NoseStepContent(
             OutlinedTextField(
                 value = state.otherNose,
                 onValueChange = { onEvent(AddTastingEvent.OtherNoseChanged(it)) },
-                label = { Text("Other nose notes") },
+                label = { Text(stringResource(R.string.other_nose_notes)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 2,
                 maxLines = 4,

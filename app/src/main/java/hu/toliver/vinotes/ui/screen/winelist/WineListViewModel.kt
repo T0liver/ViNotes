@@ -3,6 +3,7 @@ package hu.toliver.vinotes.ui.screen.winelist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.WineWithStats
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
@@ -84,10 +85,10 @@ class WineListViewModel @Inject constructor(
                 }.onSuccess {
                     _state.update { it.copy(isAddSheetOpen = false, editingWine = null) }
                     _effect.send(WineListEffect.ShowSnackbar(
-                        if (event.isNew) "Wine added" else "Wine updated"
+                        if (event.isNew) R.string.wine_added.toString() else R.string.wine_updated.toString()
                     ))
                 }.onFailure { e ->
-                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: "An error occurred"))
+                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: R.string.an_error_occurred.toString()))
                 }
             }
 
@@ -99,10 +100,10 @@ class WineListViewModel @Inject constructor(
                 runCatching { deleteWine(event.wine) }
                     .onSuccess {
                         _state.update { it.copy(editingWine = null) }
-                        _effect.send(WineListEffect.ShowSnackbar("Wine deleted"))
+                        _effect.send(WineListEffect.ShowSnackbar(R.string.wine_deleted.toString()))
                     }
                     .onFailure { e ->
-                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: "Error on delete"))
+                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: R.string.error_on_delete.toString()))
                     }
             }
         }

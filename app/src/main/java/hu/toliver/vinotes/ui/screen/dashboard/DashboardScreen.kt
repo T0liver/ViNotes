@@ -32,8 +32,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.dashboard.components.DashboardHeader
 import hu.toliver.vinotes.ui.screen.dashboard.components.EmptyTastingsPlaceholder
 import hu.toliver.vinotes.ui.screen.dashboard.components.QuickStatsRow
@@ -86,7 +88,7 @@ fun DashboardScreen(
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Outlined.Settings,
-                            contentDescription = "Settings",
+                            contentDescription = stringResource(R.string.settings),
                             tint = colorScheme.onBackground,
                         )
                     }
@@ -98,7 +100,7 @@ fun DashboardScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text("Taste") },
+                text = { Text(stringResource(R.string.taste)) },
                 icon = { Icon(Icons.Filled.Add, contentDescription = null) },
                 onClick = { viewModel.onEvent(DashboardEvent.AddTastingClicked) },
             )
@@ -145,8 +147,8 @@ private fun DashboardContent(
 
         item {
             SectionHeader(
-                title = "Latest Tastings",
-                actionLabel = "All",
+                title = stringResource(R.string.latest_tastings),
+                actionLabel = stringResource(R.string.all),
                 onAction = { onEvent(DashboardEvent.SeeAllTastingsClicked) },
             )
         }

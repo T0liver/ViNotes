@@ -30,8 +30,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.toDisplayName
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.ui.screen.winelist.WineFilters
@@ -77,14 +79,14 @@ fun WineFilterSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = "Filters",
+                        text = stringResource(R.string.filters),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     IconButton(onClick = {
                         scope.launch { sheetState.hide() }
                         onDismiss()
                     }) {
-                        Icon(Icons.Filled.Close, contentDescription = "Close")
+                        Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close))
                     }
                 }
             }
@@ -92,7 +94,7 @@ fun WineFilterSheet(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Colour",
+                        text = stringResource(R.string.colour),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -120,7 +122,7 @@ fun WineFilterSheet(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Region",
+                        text = stringResource(R.string.region),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -148,7 +150,7 @@ fun WineFilterSheet(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "Year",
+                        text = stringResource(R.string.year),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Row(
@@ -159,7 +161,7 @@ fun WineFilterSheet(
                         OutlinedTextField(
                             value = yearFromText,
                             onValueChange = { yearFromText = it },
-                            label = { Text("Tól") },
+                            label = { Text(stringResource(R.string.from)) },
                             modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             singleLine = true,
@@ -167,7 +169,7 @@ fun WineFilterSheet(
                         OutlinedTextField(
                             value = yearToText,
                             onValueChange = { yearToText = it },
-                            label = { Text("Ig") },
+                            label = { Text(stringResource(R.string.til)) },
                             modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             singleLine = true,
@@ -187,7 +189,7 @@ fun WineFilterSheet(
                         onClick = onClear,
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text("Delete filters")
+                        Text(stringResource(R.string.delete_filters))
                     }
                     Button(
                         onClick = {
@@ -202,7 +204,7 @@ fun WineFilterSheet(
                         },
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text("Apply")
+                        Text(stringResource(R.string.apply))
                     }
                 }
                 Spacer(Modifier.height(16.dp))

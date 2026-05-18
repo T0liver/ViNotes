@@ -24,8 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.AppConstants
 
 @Composable
@@ -76,7 +78,7 @@ fun AboutSection(
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Info,
-                        contentDescription = "About info",
+                        contentDescription = stringResource(R.string.about_info),
                         tint = colorScheme.onSurfaceVariant,
                     )
                 }
@@ -100,7 +102,7 @@ fun AboutSection(
                 horizontalArrangement = Arrangement.spacedBy(2.dp),
             ) {
                 Text(
-                    text = "Icons by ",
+                    text = stringResource(R.string.icons_by),
                     style = typography.bodyMedium,
                     color = colorScheme.onSurfaceVariant,
                 )

@@ -1,11 +1,12 @@
 package hu.toliver.vinotes.ui.screen.dashboard
 
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.local.converters.UIConverter.fromColourToHex
 import hu.toliver.vinotes.domain.model.TasteWithWine
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-private val dateFormatter = SimpleDateFormat("yyyy. MMM d.", Locale.forLanguageTag("hu"))
+private val dateFormatter = SimpleDateFormat("yyyy. MMM d.", Locale.forLanguageTag(R.string.locale.toString()))
 
 fun TasteWithWine.toRecentItem(): RecentTastingItem = RecentTastingItem(
     tasteId = taste.id,

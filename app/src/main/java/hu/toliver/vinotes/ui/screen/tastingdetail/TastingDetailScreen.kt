@@ -32,12 +32,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import hu.toliver.vinotes.R
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.ParameterCard
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.SensoryProfileChart
 import hu.toliver.vinotes.ui.screen.tastingdetail.components.TastingDeleteConfirmDialog
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.TastingDetailUiData
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.TastingHeroSection
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.TastingParametersCard
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.TastingRatingSection
+import hu.toliver.vinotes.ui.screen.tastingdetail.components.toUiData
 import kotlinx.coroutines.flow.collectLatest
-import hu.toliver.vinotes.ui.screen.tastingdetail.components.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,13 +88,19 @@ fun TastingDetailScreen(
                 title = { },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {
                     if (state.taste != null) {
                         IconButton(onClick = { viewModel.onEvent(TastingDetailEvent.DeleteTastingClicked) }) {
-                            Icon(Icons.Outlined.Delete, contentDescription = "Delete")
+                            Icon(
+                                Icons.Outlined.Delete,
+                                contentDescription = stringResource(R.string.delete)
+                            )
                         }
                     }
                 },
@@ -117,7 +131,7 @@ fun TastingDetailScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = state.errorMessage ?: "Tasting not found"
+                            text = state.errorMessage ?: stringResource(R.string.tasting_not_found)
                         )
                     }
                 }
@@ -154,7 +168,7 @@ fun TastingDetailContent(
 
         item {
             Text(
-                text = "Sensory Profile",
+                text = stringResource(R.string.sensory_profile),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -163,18 +177,18 @@ fun TastingDetailContent(
         item {
             SensoryProfileChart(
                 entries = listOf(
-                    "Acidity" to uiData.acidity.second,
-                    "Tannin" to uiData.tannin.second,
-                    "Body" to uiData.body.second,
-                    "Alcohol" to uiData.alcohol.second,
-                    "Finish" to uiData.finish.second,
+                    R.string.acidity.toString() to uiData.acidity.second,
+                    R.string.tannin.toString() to uiData.tannin.second,
+                    R.string.body.toString() to uiData.body.second,
+                    R.string.alcohol.toString() to uiData.alcohol.second,
+                    R.string.finish.toString() to uiData.finish.second,
                 ),
             )
         }
 
         item {
             Text(
-                text = "Visual",
+                text = stringResource(R.string.visual),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -183,22 +197,24 @@ fun TastingDetailContent(
         item {
             TastingParametersCard(
                 parameters = listOf(
-                    "Clarity" to uiData.clarity,
-                    "Colour Intensity" to uiData.colourIntensity,
-                    "Colour" to uiData.colour,
+                    stringResource(R.string.clarity) to uiData.clarity,
+                    stringResource(R.string.colour_intensity) to uiData.colourIntensity,
+                    stringResource(R.string.colour) to uiData.colour,
                 ),
             )
         }
 
         if (uiData.otherVisual.isNotBlank()) {
             item {
-                ParameterCard("Other Visual Observations", uiData.otherVisual)
+                ParameterCard(
+                    stringResource(R.string.other_visual_observations), uiData.otherVisual
+                )
             }
         }
 
         item {
             Text(
-                text = "Nose",
+                text = stringResource(R.string.nose),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -207,27 +223,27 @@ fun TastingDetailContent(
         item {
             TastingParametersCard(
                 parameters = listOf(
-                    "Intensity" to uiData.noseIntensity,
-                    "Development" to uiData.noseDevelopment,
+                    stringResource(R.string.intensity) to uiData.noseIntensity,
+                    stringResource(R.string.development) to uiData.noseDevelopment,
                 ),
             )
         }
 
         if (uiData.noseAroma.isNotBlank()) {
             item {
-                ParameterCard("Aroma Notes", uiData.noseAroma)
+                ParameterCard(stringResource(R.string.aroma_notes), uiData.noseAroma)
             }
         }
 
         if (uiData.otherNose.isNotBlank()) {
             item {
-                ParameterCard("Other Nose Observations", uiData.otherNose)
+                ParameterCard(stringResource(R.string.other_nose_observations), uiData.otherNose)
             }
         }
 
         item {
             Text(
-                text = "Palate",
+                text = stringResource(R.string.palate),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -236,32 +252,36 @@ fun TastingDetailContent(
         item {
             TastingParametersCard(
                 parameters = listOf(
-                    "Sweetness" to uiData.sweetness,
-                    "Acidity" to uiData.acidity.first,
-                    "Tannin" to uiData.tannin.first,
-                    "Body" to uiData.body.first,
-                    "Alcohol" to uiData.alcohol.first,
-                    "Flavour Intensity" to uiData.flavourIntensity,
-                    "Finish" to uiData.finish.first,
+                    stringResource(R.string.sweetness) to uiData.sweetness,
+                    stringResource(R.string.acidity) to uiData.acidity.first,
+                    stringResource(R.string.tannin) to uiData.tannin.first,
+                    stringResource(R.string.body) to uiData.body.first,
+                    stringResource(R.string.alcohol) to uiData.alcohol.first,
+                    stringResource(R.string.flavour_intensity) to uiData.flavourIntensity,
+                    stringResource(R.string.finish) to uiData.finish.first,
                 ),
             )
         }
 
         if (uiData.flavourCharacteristics.isNotBlank()) {
             item {
-                ParameterCard("Flavour Characteristics", uiData.flavourCharacteristics)
+                ParameterCard(
+                    stringResource(R.string.flavour_characteristics), uiData.flavourCharacteristics
+                )
             }
         }
 
         if (uiData.otherPalate.isNotBlank()) {
             item {
-                ParameterCard("Other Palate Observations", uiData.otherPalate)
+                ParameterCard(
+                    stringResource(R.string.other_palate_observations), uiData.otherPalate
+                )
             }
         }
 
         item {
             Text(
-                text = "Overall Impression",
+                text = stringResource(R.string.overall_impression),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -269,13 +289,13 @@ fun TastingDetailContent(
 
         if (uiData.overallImpression.isNotBlank()) {
             item {
-                ParameterCard("Impression", uiData.overallImpression)
+                ParameterCard(stringResource(R.string.impression), uiData.overallImpression)
             }
         }
 
         if (uiData.bestWith.isNotBlank()) {
             item {
-                ParameterCard("Best With", uiData.bestWith)
+                ParameterCard(stringResource(R.string.best_with), uiData.bestWith)
             }
         }
 
@@ -287,7 +307,9 @@ fun TastingDetailContent(
                 ),
             ) {
                 Text(
-                    text = if (uiData.wouldDrinkAgain) "✓ Would drink again" else "✗ Would not drink again",
+                    text = if (uiData.wouldDrinkAgain) stringResource(R.string.would_drink_again_tick) else stringResource(
+                        R.string.would_not_drink_again_tick
+                    ),
                     style = typography.bodyMedium,
                     color = if (uiData.wouldDrinkAgain) colorScheme.onPrimaryContainer
                     else colorScheme.onErrorContainer,
@@ -300,7 +322,7 @@ fun TastingDetailContent(
 
         item {
             Text(
-                text = "Location & Date",
+                text = stringResource(R.string.location_and_date),
                 style = typography.headlineSmall,
                 color = colorScheme.onBackground,
             )
@@ -309,8 +331,8 @@ fun TastingDetailContent(
         item {
             TastingParametersCard(
                 parameters = listOf(
-                    "Place" to uiData.place,
-                    "Date" to uiData.date,
+                    stringResource(R.string.place) to uiData.place,
+                    stringResource(R.string.date) to uiData.date,
                 ),
             )
         }

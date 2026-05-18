@@ -19,7 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hu.toliver.vinotes.R
 
 @Composable
 fun TastingStepNavBar(
@@ -44,7 +46,7 @@ fun TastingStepNavBar(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(Modifier.width(6.dp))
-                Text("Back")
+                Text(stringResource(R.string.back))
             }
             Spacer(Modifier.width(12.dp))
         }
@@ -63,7 +65,7 @@ fun TastingStepNavBar(
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
             } else {
-                Text(if (isLast) "Save" else "Next")
+                Text(if (isLast) stringResource(R.string.save) else stringResource(R.string.next))
                 Spacer(Modifier.width(6.dp))
                 Icon(
                     if (isLast) Icons.Outlined.Check else Icons.AutoMirrored.Outlined.ArrowForward,

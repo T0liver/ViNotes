@@ -6,6 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import hu.toliver.vinotes.R
 
 @Composable
 fun DeleteConfirmDialog(
@@ -22,19 +24,19 @@ fun DeleteConfirmDialog(
                     contentColor = MaterialTheme.colorScheme.error
                 ),
             ) {
-                Text("Delete")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         },
         title = {
-            Text("Delete wine")
+            Text(stringResource(R.string.delete_wine))
         },
         text = {
-            Text("Are you sure to delete \"$wineName\" wine? This operation cannot be undone.")
+            Text(stringResource(R.string.are_you_sure_to_delete_wine, wineName))
         },
     )
 }
