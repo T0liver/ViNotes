@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.WineWithStats
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
 import hu.toliver.vinotes.domain.usecases.wine.GetWinesWithStatsUseCase
 import hu.toliver.vinotes.domain.usecases.wine.InsertWineUseCase
 import hu.toliver.vinotes.domain.usecases.wine.UpdateWineUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +18,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class WineListViewModel @Inject constructor(

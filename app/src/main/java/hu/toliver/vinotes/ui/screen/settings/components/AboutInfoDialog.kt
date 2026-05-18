@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.ui.AppConstants
 
 @Composable
 fun AboutInfoDialog(onDismiss: () -> Unit) {
