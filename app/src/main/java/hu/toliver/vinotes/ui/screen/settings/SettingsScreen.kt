@@ -166,16 +166,25 @@ fun SettingsScreen(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            item { SettingsSectionHeader(stringResource(R.string.datas)) }
             item {
                 SettingsActionItem(
-                    icon = Icons.Outlined.DeleteForever,
-                    iconTint = colorScheme.error,
-                    title = stringResource(R.string.delete_all_data),
-                    subtitle = stringResource(R.string.all_wine_and_tastings_get_deleted),
-                    isDestructive = true,
-                    isLoading = state.isClearingData,
-                    onClick = { viewModel.onEvent(SettingsEvent.ClearDataClicked) },
+                    icon = Icons.Outlined.Edit,
+                    title = stringResource(R.string.set_username),
+                    subtitle = state.username.ifBlank { stringResource(R.string.not_set) },
+                    onClick = { viewModel.onEvent(SettingsEvent.EditUsernameClicked) },
+                )
+            }
+
+            item {
+                SettingsActionItem(
+                    icon = Icons.Outlined.ModeNight,
+                    title = stringResource(R.string.theme),
+                    subtitle = when (state.themeMode) {
+                        ThemeMode.LIGHT -> stringResource(R.string.light)
+                        ThemeMode.DARK -> stringResource(R.string.dark)
+                        ThemeMode.SYSTEM -> stringResource(R.string.system_settings)
+                    },
+                    onClick = { viewModel.onEvent(SettingsEvent.ThemeClicked) },
                 )
             }
 
@@ -209,25 +218,16 @@ fun SettingsScreen(
                 )
             }
 
+            item { SettingsSectionHeader(stringResource(R.string.datas)) }
             item {
                 SettingsActionItem(
-                    icon = Icons.Outlined.Edit,
-                    title = stringResource(R.string.set_username),
-                    subtitle = state.username.ifBlank { stringResource(R.string.not_set) },
-                    onClick = { viewModel.onEvent(SettingsEvent.EditUsernameClicked) },
-                )
-            }
-
-            item {
-                SettingsActionItem(
-                    icon = Icons.Outlined.ModeNight,
-                    title = stringResource(R.string.settings),
-                    subtitle = when (state.themeMode) {
-                        ThemeMode.LIGHT -> stringResource(R.string.light)
-                        ThemeMode.DARK -> stringResource(R.string.dark)
-                        ThemeMode.SYSTEM -> stringResource(R.string.system_settings)
-                    },
-                    onClick = { viewModel.onEvent(SettingsEvent.ThemeClicked) },
+                    icon = Icons.Outlined.DeleteForever,
+                    iconTint = colorScheme.error,
+                    title = stringResource(R.string.delete_all_data),
+                    subtitle = stringResource(R.string.all_wine_and_tastings_get_deleted),
+                    isDestructive = true,
+                    isLoading = state.isClearingData,
+                    onClick = { viewModel.onEvent(SettingsEvent.ClearDataClicked) },
                 )
             }
 
