@@ -1,8 +1,15 @@
 package hu.toliver.vinotes.ui.navigation
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
@@ -14,8 +21,8 @@ import hu.toliver.vinotes.ui.screen.dashboard.DashboardScreen
 import hu.toliver.vinotes.ui.screen.settings.SettingsScreen
 import hu.toliver.vinotes.ui.screen.stats.StatsScreen
 import hu.toliver.vinotes.ui.screen.tastingdetail.TastingDetailScreen
-import hu.toliver.vinotes.ui.screen.winelist.WineListScreen
 import hu.toliver.vinotes.ui.screen.winedetail.WineDetailScreen
+import hu.toliver.vinotes.ui.screen.winelist.WineListScreen
 
 @Composable
 fun VinNoteNavGraph() {
