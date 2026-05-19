@@ -134,7 +134,7 @@ jobs:
 
       # Build without signing
       - name: Build release APK (unsigned)
-        run: ./gradlew assembleRelease -x lintRelease
+        run: ./gradlew assembleRelease -x validateSigningRelease -x lintRelease
         env:
           SIGNING_STORE_PASSWORD: dummy
           SIGNING_KEY_ALIAS: dummy
