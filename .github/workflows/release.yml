@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - release
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
+      # Signing setup
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.keystore
+
+      - name: Build signed APK
+        run: ./gradlew assembleRelease
+        env:
+          SIGNING_KEY_ALIAS:      ${{ secrets.KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD:   ${{ secrets.KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+
+      - name: Build signed AAB
+        run: ./gradlew bundleRelease
+        env:
+          SIGNING_KEY_ALIAS:      ${{ secrets.KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD:   ${{ secrets.KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+
+      # Upload to GitHub Releases
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
