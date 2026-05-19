@@ -144,7 +144,7 @@ jobs:
 
       - name: Create dummy keystore
         run: |
-          pwd && echo "dummy" > release.keystore
+          echo "dummy" > app/release.keystore
 
       # Build without signing
       - name: Build release APK (unsigned)
