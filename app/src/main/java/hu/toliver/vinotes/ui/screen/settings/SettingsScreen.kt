@@ -238,7 +238,7 @@ fun SettingsScreen(
                     icon = Icons.Outlined.ModeNight,
                     title = stringResource(R.string.theme),
                     subtitle = when (state.themeMode) {
-                        ThemeMode.LIGHT -> stringResource(R.string.light)
+                        ThemeMode.LIGHT -> stringResource(R.string.light_colour)
                         ThemeMode.DARK -> stringResource(R.string.dark)
                         ThemeMode.SYSTEM -> stringResource(R.string.system_settings)
                     },
