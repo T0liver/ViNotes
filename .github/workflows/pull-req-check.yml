@@ -29,6 +29,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run lint
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=1g"
         run: ./gradlew lint
 
       - name: Upload lint report
