@@ -102,6 +102,10 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
 
+      - name: Create gradle.properties
+        run: |
+          echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m" > gradle.properties
+
       - name: Build debug APK
         env:
           #GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
