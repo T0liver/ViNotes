@@ -108,8 +108,7 @@ jobs:
 
       - name: Build debug APK
         env:
-          #GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
-          ORG_GRADLE_JVMARGS: "-Xmx3072m -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8"
+          ORG_GRADLE_JVMARGS: "-Xmx2g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload debug APK
@@ -139,10 +138,15 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
 
+      - name: Create gradle.properties
+        run: |
+          echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m" > gradle.properties
+
       # Build without signing
       - name: Build release APK (unsigned)
         run: ./gradlew assembleRelease -x validateSigningRelease -x lintRelease
         env:
+          ORG_GRADLE_JVMARGS: "-Xmx2g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
           SIGNING_STORE_PASSWORD: dummy
           SIGNING_KEY_ALIAS: dummy
           SIGNING_KEY_PASSWORD: dummy
