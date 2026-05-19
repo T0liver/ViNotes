@@ -104,7 +104,8 @@ jobs:
 
       - name: Build debug APK
         env:
-          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
+          #GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3072m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8"
+          ORG_GRADLE_JVMARGS: "-Xmx3072m -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8"
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload debug APK
