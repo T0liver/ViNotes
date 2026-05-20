@@ -179,11 +179,11 @@ fun TastingDetailContent(
         item {
             SensoryProfileChart(
                 entries = listOf(
-                    R.string.acidity.toString() to uiData.acidity.second,
-                    R.string.tannin.toString() to uiData.tannin.second,
-                    R.string.body.toString() to uiData.body.second,
-                    R.string.alcohol.toString() to uiData.alcohol.second,
-                    R.string.finish.toString() to uiData.finish.second,
+                    stringResource(R.string.acidity) to uiData.acidity.second,
+                    stringResource(R.string.tannin) to uiData.tannin.second,
+                    stringResource(R.string.body) to uiData.body.second,
+                    stringResource(R.string.alcohol) to uiData.alcohol.second,
+                    stringResource(R.string.finish) to uiData.finish.second,
                 ),
             )
         }

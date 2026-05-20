@@ -61,7 +61,7 @@ fun Taste.toUiData(wine: Wine, context: Context): TastingDetailUiData {
 
         clarity = this.clarity.toDisplayName(context.resources),
         colourIntensity = this.colourIntensity.toDisplayName(context.resources),
-        colour = this.colour.name,
+        colour = this.colour.toDisplayName(context),
         otherVisual = this.otherVisual,
 
         noseIntensity = this.noseIntensity.toDisplayName(context.resources),

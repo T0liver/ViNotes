@@ -174,4 +174,25 @@ object UIConverter {
         TasteWineColour.TAWNY -> Color(0xFF8B4513)
         TasteWineColour.REDBROWN -> Color(0xFF8B3A3A)
     }
+
+    fun TasteWineColour.toDisplayName(context: Context): String = when (this) {
+        TasteWineColour.WHITE -> context.getString(R.string.white)
+        TasteWineColour.LEMONGREEN -> context.getString(R.string.lemongreen)
+        TasteWineColour.LEMON -> context.getString(R.string.lemon)
+        TasteWineColour.GOLD -> context.getString(R.string.gold)
+        TasteWineColour.AMBER -> context.getString(R.string.amber)
+        TasteWineColour.WHITEBROWN -> context.getString(R.string.whitebrown)
+
+        TasteWineColour.ROSE -> context.getString(R.string.rose)
+        TasteWineColour.PINK -> context.getString(R.string.pink)
+        TasteWineColour.SALMON -> context.getString(R.string.salmon)
+        TasteWineColour.ORANGE -> context.getString(R.string.orange)
+
+        TasteWineColour.RED -> context.getString(R.string.red)
+        TasteWineColour.PURPLE -> context.getString(R.string.purple)
+        TasteWineColour.RUBY -> context.getString(R.string.ruby)
+        TasteWineColour.GARNET -> context.getString(R.string.garnet)
+        TasteWineColour.TAWNY -> context.getString(R.string.tawny)
+        TasteWineColour.REDBROWN -> context.getString(R.string.redbrown)
+    }
 }
