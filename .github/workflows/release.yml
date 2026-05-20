@@ -31,15 +31,12 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.keystore
 
-      - name: Build signed APK
-        run: ./gradlew assembleRelease
-        env:
-          SIGNING_KEY_ALIAS:      ${{ secrets.KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD:   ${{ secrets.KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      - name: Writing gradle.properties
+        run: |
+          echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m" > gradle.properties
 
-      - name: Build signed AAB
-        run: ./gradlew bundleRelease
+      - name: Build signed APK & AAB
+        run: ./gradlew assembleRelease bundleRelease --no-daemon --stacktrace
         env:
           SIGNING_KEY_ALIAS:      ${{ secrets.KEY_ALIAS }}
           SIGNING_KEY_PASSWORD:   ${{ secrets.KEY_PASSWORD }}

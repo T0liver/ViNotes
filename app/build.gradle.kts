@@ -18,9 +18,10 @@ android {
     defaultConfig {
         applicationId = "hu.toliver.vinotes"
         minSdk = 24
+        //noinspection OldTargetApi ... like why. the andorid 17 (sdk level 37) is still not out, why do you want to target it? also, the compile sdk is 36, so you can't target 37. just stop.
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0-alpha"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
