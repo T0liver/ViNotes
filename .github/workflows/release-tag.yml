@@ -30,8 +30,7 @@ jobs:
       - name: Read version from Gradle
         id: version
         run: |
-          VERSION=$(./gradlew -q printVersionName)
-          echo "name=v$VERSION" >> $GITHUB_OUTPUT
+          grep "versionName" app/build.gradle.kts | awk '{print $3}' | tr -d \" >> $GITHUB_OUTPUT
 
       - name: Push tag
         run: |
