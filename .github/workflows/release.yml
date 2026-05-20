@@ -7,9 +7,12 @@ on:
     branches:
       - release
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    name: Build & Release
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -42,13 +45,69 @@ jobs:
           SIGNING_KEY_PASSWORD:   ${{ secrets.KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
 
-      # Upload to GitHub Releases
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          files: |
+          name: release-artifacts
+          path: |
             app/build/outputs/apk/release/*.apk
             app/build/outputs/bundle/release/*.aab
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Release Version
+        id: get_version
+        run: |
+          VERSION=$(grep "versionName" app/build.gradle.kts | awk '{print $3}' | tr -d \")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        
+      - name: Check if Tag Exists and Modify
+        id: f_tag
+        run: |
+          VERSION="${{ steps.get_version.outputs.VERSION }}"
+          git fetch --tags --prune
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "TAG_EXISTS=true" >> $GITHUB_OUTPUT
+            new_version="${VERSION}-build-${{ github.run_number }}"
+            echo "VERSION=$new_version" >> $GITHUB_OUTPUT
+          else
+            echo "TAG_EXISTS=false" >> $GITHUB_OUTPUT
+            # keep original version
+            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+          path: ./
+
+      - name: Rename APK and AAB with version
+        run: |
+          apk_path=$(find . -type f -name "*.apk" -print -quit || true)
+          aab_path=$(find . -type f -name "*.aab" -print -quit || true)
+          VERSION="${{ steps.f_tag.outputs.VERSION }}"
+          if [ -n "$apk_path" ]; then
+            mv "$apk_path" "vinotes-v${VERSION}.apk"
+          else
+            echo "No APK found to rename"
+          fi
+          if [ -n "$aab_path" ]; then
+            mv "$aab_path" "vinotes-v${VERSION}.aab"
+          else
+            echo "No AAB found to rename"
+          fi
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "vinotes-v${{ steps.f_tag.outputs.VERSION }}.apk,vinotes-v${{ steps.f_tag.outputs.VERSION }}.aab"
+          tag: v${{ steps.f_tag.outputs.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
