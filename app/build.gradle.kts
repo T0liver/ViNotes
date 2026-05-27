@@ -40,15 +40,16 @@ android {
             isDebuggable = true
         }
         getByName("release") {
-            if (file("release.keystore").exists()) {
-                signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (file("release.keystore").exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
             }
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
