@@ -34,7 +34,7 @@ fun WineDetailContent(
     onEvent: (WineDetailEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val wine = state.wine!!
+    val wine = state.wine ?: return
 
     LazyColumn(
         modifier = modifier.fillMaxSize(),
