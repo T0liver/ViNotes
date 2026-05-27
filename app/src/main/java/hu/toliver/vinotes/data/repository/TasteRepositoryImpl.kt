@@ -1,15 +1,14 @@
 package hu.toliver.vinotes.data.repository
 
-import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.dao.TasteDao
 import hu.toliver.vinotes.data.local.entity.toDomain
 import hu.toliver.vinotes.data.local.entity.toEntity
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.repository.TasteRepository
+import java.util.UUID
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 
 class TasteRepositoryImpl @Inject constructor(
     private val dao: TasteDao
@@ -22,12 +21,12 @@ class TasteRepositoryImpl @Inject constructor(
         dao.getByWineId(wineId).map { entities -> entities.map { it.toDomain() } }
 
     override suspend fun getById(id: String): Result<Taste> = runCatching {
-        dao.getById(id)?.toDomain() ?: error(R.string.tasting_not_found_id.toString() + id)
+        dao.getById(id)?.toDomain() ?: error("Tasting not found: $id")
     }
 
     override suspend fun save(taste: Taste): Result<Unit> = runCatching {
-        val id = UUID.randomUUID().toString()
-        dao.insert(taste.toEntity(id = id))
+        val idToUse = taste.id.ifBlank { UUID.randomUUID().toString() }
+        dao.insert(taste.toEntity(id = idToUse))
     }
 
     override suspend fun update(taste: Taste): Result<Unit> = runCatching {
