@@ -1,9 +1,11 @@
 package hu.toliver.vinotes.ui.screen.tastingdetail
 
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.usecases.taste.DeleteTasteUseCase
 import hu.toliver.vinotes.domain.usecases.taste.GetTasteWithWineUseCase
@@ -17,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TastingDetailViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val getTasteWithWine: GetTasteWithWineUseCase,
     private val deleteTaste: DeleteTasteUseCase,
@@ -52,7 +55,7 @@ class TastingDetailViewModel @Inject constructor(
                         _state.value = _state.value.copy(showDeleteDialog = false)
                         _effect.send(TastingDetailEffect.NavigateUp)
                     }
-                    .onFailure { e -> _effect.send(TastingDetailEffect.ShowSnackbar(e.message ?: R.string.error_on_delete.toString())) }
+                    .onFailure { e -> _effect.send(TastingDetailEffect.ShowSnackbar(e.message ?: context.getString(R.string.error_on_delete))) }
             }
 
             TastingDetailEvent.DeleteTastingDismissed ->
@@ -63,7 +66,7 @@ class TastingDetailViewModel @Inject constructor(
     private fun loadData() {
         val currentTasteId = savedStateHandle.get<String>("tasteId") ?: ""
         if (currentTasteId.isEmpty()) {
-            _state.value = _state.value.copy(isLoading = false, errorMessage = R.string.tasting_id_is_missing.toString())
+            _state.value = _state.value.copy(isLoading = false, errorMessage = context.getString(R.string.tasting_id_is_missing))
             return
         }
 
@@ -80,7 +83,7 @@ class TastingDetailViewModel @Inject constructor(
                 .onFailure { e ->
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        errorMessage = e.message ?: R.string.the_tasting_could_not_be_found.toString()
+                        errorMessage = e.message ?: context.getString(R.string.the_tasting_could_not_be_found)
                     )
                 }
         }
