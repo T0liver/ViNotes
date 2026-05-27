@@ -41,7 +41,7 @@
     <string name="brut">Brut</string>
     <string name="brut_nature">Brut Nature</string>
     <string name="cancel">Cancel</string>
-    <string name="cannot_resolve_catalog_host">Cannot resolve catalog host. Check your device network/DNS or try opening the catalog URL in a browser.</string>
+    <string name="cannot_resolve_catalog_host">Cannot resolve catalogue host. Check your device network/DNS or try opening the catalogue URL in a browser.</string>
     <string name="catalog_url">Catalog URL</string>
     <string name="clarity">Clarity</string>
     <string name="classic">Classic</string>
@@ -75,7 +75,7 @@
     <string name="development">Development</string>
     <string name="dns_resolution_failed">DNS resolution failed</string>
     <string name="dns_resolution_failed_for_host_when_downloading_delta">DNS resolution failed for host when downloading delta: %1$s</string>
-    <string name="dns_resolution_failed_for_host_when_downloading_full_catalog">DNS resolution failed for host when downloading full catalog: %1$s</string>
+    <string name="dns_resolution_failed_for_host_when_downloading_full_catalog">DNS resolution failed for host when downloading full catalogue: %1$s</string>
     <string name="dns_resolution_failed_for_host_when_fetching_manifest">DNS resolution failed for host when fetching manifest: %1$s</string>
     <string name="download_catalog">Download catalog: %1$s</string>
     <string name="dry">Dry</string>
@@ -88,7 +88,7 @@
     <string name="error_on_delete">Error on delete</string>
     <string name="error_on_save">Error on save</string>
     <string name="error_syncing_catalog">Error syncing catalog</string>
-    <string name="error_importing_catalog_from_file">Error importing catalog from file</string>
+    <string name="error_importing_catalog_from_file">Error importing catalogue from file</string>
     <string name="extra_brut">Extra Brut</string>
     <string name="extra_dry">Extra Dry</string>
     <string name="failed_to_fetch_location">Failed to fetch location</string>
@@ -123,7 +123,7 @@
     <string name="light_colour">Light</string>
     <string name="system_settings">System settings</string>
     <string name="load_json_file_from_device">Load JSON file from device</string>
-    <string name="invalid_wine_catalog_file">Selected file is not a valid wine catalog: %1$s</string>
+    <string name="invalid_wine_catalog_file">Selected file is not a valid wine catalogue: %1$s</string>
     <string name="location_and_date"><![CDATA[Location & Date]]></string>
     <string name="location_fetch_timed_out">Location fetch timed out. Please try again.</string>
     <string name="location_permission_missing">Needs location permission to fetch current location</string>
@@ -226,7 +226,7 @@
     <string name="unacceptable">Unacceptable</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error</string>
-    <string name="update_catalog_from_web">Update catalog from web</string>
+    <string name="update_catalog_from_web">Update catalogue from web</string>
     <string name="url">URL</string>
     <string name="update_catalog_delta">Update catalog</string>
     <string name="sync_delta_changes">Sync only new changes to catalog</string>
@@ -246,7 +246,7 @@
     <string name="weak">Weak</string>
     <string name="welcome">Welcome to your wine vault!</string>
     <string name="welcome_name_set">Hi %1$s! Welcome to your wine vault!</string>
-    <string name="welcome_catalog_message">You can download the catalogue from the web to populate wines in your collection. Tap OK to download the full catalog now.</string>
+    <string name="welcome_catalog_message">You can download the catalogue from the web to populate wines in your collection. Tap OK to download the full catalogue now.</string>
     <string name="white">White</string>
     <string name="whitebrown">White brown</string>
     <string name="wine_added">Wine added</string>

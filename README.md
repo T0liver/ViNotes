@@ -35,7 +35,7 @@ Whether you're casually curious or a seasoned enthusiast, ViNotes helps you reme
 - 📊 **Statistics** — visualise your ratings by year and region with interactive charts
 - 📍 **One-tap location** — autofill the venue field using your GPS position with reverse geocoding via OpenStreetMap
 - 🔄 **Catalog sync** — download a curated wine database and keep it up to date with delta syncing
-- 📁 **Local JSON import** — import your own wine catalog from a file, no internet required
+- 📁 **Local JSON import** — import your own wine catalogue from a file, no internet required
 - 🌙 **Dark & light theme** — fully themed UI with a warm, elegant wine-inspired palette
 - 🔒 **Privacy-first** — works completely offline, no account needed, no tracking
 
@@ -81,17 +81,17 @@ Repositories    Abstract data sources behind interfaces
 Room    Retrofit
 ```
 
-## Wine Catalog
+## Wine Catalogue
 
-ViNotes ships with a community-maintained wine catalog hosted on GitHub Pages. The sync system is designed to be lightweight and bandwidth-friendly:
+ViNotes ships with a community-maintained wine catalogue hosted on GitHub Pages. The sync system is designed to be lightweight and bandwidth-friendly:
 
 - **`manifest.json`** — fetched first; lists all available files with checksums
-- **`full.json`** — the complete catalog, used on first install or manual reset
+- **`full.json`** — the complete catalogue, used on first install or manual reset
 - **`delta-YYYY-MM-DD.json`** — incremental updates with only added, changed, or removed wines
 
-The app tracks the last applied delta date in Room and only downloads what it hasn't seen yet. A GitHub Action automatically regenerates the delta files and updates the manifest whenever the source catalog changes.
+The app tracks the last applied delta date in Room and only downloads what it hasn't seen yet. A GitHub Action automatically regenerates the delta files and updates the manifest whenever the source catalogue changes.
 
-> Want to add wines to the catalog? Contributions are welcome in the [catalog branch]()! Add your own issue/pull request!
+> Want to add wines to the catalogue? Contributions are welcome in the [catalog branch]()! Add your own issue/pull request!
 
 ## Getting Started
 

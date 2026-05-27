@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetTastingByWineUseCase @Inject constructor(
     private val repository: TasteRepository
 ) {
-    suspend operator fun invoke(wineId: String) = repository.getByWineId(wineId)
+    operator fun invoke(wineId: String) = repository.getByWineId(wineId)
 }

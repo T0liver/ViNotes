@@ -92,7 +92,7 @@ class WineListViewModel @Inject constructor(
             }
 
             is WineListEvent.WineDeleteRequested -> {
-                // The UI will show a confirmation dialog, then send WineDeleteConfirmed
+                // The UI will show a confirmation dialogue, then send WineDeleteConfirmed
             }
 
             is WineListEvent.WineDeleteConfirmed -> viewModelScope.launch {

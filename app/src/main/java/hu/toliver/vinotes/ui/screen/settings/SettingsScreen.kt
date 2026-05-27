@@ -246,8 +246,8 @@ fun SettingsScreen(
             }
 /*
 This will be removed for release 1.0, I can't manage to work the change work,
-    google should fix the damn AppCompatDelegate.setApplicationLocales already,
-    it's been months and it still does not work, even though it returns the correct
+    Google should fix the damn AppCompatDelegate.setApplicationLocales already,
+    it's been months, and it still does not work, even though it returns the correct
     locale list and logs show that the app language is changed,
     the locale just does not change at all.
     So for now, I'm hiding the option to change app language in the settings,
