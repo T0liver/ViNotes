@@ -5,19 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.LocaleListCompat
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import hu.toliver.vinotes.ui.screen.settings.ThemeViewModel
 import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.model.enums.ThemeMode
+import dagger.hilt.android.AndroidEntryPoint
 import hu.toliver.vinotes.ui.navigation.VinNoteNavGraph
-import hu.toliver.vinotes.ui.screen.settings.ThemeViewModel
 import hu.toliver.vinotes.ui.theme.ViNotesTheme
 
 @AndroidEntryPoint
@@ -35,8 +35,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun MainActivityContent() {
     val vm: ThemeViewModel = hiltViewModel()
-    val theme by vm.themeMode.collectAsStateWithLifecycle()
-    val language by vm.appLanguage.collectAsStateWithLifecycle()
+    val theme by vm.themeMode.collectAsState()
+    val language by vm.appLanguage.collectAsState()
 
     LaunchedEffect(language) {
         AppCompatDelegate.setApplicationLocales(language.toLocaleListCompat())

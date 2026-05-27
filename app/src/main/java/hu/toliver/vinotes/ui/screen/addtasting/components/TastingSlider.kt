@@ -20,11 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.domain.model.enums.Intensity
-import hu.toliver.vinotes.domain.model.enums.Level
-import hu.toliver.vinotes.domain.model.enums.WineColourIntensity
-import hu.toliver.vinotes.domain.model.enums.WineSweetness
-import hu.toliver.vinotes.ui.screen.UIConverter.toDisplayName
 import kotlin.math.roundToInt
 
 /**
@@ -53,15 +48,6 @@ fun <T> TastingSlider(
         label = "slider_$label",
     )
 
-    val currentText = when (current) {
-        is WineColourIntensity -> current.toDisplayName()
-        is Intensity -> current.toDisplayName()
-        is WineSweetness -> current.toDisplayName()
-        is Level -> current.toDisplayName()
-        else -> current.toString().replace("_", " ").lowercase()
-            .replaceFirstChar { it.uppercase() }
-    }
-
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
@@ -75,7 +61,8 @@ fun <T> TastingSlider(
                 color = MaterialTheme.colorScheme.primaryContainer,
             ) {
                 Text(
-                    text = currentText,
+                    text = current.toString().replace("_", " ").lowercase()
+                        .replaceFirstChar { it.uppercase() },
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),

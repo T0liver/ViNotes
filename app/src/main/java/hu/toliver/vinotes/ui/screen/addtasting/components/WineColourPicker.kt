@@ -21,9 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.UIConverter.toHexColour
 import hu.toliver.vinotes.domain.model.enums.TasteWineColour
 
@@ -34,7 +32,7 @@ fun WineColourPicker(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(stringResource(R.string.colour), style = MaterialTheme.typography.titleMedium)
+        Text("Colour", style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(12.dp))
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(10.dp),

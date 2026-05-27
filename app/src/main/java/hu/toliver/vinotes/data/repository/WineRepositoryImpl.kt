@@ -1,5 +1,6 @@
 package hu.toliver.vinotes.data.repository
 
+import hu.toliver.vinotes.R
 import hu.toliver.vinotes.data.dao.WineDao
 import hu.toliver.vinotes.data.local.entity.toDomain
 import hu.toliver.vinotes.data.local.entity.toEntity
@@ -21,7 +22,7 @@ class WineRepositoryImpl @Inject constructor(
         dao.searchWines(query).map { entities -> entities.map { it.toDomain() } }
 
     override suspend fun getById(id: String): Result<Wine> = runCatching {
-        dao.getById(id)?.toDomain() ?: error("Wine not found: $id")
+        dao.getById(id)?.toDomain() ?: error(R.string.not_found_id.toString() + id)
     }
 
     override fun getFiltered(

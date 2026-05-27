@@ -127,11 +127,10 @@ class DashboardViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                val message = e.message ?: context.getString(R.string.unknown_error)
                 _state.update {
-                    it.copy(isLoading = false, errorMessage = message)
+                    it.copy(isLoading = false, errorMessage = e.message ?: R.string.unknown_error.toString())
                 }
-                _effect.send(DashboardEffect.ShowError(message))
+                _effect.send(DashboardEffect.ShowError(e.message ?: R.string.unknown_error.toString()))
             }
         }
     }

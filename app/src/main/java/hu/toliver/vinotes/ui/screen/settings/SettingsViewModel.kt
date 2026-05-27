@@ -1,15 +1,11 @@
 package hu.toliver.vinotes.ui.screen.settings
 
 import android.content.Context
-import android.util.Log
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
-import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.usecases.catalog.ImportFromFileUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformFullImportUseCase
@@ -240,17 +236,6 @@ class SettingsViewModel @Inject constructor(
 			is SettingsEvent.LanguageSelected -> viewModelScope.launch {
 				saveAppLanguage(event.language)
 				_state.update { it.copy(showLanguageDialog = false, appLanguage = event.language) }
-				val appLocale = LocaleListCompat.forLanguageTags(
-					when (event.language) {
-						AppLanguage.SYSTEM -> ""
-						AppLanguage.ENGLISH -> "en"
-						AppLanguage.HUNGARIAN -> "hu"
-					}
-				)
-				Log.d("LOCALE", "App language changed to ${event.language}, setting app locales to $appLocale")
-				AppCompatDelegate.setApplicationLocales(appLocale)
-				// this here does not set the locale at all.
-				Log.d("LOCALE", "Current application locales: ${AppCompatDelegate.getApplicationLocales()}")
 			}
 
 			SettingsEvent.LanguageDialogDismissed -> _state.update {
