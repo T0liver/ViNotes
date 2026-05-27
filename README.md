@@ -44,9 +44,9 @@ Whether you're casually curious or a seasoned enthusiast, ViNotes helps you reme
 <!-- Add your own screenshots here -->
 <!-- Use the Android Device Art Generator for framing: https://developer.android.com/distribute/marketing-tools/device-art-generator -->
 
-| Dashboard | Tasting Form | Wine Detail | Statistics |
-|:-:|:-:|:-:|:-:|
-| *coming soon* | *coming soon* | *coming soon* | *coming soon* |
+|        Dashboard        |         Tasting Form         |        Wine Detail        |         Statistics         |
+|:-----------------------:|:----------------------------:|:-------------------------:|:--------------------------:|
+| ![](imgs/dashboard.png) | ![](imgs/tasting-screen.png) | ![](imgs/wine-screen.png) | ![](imgs/stats-screen.png) |
 
 ## Tech Stack
 
@@ -91,7 +91,7 @@ ViNotes ships with a community-maintained wine catalogue hosted on GitHub Pages.
 
 The app tracks the last applied delta date in Room and only downloads what it hasn't seen yet. A GitHub Action automatically regenerates the delta files and updates the manifest whenever the source catalogue changes.
 
-> Want to add wines to the catalogue? Contributions are welcome in the [catalog branch]()! Add your own issue/pull request!
+> Want to add wines to the catalogue? Contributions are welcome in the [catalog branch](https://github.com/T0liver/ViNotes/tree/catalogue)! Add your own issue/pull request!
 
 ## Getting Started
 
@@ -115,10 +115,10 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 ### Download
 
-| Source     | Link                       |
-|------------|----------------------------|
-| F-Droid    | *coming soon*              |
-| Direct APK | [Releases](../../releases) |
+| Source     | Link                                                           |
+|------------|----------------------------------------------------------------|
+| F-Droid    | *coming soon*                                                  |
+| Direct APK | [Releases](https://github.com/T0liver/ViNotes/releases/latest) |
 
 ---
 
@@ -126,9 +126,9 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 Contributions of all kinds are welcome!
 
-- 🐛 **Found a bug?** Open an [issue](../../issues) with steps to reproduce
+- 🐛 **Found a bug?** Open an [issue](https://github.com/T0liver/ViNotes/issues) with steps to reproduce
 - 💡 **Have an idea?** Open an issue with the `enhancement` label
-- 🍷 **Know your wines?** Add entries to the [wine catalog]()
+- 🍷 **Know your wines?** Add entries to the [wine catalog](https://github.com/T0liver/ViNotes/tree/catalogue/source)!
 - 🔧 **Want to code?** Fork the repo and open a pull request — please discuss larger changes in an issue first
 
 ### A few guidelines
