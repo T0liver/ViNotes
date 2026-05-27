@@ -1,8 +1,10 @@
 package hu.toliver.vinotes.ui.screen.addtasting
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.location.GetCurrentLocationUseCase
@@ -19,11 +21,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class AddTastingViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val addTaste: AddTasteUseCase,
     private val updateTaste: UpdateTasteUseCase,
     private val getTasteById: GetTasteByIdUseCase,
@@ -93,7 +95,7 @@ class AddTastingViewModel @Inject constructor(
             AddTastingEvent.OnLocationPermissionGranted -> fetchLocation()
             AddTastingEvent.OnLocationPermissionDenied -> {
                 viewModelScope.launch {
-                    emitLocationError(R.string.location_permission_missing.toString())
+                    emitLocationError(context.getString(R.string.location_permission_missing))
                 }
             }
 
@@ -129,17 +131,17 @@ class AddTastingViewModel @Inject constructor(
                                             longitude = longitude,
                                         )
                                     }
-                                    emitLocationError(error.message ?: R.string.reverse_geocoding_failed.toString())
+                                    emitLocationError(error.message ?: context.getString(R.string.reverse_geocoding_failed))
                                 }
                         }
                         .onFailure { error ->
                             _state.update { it.copy(isLoadingLocation = false) }
-                            emitLocationError(error.message ?: R.string.failed_to_fetch_location.toString())
+                            emitLocationError(error.message ?: context.getString(R.string.failed_to_fetch_location))
                         }
                 }
             } catch (_: TimeoutCancellationException) {
                 _state.update { it.copy(isLoadingLocation = false) }
-                emitLocationError(R.string.location_fetch_timed_out.toString())
+                emitLocationError(context.getString(R.string.location_fetch_timed_out))
             }
         }
     }
@@ -197,11 +199,11 @@ class AddTastingViewModel @Inject constructor(
             val s = _state.value
             if (s.wineId.isBlank()) {
                 _state.value = _state.value.copy(isSaving = false)
-                _effect.send(AddTastingEffect.ShowSnackbar(R.string.please_select_a_wine_first.toString()))
+                _effect.send(AddTastingEffect.ShowSnackbar(context.getString(R.string.please_select_a_wine_first)))
                 return@launch
             }
             val taste = Taste(
-                id = s.editingTasteId ?: UUID.randomUUID().toString(),
+                id = s.editingTasteId ?: "",
                 clarity = s.clarity,
                 colourIntensity = s.colourIntensity,
                 colour = s.colour,
@@ -237,8 +239,13 @@ class AddTastingViewModel @Inject constructor(
                 }
                 .onFailure { e ->
                     _state.value = _state.value.copy(isSaving = false)
-                    viewModelScope.launch { _effect.send(AddTastingEffect.ShowSnackbar(e.message ?:
-                        R.string.error_on_save.toString())) }
+                    viewModelScope.launch {
+                        _effect.send(
+                            AddTastingEffect.ShowSnackbar(
+                                e.message ?: context.getString(R.string.error_on_save)
+                            )
+                        )
+                    }
                 }
         }
     }

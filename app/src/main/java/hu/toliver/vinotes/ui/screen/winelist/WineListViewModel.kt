@@ -1,8 +1,10 @@
 package hu.toliver.vinotes.ui.screen.winelist
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
 import hu.toliver.vinotes.domain.model.WineWithStats
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
@@ -22,6 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WineListViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val getWinesWithStats: GetWinesWithStatsUseCase,
     private val addWine: InsertWineUseCase,
     private val updateWine: UpdateWineUseCase,
@@ -83,26 +86,28 @@ class WineListViewModel @Inject constructor(
                     if (event.isNew) addWine(event.wine) else updateWine(event.wine)
                 }.onSuccess {
                     _state.update { it.copy(isAddSheetOpen = false, editingWine = null) }
-                    _effect.send(WineListEffect.ShowSnackbar(
-                        if (event.isNew) R.string.wine_added.toString() else R.string.wine_updated.toString()
-                    ))
+                    _effect.send(
+                        WineListEffect.ShowSnackbar(
+                            if (event.isNew) context.getString(R.string.wine_added) else context.getString(R.string.wine_updated)
+                        )
+                    )
                 }.onFailure { e ->
-                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: R.string.an_error_occurred.toString()))
+                    _effect.send(WineListEffect.ShowSnackbar(e.message ?: context.getString(R.string.an_error_occurred)))
                 }
             }
 
             is WineListEvent.WineDeleteRequested -> {
-                // The UI will show a confirmation dialog, then send WineDeleteConfirmed
+                // The UI will show a confirmation dialogue, then send WineDeleteConfirmed
             }
 
             is WineListEvent.WineDeleteConfirmed -> viewModelScope.launch {
                 runCatching { deleteWine(event.wine) }
                     .onSuccess {
                         _state.update { it.copy(editingWine = null) }
-                        _effect.send(WineListEffect.ShowSnackbar(R.string.wine_deleted.toString()))
+                        _effect.send(WineListEffect.ShowSnackbar(context.getString(R.string.wine_deleted)))
                     }
                     .onFailure { e ->
-                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: R.string.error_on_delete.toString()))
+                        _effect.send(WineListEffect.ShowSnackbar(e.message ?: context.getString(R.string.error_on_delete)))
                     }
             }
         }

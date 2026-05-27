@@ -21,7 +21,7 @@ android {
         //noinspection OldTargetApi ... like why. the andorid 17 (sdk level 37) is still not out, why do you want to target it? also, the compile sdk is 36, so you can't target 37. just stop.
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0-alpha"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,8 +36,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            isDebuggable = true
+        }
         getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (file("release.keystore").exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

@@ -15,13 +15,13 @@
     <string name="all">Összes</string>
     <string name="all_data_cleared">Minden adat törölve</string>
     <string name="all_wine_and_tastings_get_deleted">Minden bor és kóstolás törlésre kerül.</string>
+    <string name="amber">Borostyán</string>
     <string name="amount_day">%1$d nap</string>
     <string name="amount_day_streak">%1$d napos sorozat</string>
     <string name="amount_tasting">%1$d kóstolás</string>
     <string name="amount_tastings">%1$d kóstolás</string>
     <string name="amount_wine">%1$d bor</string>
     <string name="an_error_occurred">Hiba történt</string>
-    <string name="app_name" translatable="false">ViNotes</string>
     <string name="app_language">Nyelv</string>
     <string name="apply">Alkalmaz</string>
     <string name="are_you_sure_to_delete">Biztosan törölni szeretnéd ezt a kóstolást? Ez a művelet nem vonható vissza.</string>
@@ -116,6 +116,7 @@
     <string name="large">Nagy</string>
     <string name="latest_tastings">Legutóbbi kóstolások</string>
     <string name="less">Kevesebb</string>
+    <string name="lemongreen">Zöldessárga</string>
     <string name="light">Könnyű</string>
     <string name="light_colour">Világos</string>
     <string name="system_settings">Rendszerbeállítások</string>
@@ -163,16 +164,21 @@
     <string name="overall_impression">Összbenyomás</string>
     <string name="palate">Szájérzet</string>
     <string name="pale">Halvány</string>
+    <string name="pink">Pink</string>
     <string name="place">Hely</string>
     <string name="please_select_a_wine_first">Kérlek először válassz egy bort</string>
     <string name="producer_req">Termelő *</string>
     <string name="pronounced">Kifejezett</string>
+    <string name="purple">Bíbor</string>
     <string name="ratings_distribution">Értékelések eloszlása</string>
     <string name="red">Vörös</string>
+    <string name="redbrown">Vörösesbarna</string>
     <string name="region">Régió</string>
     <string name="reverse_geocoding_failed">A hely lekérve, de a fordított geokódolás sikertelen volt</string>
     <string name="rose">Rozé</string>
+    <string name="ruby">Rubin</string>
     <string name="save">Mentés</string>
+    <string name="salmon">Lazac</string>
     <string name="search_dots">Keresés…</string>
     <string name="semi_dry">Félszáraz</string>
     <string name="sensory_profile">Érzékszervi profil</string>
@@ -202,7 +208,7 @@
     <string name="tasting_not_found_id">Kóstolás nem található: </string>
     <string name="tastings">Kóstolások</string>
     <string name="tastings_in_period">Kóstolások az időszakban</string>
-    <string name="tawny">Borostyán</string>
+    <string name="tawny">Barnásvörös</string>
     <string name="theme">Téma</string>
     <string name="the_location_provider_was_disabled">A helyszolgáltató le lett tiltva.</string>
     <string name="the_tasting_could_not_be_found">A kóstolás nem található.</string>
@@ -238,6 +244,7 @@
     <string name="welcome_name_set">Szia %1$s! Üdvözlet a borospincédben!</string>
     <string name="welcome_catalog_message">A katalógust letöltheted a webről, hogy feltöltsd a pincédet borokkal.\nNyomj OK-t a teljes katalógus letöltéséhez most.</string>
     <string name="white">Fehér</string>
+    <string name="whitebrown">Barnásfehér</string>
     <string name="wine_added">Bor hozzáadva</string>
     <string name="wine_deleted">Bor törölve</string>
     <string name="wine_id_is_missing">Hiányzik a bor azonosítója</string>
@@ -255,4 +262,7 @@
     <string name="yellow">Sárga</string>
     <string name="yes_definitely">Igen, mindenképp!</string>
     <string name="youthful">Fiatal</string>
+    <string name="lemon">Citrom</string>
+    <string name="garnet">Gránátalma</string>
+    <string name="gold">Arany</string>
 </resources>

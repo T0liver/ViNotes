@@ -1,9 +1,11 @@
 package hu.toliver.vinotes.ui.screen.winedetail
 
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
 import hu.toliver.vinotes.ui.screen.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
@@ -21,13 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WineDetailViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val getWineWithTastings: GetWineWithTastingsUseCase,
     private val updateWine: UpdateWineUseCase,
     private val deleteWine: DeleteWineUseCase,
 ) : ViewModel() {
-
-    private val wineId: String = savedStateHandle.get<String>("wineId") ?: ""
 
     private var initialized = false
 
@@ -56,10 +57,10 @@ class WineDetailViewModel @Inject constructor(
                 runCatching { updateWine(event.wine) }
                     .onSuccess {
                         _state.value = _state.value.copy(isEditSheetOpen = false)
-                        _effect.send(WineDetailEffect.ShowSnackbar(R.string.wine_updated.toString()))
+                        _effect.send(WineDetailEffect.ShowSnackbar(context.getString(R.string.wine_updated)))
                     }
                     .onFailure { e ->
-                        _effect.send(WineDetailEffect.ShowSnackbar(e.message ?: R.string.error_on_save.toString()))
+                        _effect.send(WineDetailEffect.ShowSnackbar(e.message ?: context.getString(R.string.error_on_save)))
                     }
             }
 
@@ -73,7 +74,7 @@ class WineDetailViewModel @Inject constructor(
                 val wine = _state.value.wine ?: return@launch
                 runCatching { deleteWine(wine) }
                     .onSuccess { _effect.send(WineDetailEffect.NavigateUp) }
-                    .onFailure { e -> _effect.send(WineDetailEffect.ShowSnackbar(e.message ?: R.string.error_on_delete.toString())) }
+                    .onFailure { e -> _effect.send(WineDetailEffect.ShowSnackbar(e.message ?: context.getString(R.string.error_on_delete))) }
             }
 
             WineDetailEvent.AddTastingClicked -> viewModelScope.launch {
@@ -90,7 +91,7 @@ class WineDetailViewModel @Inject constructor(
     private fun loadData() {
         val currentWineId = savedStateHandle.get<String>("wineId") ?: ""
         if (currentWineId.isEmpty()) {
-            _state.value = _state.value.copy(isLoading = false, errorMessage = R.string.wine_id_is_missing.toString())
+            _state.value = _state.value.copy(isLoading = false, errorMessage = context.getString(R.string.wine_id_is_missing))
             return
         }
 
@@ -102,7 +103,7 @@ class WineDetailViewModel @Inject constructor(
                 }
                 .collect { result ->
                     if (result == null) {
-                        _state.value = _state.value.copy(isLoading = false, errorMessage = R.string.the_wine_could_not_be_found.toString())
+                        _state.value = _state.value.copy(isLoading = false, errorMessage = context.getString(R.string.the_wine_could_not_be_found))
                         return@collect
                     }
                     _state.value = _state.value.copy(

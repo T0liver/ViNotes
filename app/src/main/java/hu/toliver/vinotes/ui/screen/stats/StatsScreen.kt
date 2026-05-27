@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hu.toliver.vinotes.domain.model.FullStatsData
 import hu.toliver.vinotes.ui.screen.stats.charts.*
 import hu.toliver.vinotes.ui.screen.stats.components.*
@@ -24,7 +25,7 @@ import hu.toliver.vinotes.R
 fun StatsScreen(
     viewModel: StatsViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val playedSections = remember { mutableStateMapOf<String, Boolean>() }
     fun shouldPlay(id: String) = playedSections[id] != true
     fun markPlayed(id: String) { playedSections[id] = true }
@@ -51,14 +52,16 @@ fun StatsScreen(
                 )
             }
 
-            else -> StatsContent(
-                state = state,
-                data = state.data!!,
-                onEvent = viewModel::onEvent,
-                modifier = Modifier.padding(innerPadding),
-                shouldPlay = ::shouldPlay,
-                markPlayed = ::markPlayed,
-            )
+            else -> state.data?.let { data ->
+                StatsContent(
+                    state = state,
+                    data = data,
+                    onEvent = viewModel::onEvent,
+                    modifier = Modifier.padding(innerPadding),
+                    shouldPlay = ::shouldPlay,
+                    markPlayed = ::markPlayed,
+                )
+            }
         }
     }
 }

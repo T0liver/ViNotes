@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material.icons.outlined.WineBar
@@ -80,7 +81,12 @@ fun WineSearchBar(
             ) {
                 WineSortOrder.entries.forEach { order ->
                     DropdownMenuItem(
-                        text = { Text(order.displayLabel()) },
+                        text = { Text(stringResource(order.displayLabelRes())) },
+                        trailingIcon = {
+                            if (order == sortOrder) {
+                                Icon(Icons.Filled.Check, contentDescription = null)
+                            }
+                        },
                         onClick = {
                             onSortChange(order)
                             sortMenuExpanded = false
@@ -111,9 +117,9 @@ fun WineSearchBar(
     }
 }
 
-private fun WineSortOrder.displayLabel(): String = when (this) {
-    WineSortOrder.NAME_ASC -> R.string.sort_name_a_z.toString()
-    WineSortOrder.RATING_DESC -> R.string.best_rating.toString()
-    WineSortOrder.YEAR_DESC -> R.string.newest_vintage.toString()
-    WineSortOrder.TASTING_DATE_DESC -> R.string.most_recently_tasted.toString()
+private fun WineSortOrder.displayLabelRes(): Int = when (this) {
+    WineSortOrder.NAME_ASC -> R.string.sort_name_a_z
+    WineSortOrder.RATING_DESC -> R.string.best_rating
+    WineSortOrder.YEAR_DESC -> R.string.newest_vintage
+    WineSortOrder.TASTING_DATE_DESC -> R.string.most_recently_tasted
 }
