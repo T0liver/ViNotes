@@ -1,7 +1,7 @@
 {
-  "type": "full",
-  "exportedAt": "2026-06-23",
-  "wines": [
+  "type": "delta",
+  "date": "2026-06-23",
+  "added": [
     {
       "id": "Ohegyi-pince-Rose-kettesben-2022",
       "name": "Rosé kettesben",
@@ -204,5 +204,7 @@
       "description": "Illatos és zamatos fehérbor sárgadinnyés, citrusos és virágos karakterrel. Könnyed szerkezete és üde savai miatt kiváló választás grillezett fogások mellé.",
       "imageUrl": "https://taschner.hu/wp-content/uploads/2024/01/zenit.jpg"
     }
-  ]
+  ],
+  "updated": [],
+  "removedIds": []
 }

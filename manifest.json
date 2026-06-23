@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "deltas": [
     {
-      "date": "2026-06-06",
-      "url": "delta-2026-06-06.json",
+      "date": "2026-06-23",
+      "url": "delta-2026-06-23.json",
       "addedCount": 11,
-      "sha256": "f1daa86c3a04b56b04ec390f9e028642ede3cbcba77f4c463636c69653c5a4d6"
+      "sha256": "f265d09a056e566c8f47f9b8b2fd8367c8a22f4983f38c708220c033fc048117"
     }
   ],
-  "lastUpdated": "2026-06-06",
+  "lastUpdated": "2026-06-23",
   "full": {
     "url": "full.json",
     "wineCount": 11,
-    "sha256": "ca460668260152699684de8549db0e1b31f695eadb5b8f9a92a70271b4822d93"
+    "sha256": "27e56559a9cdf844e1b85c6d70da0820889776f3c9ec6d9d3fa5261775c8ff94"
   }
 }
