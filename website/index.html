@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ViNotes - Score wines. Remember experiences.</title>
+  <link rel="icon" href="src/vinotes.ico">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body data-theme="dark">
+  <header class="topnav">
+    <div class="container">
+      <a class="brand" href="#">ViNotes</a>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#catalogue">Catalogue</a>
+        <a href="#contribute">Contribute</a>
+      </nav>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/T0liver/ViNotes/releases">Download</a>
+        <a class="btn" href="https://github.com/T0liver/ViNotes">Source</a>
+        <button id="themeToggle" aria-label="Toggle theme">☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Score wines. Remember experiences. Discover patterns.</h1>
+          <p class="lede">A privacy-first, offline-capable wine tasting journal for Android. Structured notes, cellar browsing, and lightweight catalogue sync.</p>
+          <p class="hero-ctas">
+            <a class="btn primary large" href="https://github.com/T0liver/ViNotes/releases">Download</a>
+            <a class="btn ghost" href="https://github.com/T0liver/ViNotes">Source Code</a>
+          </p>
+          <ul class="badges">
+            <li>Offline-first</li>
+            <li>Open source</li>
+            <li>Privacy-first</li>
+          </ul>
+        </div>
+        <div class="hero-shot">
+          <div class="device-frame">
+            <img alt="Dashboard screenshot" src="src/dashboard.png">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Features</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Structured tasting notes</h3>
+            <p>Record appearance, nose, palate and finish with guided fields for consistent, searchable notes.</p>
+          </article>
+          <article class="card">
+            <h3>Cellar & search</h3>
+            <p>Keep a local cellar, filter and search your wines quickly, and track bottle locations.</p>
+          </article>
+          <article class="card">
+            <h3>Statistics & trends</h3>
+            <p>See tasting patterns and simple visualizations of your palate over time.</p>
+          </article>
+          <article class="card">
+            <h3>Privacy & offline</h3>
+            <p>No accounts, no ads - your notes stay on your device and work offline.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots" class="section light">
+      <div class="container">
+        <h2>Screenshots</h2>
+        <div class="shots">
+          <figure><img src="src/dashboard.png" alt="Dashboard"><figcaption>Dashboard</figcaption></figure>
+          <figure><img src="src/tasting-screen.png" alt="Tasting form"><figcaption>Tasting form</figcaption></figure>
+          <figure><img src="src/wine-screen.png" alt="Wine detail"><figcaption>Wine detail</figcaption></figure>
+          <figure><img src="src/stats-screen.png" alt="Statistics"><figcaption>Statistics</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="section">
+      <div class="container">
+        <h2>Privacy & offline-first</h2>
+        <p>ViNotes is designed to keep your tasting notes private. There are no accounts, no analytics, and no ads. Everything is stored locally and the app works fully offline.</p>
+      </div>
+    </section>
+
+    <section id="catalogue" class="section light">
+      <div class="container">
+        <h2>Catalogue</h2>
+        <p>The app downloads a small JSON catalogue from the same domain. The root files are:</p>
+        <ul class="mono">
+          <li>/manifest.json - points to the current full and delta files</li>
+          <li>/full.json - the full catalogue</li>
+          <li>/delta-YYYY-MM-DD.json - incremental updates</li>
+        </ul>
+        <p>These files are hosted alongside this site so the Android app can fetch them from the root domain without configuration changes.</p>
+        <p>Want to contribute to the catalogue? Edit files in <code>catalogue branch</code> and open a pull request!</p>
+      </div>
+    </section>
+
+    <section id="tech" class="section">
+      <div class="container">
+        <h2>Open source & tech</h2>
+        <p>ViNotes is built with modern Android tooling: Jetpack Compose, Material3, Hilt, Room, Retrofit, and Kotlin. The website and catalogue are published from this repository.</p>
+        <p class="small"><a href="https://github.com/T0liver/ViNotes">View the repository on GitHub</a></p>
+      </div>
+    </section>
+
+    <section id="contribute" class="section light">
+      <div class="container">
+        <h2>Download & Contribute</h2>
+        <p>Get releases from GitHub or build from source. To contribute catalogue entries, edit files in <code>source/wines/</code> and open a pull request.</p>
+        <p class="actions-row"><a class="btn primary" href="https://github.com/T0liver/ViNotes/releases">Download</a> <a class="btn" href="https://github.com/T0liver/ViNotes">Source</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>ViNotes - privacy-first wine tasting journal • <a href="https://github.com/T0liver/ViNotes">GitHub</a> • License: MIT</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

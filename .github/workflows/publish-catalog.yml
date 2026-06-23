@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'source/wines/**'
+      - 'website/**'
+      - 'imgs/**'
   workflow_dispatch:
 
 permissions:
@@ -27,6 +29,11 @@ jobs:
 
       - name: Build catalog
         run: python .github/scripts/build_catalog.py
+
+      - name: Merge website into publish directory
+        run: |
+          mkdir -p catalog
+          rsync -av website/ catalog/ || true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
