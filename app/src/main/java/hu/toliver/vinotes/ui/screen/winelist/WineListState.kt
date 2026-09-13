@@ -11,8 +11,10 @@ data class WineListState(
     val activeFilters: WineFilters = WineFilters(),
     val sortOrder: WineSortOrder = WineSortOrder.NAME_ASC,
     val isFilterSheetOpen: Boolean = false,
+    val filterSheetSessionId: Int = 0,
     val editingWine: Wine? = null,
     val isAddSheetOpen: Boolean = false,
+    val wineFormSessionId: Int = 0,
     val errorMessage: String? = null,
 )
 

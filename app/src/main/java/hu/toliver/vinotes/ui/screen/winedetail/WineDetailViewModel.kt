@@ -50,7 +50,10 @@ class WineDetailViewModel @Inject constructor(
         when (event) {
             WineDetailEvent.LoadData -> loadData()
 
-            WineDetailEvent.EditWineClicked -> _state.value = _state.value.copy(isEditSheetOpen = true)
+            WineDetailEvent.EditWineClicked -> _state.value = _state.value.copy(
+                isEditSheetOpen = true,
+                editSheetSessionId = _state.value.editSheetSessionId + 1,
+            )
             WineDetailEvent.EditSheetDismissed -> _state.value = _state.value.copy(isEditSheetOpen = false)
 
             is WineDetailEvent.WineSaved -> viewModelScope.launch {
