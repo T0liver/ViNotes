@@ -55,7 +55,12 @@ class WineListViewModel @Inject constructor(
                 applyFilterAndSort()
             }
 
-            WineListEvent.FilterSheetOpened -> _state.update { it.copy(isFilterSheetOpen = true) }
+            WineListEvent.FilterSheetOpened -> _state.update {
+                it.copy(
+                    isFilterSheetOpen = true,
+                    filterSheetSessionId = it.filterSheetSessionId + 1,
+                )
+            }
             WineListEvent.FilterSheetDismissed -> _state.update { it.copy(isFilterSheetOpen = false) }
 
             is WineListEvent.FiltersApplied -> {
@@ -68,7 +73,12 @@ class WineListViewModel @Inject constructor(
                 applyFilterAndSort()
             }
 
-            WineListEvent.AddWineClicked -> _state.update { it.copy(isAddSheetOpen = true) }
+            WineListEvent.AddWineClicked -> _state.update {
+                it.copy(
+                    isAddSheetOpen = true,
+                    wineFormSessionId = it.wineFormSessionId + 1,
+                )
+            }
             WineListEvent.AddSheetDismissed -> _state.update { it.copy(isAddSheetOpen = false) }
 
             is WineListEvent.WineCardClicked -> viewModelScope.launch {
@@ -76,7 +86,12 @@ class WineListViewModel @Inject constructor(
             }
 
             is WineListEvent.WineCardLongPressed ->
-                _state.update { it.copy(editingWine = event.wine) }
+                _state.update {
+                    it.copy(
+                        editingWine = event.wine,
+                        wineFormSessionId = it.wineFormSessionId + 1,
+                    )
+                }
 
             WineListEvent.EditSheetDismissed ->
                 _state.update { it.copy(editingWine = null) }

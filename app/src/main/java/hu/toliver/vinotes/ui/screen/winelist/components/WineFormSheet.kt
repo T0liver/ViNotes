@@ -28,8 +28,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +46,7 @@ import java.util.UUID
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WineFormSheet(
+    sessionId: Int,
     editingWine: Wine?,
     onSave: (Wine, Boolean) -> Unit,
     onDelete: (Wine) -> Unit,
@@ -57,20 +58,21 @@ fun WineFormSheet(
 
     val isEdit = editingWine != null
     val isNew = !isEdit
+    val formKey = sessionId to (editingWine?.id ?: "new")
 
-    var name by remember { mutableStateOf(editingWine?.name ?: "") }
-    var producer by remember { mutableStateOf(editingWine?.producer ?: "") }
-    var year by remember { mutableStateOf(editingWine?.year?.toString() ?: "") }
-    var grape by remember { mutableStateOf(editingWine?.grape ?: "") }
-    var isCuvee by remember { mutableStateOf(editingWine?.isCuvee ?: false) }
-    var cuveeText by remember { mutableStateOf(editingWine?.cuveeComponents?.joinToString(", ") ?: "") }
-    var selectedColour by remember { mutableStateOf(editingWine?.colour ?: WineColour.RED) }
-    var country by remember { mutableStateOf(editingWine?.country ?: "") }
-    var region by remember { mutableStateOf(editingWine?.region ?: "") }
-    var alcoholText by remember { mutableStateOf(editingWine?.alcoholPercentage?.toString() ?: "") }
-    var description by remember { mutableStateOf(editingWine?.description ?: "") }
+    var name by rememberSaveable(formKey) { mutableStateOf(editingWine?.name ?: "") }
+    var producer by rememberSaveable(formKey) { mutableStateOf(editingWine?.producer ?: "") }
+    var year by rememberSaveable(formKey) { mutableStateOf(editingWine?.year?.toString() ?: "") }
+    var grape by rememberSaveable(formKey) { mutableStateOf(editingWine?.grape ?: "") }
+    var isCuvee by rememberSaveable(formKey) { mutableStateOf(editingWine?.isCuvee ?: false) }
+    var cuveeText by rememberSaveable(formKey) { mutableStateOf(editingWine?.cuveeComponents?.joinToString(", ") ?: "") }
+    var selectedColour by rememberSaveable(formKey) { mutableStateOf(editingWine?.colour ?: WineColour.RED) }
+    var country by rememberSaveable(formKey) { mutableStateOf(editingWine?.country ?: "") }
+    var region by rememberSaveable(formKey) { mutableStateOf(editingWine?.region ?: "") }
+    var alcoholText by rememberSaveable(formKey) { mutableStateOf(editingWine?.alcoholPercentage?.toString() ?: "") }
+    var description by rememberSaveable(formKey) { mutableStateOf(editingWine?.description ?: "") }
 
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable(formKey) { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = {
