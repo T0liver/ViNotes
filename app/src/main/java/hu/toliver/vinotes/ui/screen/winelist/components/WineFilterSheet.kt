@@ -25,8 +25,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +42,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WineFilterSheet(
+    sessionId: Int,
     currentFilters: WineFilters,
     availableColours: List<WineColour>,
     availableCountries: List<String>,
@@ -52,11 +53,16 @@ fun WineFilterSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()
+    val filterKey = sessionId
 
-    var selectedColours by remember { mutableStateOf(currentFilters.colours) }
-    var selectedCountries by remember { mutableStateOf(currentFilters.countries) }
-    var yearFromText by remember { mutableStateOf(currentFilters.yearFrom?.toString() ?: "") }
-    var yearToText by remember { mutableStateOf(currentFilters.yearTo?.toString() ?: "") }
+    var selectedColours by rememberSaveable(filterKey) {
+        mutableStateOf(currentFilters.colours.toList())
+    }
+    var selectedCountries by rememberSaveable(filterKey) {
+        mutableStateOf(currentFilters.countries.toList())
+    }
+    var yearFromText by rememberSaveable(filterKey) { mutableStateOf(currentFilters.yearFrom?.toString() ?: "") }
+    var yearToText by rememberSaveable(filterKey) { mutableStateOf(currentFilters.yearTo?.toString() ?: "") }
 
     ModalBottomSheet(
         onDismissRequest = {
@@ -107,9 +113,9 @@ fun WineFilterSheet(
                                 selected = colour in selectedColours,
                                 onClick = {
                                     selectedColours = if (colour in selectedColours) {
-                                        selectedColours - colour
+                                            selectedColours - colour
                                     } else {
-                                        selectedColours + colour
+                                            selectedColours + colour
                                     }
                                 },
                                 label = { Text(colour.toDisplayName(), style = MaterialTheme.typography.labelSmall) },
@@ -135,9 +141,9 @@ fun WineFilterSheet(
                                 selected = country in selectedCountries,
                                 onClick = {
                                     selectedCountries = if (country in selectedCountries) {
-                                        selectedCountries - country
+                                            selectedCountries - country
                                     } else {
-                                        selectedCountries + country
+                                            selectedCountries + country
                                     }
                                 },
                                 label = { Text(country, style = MaterialTheme.typography.labelSmall) },
@@ -194,8 +200,8 @@ fun WineFilterSheet(
                     Button(
                         onClick = {
                             val filters = WineFilters(
-                                colours = selectedColours,
-                                countries = selectedCountries,
+                                colours = selectedColours.toSet(),
+                                countries = selectedCountries.toSet(),
                                 yearFrom = yearFromText.toIntOrNull(),
                                 yearTo = yearToText.toIntOrNull(),
                             )

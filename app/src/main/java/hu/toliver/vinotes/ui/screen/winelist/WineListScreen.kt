@@ -151,6 +151,7 @@ fun WineListScreen(
 
     if (state.isFilterSheetOpen) {
         WineFilterSheet(
+            sessionId = state.filterSheetSessionId,
             currentFilters = state.activeFilters,
             availableColours = WineColour.entries,
             availableCountries = state.wines
@@ -165,6 +166,7 @@ fun WineListScreen(
 
     if (state.isAddSheetOpen || state.editingWine != null) {
         WineFormSheet(
+            sessionId = state.wineFormSessionId,
             editingWine = state.editingWine,
             onSave = { wine, isNew ->
                 viewModel.onEvent(WineListEvent.WineSaved(wine, isNew))

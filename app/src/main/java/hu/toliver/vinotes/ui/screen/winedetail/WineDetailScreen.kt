@@ -69,6 +69,7 @@ fun WineDetailScreen(
 
     if (state.isEditSheetOpen && state.wine != null) {
         WineFormSheet(
+            sessionId = state.editSheetSessionId,
             editingWine = state.wine,
             onSave = { wine, _ -> viewModel.onEvent(WineDetailEvent.WineSaved(wine)) },
             onDelete = { viewModel.onEvent(WineDetailEvent.DeleteWineClicked) },

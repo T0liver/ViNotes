@@ -9,6 +9,7 @@ data class WineDetailState(
     val tastings: List<Taste> = emptyList(),
     val radarData: RadarData? = null,
     val isEditSheetOpen: Boolean = false,
+    val editSheetSessionId: Int = 0,
     val showDeleteWineDialog: Boolean = false,
     val errorMessage: String? = null,
 )
