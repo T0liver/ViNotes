@@ -2,6 +2,7 @@ package hu.toliver.vinotes.ui.screen.winelist.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -103,10 +104,10 @@ fun WineFilterSheet(
                         text = stringResource(R.string.colour),
                         style = MaterialTheme.typography.titleMedium,
                     )
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
                         availableColours.forEach { colour ->
                             FilterChip(
