@@ -145,13 +145,5 @@ enum class StatPeriod {
             ALL_TIME -> null
         }
     }
-
-    val label: String
-        get() = when (this) {
-            LAST_30_DAYS -> "30 days"
-            LAST_3_MONTHS -> "3 months"
-            THIS_YEAR -> "This year"
-            ALL_TIME -> "All time"
-        }
 }
 

@@ -32,7 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
@@ -74,7 +76,7 @@ fun TastingHeatmap(
             .format(getInstance().time)
     }
 
-    val dayLabels = listOf("M", "Tu", "W", "Th", "F", "Sa", "Su")
+    val dayLabels = stringArrayResource(R.array.heatmap_weekday_labels).toList()
 
     Column(modifier = modifier) {
         Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -192,9 +194,11 @@ fun HeatmapTooltip(day: String, count: Int, onDismiss: () -> Unit, modifier: Mod
         ) {
             Text(formatted, style = typography.bodyMedium)
             Text(
-                text = if (count == 0) stringResource(R.string.no_tastings_yet) else stringResource(
-                    R.string.amount_tastings, count
-                ),
+                text = if (count == 0) {
+                    stringResource(R.string.no_tastings_yet)
+                } else {
+                    pluralStringResource(R.plurals.tasting_count, count, count)
+                },
                 style = typography.bodyMedium,
                 color = if (count > 0) colorScheme.primary else colorScheme.onSurfaceVariant
             )

@@ -266,4 +266,22 @@
     <string name="yellow">Yellow</string>
     <string name="yes_definitely">Yes, definitely!</string>
     <string name="youthful">Youthful</string>
+
+    <!-- Stats -->
+    <string name="stats_period_30_days">30 days</string>
+    <string name="stats_period_3_months">3 months</string>
+    <string name="stats_period_this_year">This year</string>
+    <string name="stats_period_all_time">All time</string>
+    <string-array name="heatmap_weekday_labels">
+        <item>M</item>
+        <item>Tu</item>
+        <item>W</item>
+        <item>Th</item>
+        <item>F</item>
+        <item>Sa</item>
+        <item>Su</item>
+    </string-array>
+    <string name="invalid_wine_year">Enter a year between %1$d and %2$d.</string>
+    <string name="place_lookup_unavailable">Place lookup is unavailable while offline.</string>
+    <string name="catalog_url_requires_https">Catalog URL must use HTTPS (cleartext HTTP is not allowed).</string>
 </resources>

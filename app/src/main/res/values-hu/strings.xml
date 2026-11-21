@@ -265,4 +265,22 @@
     <string name="lemon">Citrom</string>
     <string name="garnet">Gránátalma</string>
     <string name="gold">Arany</string>
+
+    <!-- Stats -->
+    <string name="stats_period_30_days">30 nap</string>
+    <string name="stats_period_3_months">3 hónap</string>
+    <string name="stats_period_this_year">Ez az év</string>
+    <string name="stats_period_all_time">Összes</string>
+    <string-array name="heatmap_weekday_labels">
+        <item>H</item>
+        <item>K</item>
+        <item>Sze</item>
+        <item>Cs</item>
+        <item>P</item>
+        <item>Szo</item>
+        <item>V</item>
+    </string-array>
+    <string name="invalid_wine_year">Adj meg %1$d és %2$d közötti évet.</string>
+    <string name="place_lookup_unavailable">A hely keresése offline állapotban nem érhető el.</string>
+    <string name="catalog_url_requires_https">A katalógus URL-nek HTTPS-t kell használnia (sima HTTP nem engedélyezett).</string>
 </resources>

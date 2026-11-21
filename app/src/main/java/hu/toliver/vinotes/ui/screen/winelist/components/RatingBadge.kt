@@ -35,7 +35,7 @@ fun RatingBadge(rating: Int, tastingCount: Int) {
                 modifier = Modifier.size(12.dp),
             )
             Text(
-                text = "★ $rating · ${tastingCount}×",
+                text = "$rating · ${tastingCount}×",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
             )

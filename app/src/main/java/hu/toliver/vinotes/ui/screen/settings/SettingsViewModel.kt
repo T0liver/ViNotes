@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.ui.util.userFacingErrorMessage
 import hu.toliver.vinotes.domain.model.enums.AppLanguage
 import hu.toliver.vinotes.domain.usecases.catalog.ImportFromFileUseCase
 import hu.toliver.vinotes.domain.usecases.catalog.PerformDeltaSyncUseCase
@@ -171,11 +172,16 @@ class SettingsViewModel @Inject constructor(
 				}
 				.onFailure { error ->
 					_state.update { it.copy(isSyncingCatalog = false) }
-					val msg = error.message ?: context.getString(R.string.error_syncing_catalog)
+					val msg = userFacingErrorMessage(
+						context,
+						error.message ?: context.getString(R.string.error_syncing_catalog),
+					)
 					// Detect DNS resolution failures and show actionable hint
 					if (msg.contains(context.getString(R.string.dns_resolution_failed), ignoreCase = true)
 						|| msg.contains(context.getString(R.string.unable_to_resolve_host), ignoreCase = true)
-						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)) {
+						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)
+						|| msg == context.getString(R.string.cannot_resolve_catalog_host)
+					) {
 						_effect.send(
 							SettingsEffect.ShowSnackbar(
 								context.getString(R.string.cannot_resolve_catalog_host)
@@ -196,11 +202,16 @@ class SettingsViewModel @Inject constructor(
 				}
 				.onFailure { error ->
 					_state.update { it.copy(isSyncingCatalog = false) }
-					val msg = error.message ?: context.getString(R.string.error_syncing_catalog)
+					val msg = userFacingErrorMessage(
+						context,
+						error.message ?: context.getString(R.string.error_syncing_catalog),
+					)
 					// Detect DNS resolution failures and show actionable hint
 					if (msg.contains(context.getString(R.string.dns_resolution_failed), ignoreCase = true)
 						|| msg.contains(context.getString(R.string.unable_to_resolve_host), ignoreCase = true)
-						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)) {
+						|| msg.contains(context.getString(R.string.no_address_associated_with_hostname), ignoreCase = true)
+						|| msg == context.getString(R.string.cannot_resolve_catalog_host)
+					) {
 						_effect.send(
 							SettingsEffect.ShowSnackbar(
 								context.getString(R.string.cannot_resolve_catalog_host)

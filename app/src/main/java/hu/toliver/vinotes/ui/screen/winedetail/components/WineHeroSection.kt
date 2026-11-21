@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
@@ -80,7 +81,7 @@ fun WineHeroSection(
                             Text("·", color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Text(
-                            text = stringResource(R.string.amount_tasting, tastingCount),
+                            text = pluralStringResource(R.plurals.tasting_count, tastingCount, tastingCount),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
