@@ -70,6 +70,9 @@
     <string name="delete_tasting">Kóstolás törlése</string>
     <string name="delete_wine">Bor törlése</string>
     <string name="description">Leírás</string>
+    <string name="discard">Elvetés</string>
+    <string name="discard_changes">Elveted a változtatásokat?</string>
+    <string name="discard_changes_message">Mentetlen adataid vannak. Bezárás mentés nélkül?</string>
     <string name="developed">Fejlett</string>
     <string name="developing">Fejlődő</string>
     <string name="development">Fejlődés</string>
