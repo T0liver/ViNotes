@@ -49,6 +49,10 @@ class WineRepositoryImpl @Inject constructor(
         dao.insertAll(wines.map { it.toEntity(isFromCatalog = fromCatalog) })
     }
 
+    override suspend fun updateAll(wines: List<Wine>, fromCatalog: Boolean): Result<Unit> = runCatching {
+        dao.updateAll(wines.map { it.toEntity(isFromCatalog = fromCatalog) })
+    }
+
     override suspend fun update(wine: Wine): Result<Unit> = runCatching {
         dao.update(wine.toEntity())
     }
