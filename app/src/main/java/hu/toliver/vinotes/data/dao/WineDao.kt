@@ -37,11 +37,14 @@ interface WineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(wine: WineEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(wines: List<WineEntity>)
 
     @Update
     suspend fun update(wine: WineEntity)
+
+    @Update
+    suspend fun updateAll(wines: List<WineEntity>)
 
     @Query("DELETE FROM wines WHERE id = :id")
     suspend fun deleteById(id: String)

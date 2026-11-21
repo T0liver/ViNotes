@@ -16,6 +16,7 @@ interface WineRepository {
     ): Flow<List<Wine>>
     suspend fun insert(wine: Wine): Result<Unit>
     suspend fun insertAll(wines: List<Wine>, fromCatalog: Boolean): Result<Unit>
+    suspend fun updateAll(wines: List<Wine>, fromCatalog: Boolean): Result<Unit>
     suspend fun insertIfNotExists(wine: Wine): Result<Unit>
     suspend fun update(wine: Wine): Result<Unit>
     suspend fun delete(id: String): Result<Unit>
