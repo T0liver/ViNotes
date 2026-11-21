@@ -23,9 +23,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
-import kotlin.math.atan2
 import kotlin.math.cos
-import kotlin.math.roundToInt
 import kotlin.math.sin
 
 @Composable
@@ -67,12 +65,12 @@ fun RatingArcSlider(
                     detectDragGestures { change, _ ->
                         change.consume()
                         val center = Offset(size.width / 2f, size.height.toFloat())
-                        val angle = atan2(
-                            (center.y - change.position.y).toDouble(),
-                            (change.position.x - center.x).toDouble(),
+                        val newRating = ratingFromPointer(
+                            pointerX = change.position.x,
+                            pointerY = change.position.y,
+                            centerX = center.x,
+                            centerY = center.y,
                         )
-                        val degrees = Math.toDegrees(angle).coerceIn(0.0, 180.0)
-                        val newRating = 100 - (degrees / 180.0 * 100).roundToInt().coerceIn(0, 100)
                         onChange(newRating)
                     }
                 }
