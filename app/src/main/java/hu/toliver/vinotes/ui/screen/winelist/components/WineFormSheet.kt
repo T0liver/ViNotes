@@ -22,12 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -53,8 +55,9 @@ fun WineFormSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()
+    var allowSheetHide by remember { mutableStateOf(false) }
+    var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
 
     val isEdit = editingWine != null
     val isNew = !isEdit
@@ -74,11 +77,51 @@ fun WineFormSheet(
 
     var showDeleteDialog by rememberSaveable(formKey) { mutableStateOf(false) }
 
-    ModalBottomSheet(
-        onDismissRequest = {
-            scope.launch { sheetState.hide() }
-            onDismiss()
+    val isDirty = isWineFormDirty(
+        editingWine = editingWine,
+        name = name,
+        producer = producer,
+        year = year,
+        grape = grape,
+        isCuvee = isCuvee,
+        cuveeText = cuveeText,
+        selectedColour = selectedColour,
+        country = country,
+        region = region,
+        alcoholText = alcoholText,
+        description = description,
+    )
+
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { newValue ->
+            if (newValue == SheetValue.Hidden && isDirty && !allowSheetHide) {
+                false
+            } else {
+                true
+            }
         },
+    )
+
+    fun performDismiss() {
+        scope.launch {
+            allowSheetHide = true
+            sheetState.hide()
+            allowSheetHide = false
+            onDismiss()
+        }
+    }
+
+    fun requestDismiss() {
+        if (isDirty) {
+            showDiscardDialog = true
+        } else {
+            performDismiss()
+        }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = { requestDismiss() },
         sheetState = sheetState,
         modifier = modifier,
     ) {
@@ -100,10 +143,7 @@ fun WineFormSheet(
                         ),
                         style = MaterialTheme.typography.titleMedium,
                     )
-                    IconButton(onClick = {
-                        scope.launch { sheetState.hide() }
-                        onDismiss()
-                    }) {
+                    IconButton(onClick = { requestDismiss() }) {
                         Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close))
                     }
                 }
@@ -270,7 +310,11 @@ fun WineFormSheet(
                             image = editingWine?.image ?: "",
                         )
                         onSave(wine, isNew)
-                        scope.launch { sheetState.hide() }
+                        scope.launch {
+                            allowSheetHide = true
+                            sheetState.hide()
+                            allowSheetHide = false
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -290,10 +334,19 @@ fun WineFormSheet(
             onConfirm = {
                 onDelete(editingWine)
                 showDeleteDialog = false
-                scope.launch { sheetState.hide() }
-                onDismiss()
+                performDismiss()
             },
             onDismiss = { showDeleteDialog = false },
+        )
+    }
+
+    if (showDiscardDialog) {
+        DiscardChangesDialog(
+            onConfirm = {
+                showDiscardDialog = false
+                performDismiss()
+            },
+            onDismiss = { showDiscardDialog = false },
         )
     }
 }

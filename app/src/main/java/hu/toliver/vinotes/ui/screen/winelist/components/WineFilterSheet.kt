@@ -19,12 +19,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -51,8 +53,9 @@ fun WineFilterSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()
+    var allowSheetHide by remember { mutableStateOf(false) }
+    var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
     val filterKey = sessionId
 
     var selectedColours by rememberSaveable(filterKey) {
@@ -64,11 +67,44 @@ fun WineFilterSheet(
     var yearFromText by rememberSaveable(filterKey) { mutableStateOf(currentFilters.yearFrom?.toString() ?: "") }
     var yearToText by rememberSaveable(filterKey) { mutableStateOf(currentFilters.yearTo?.toString() ?: "") }
 
-    ModalBottomSheet(
-        onDismissRequest = {
-            scope.launch { sheetState.hide() }
-            onDismiss()
+    val isDirty = isWineFilterDirty(
+        currentFilters = currentFilters,
+        selectedColours = selectedColours,
+        selectedCountries = selectedCountries,
+        yearFromText = yearFromText,
+        yearToText = yearToText,
+    )
+
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { newValue ->
+            if (newValue == SheetValue.Hidden && isDirty && !allowSheetHide) {
+                false
+            } else {
+                true
+            }
         },
+    )
+
+    fun performDismiss() {
+        scope.launch {
+            allowSheetHide = true
+            sheetState.hide()
+            allowSheetHide = false
+            onDismiss()
+        }
+    }
+
+    fun requestDismiss() {
+        if (isDirty) {
+            showDiscardDialog = true
+        } else {
+            performDismiss()
+        }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = { requestDismiss() },
         sheetState = sheetState,
         modifier = modifier,
     ) {
@@ -88,10 +124,7 @@ fun WineFilterSheet(
                         text = stringResource(R.string.filters),
                         style = MaterialTheme.typography.titleMedium,
                     )
-                    IconButton(onClick = {
-                        scope.launch { sheetState.hide() }
-                        onDismiss()
-                    }) {
+                    IconButton(onClick = { requestDismiss() }) {
                         Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close))
                     }
                 }
@@ -206,7 +239,11 @@ fun WineFilterSheet(
                                 yearTo = yearToText.toIntOrNull(),
                             )
                             onApply(filters)
-                            scope.launch { sheetState.hide() }
+                            scope.launch {
+                                allowSheetHide = true
+                                sheetState.hide()
+                                allowSheetHide = false
+                            }
                         },
                         modifier = Modifier.weight(1f),
                     ) {
@@ -216,5 +253,15 @@ fun WineFilterSheet(
                 Spacer(Modifier.height(16.dp))
             }
         }
+    }
+
+    if (showDiscardDialog) {
+        DiscardChangesDialog(
+            onConfirm = {
+                showDiscardDialog = false
+                performDismiss()
+            },
+            onDismiss = { showDiscardDialog = false },
+        )
     }
 }
