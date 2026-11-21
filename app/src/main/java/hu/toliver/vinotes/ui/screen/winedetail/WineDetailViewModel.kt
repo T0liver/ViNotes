@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.domain.WineYears
 import hu.toliver.vinotes.ui.screen.UIConverter.toFloat
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
@@ -57,9 +58,24 @@ class WineDetailViewModel @Inject constructor(
             WineDetailEvent.EditSheetDismissed -> _state.value = _state.value.copy(isEditSheetOpen = false)
 
             is WineDetailEvent.WineSaved -> viewModelScope.launch {
+                if (!WineYears.isValid(event.wine.year)) {
+                    _effect.send(
+                        WineDetailEffect.ShowSnackbar(
+                            context.getString(
+                                R.string.invalid_wine_year,
+                                WineYears.MIN_YEAR,
+                                WineYears.maxYear(),
+                            ),
+                        ),
+                    )
+                    return@launch
+                }
                 runCatching { updateWine(event.wine) }
                     .onSuccess {
-                        _state.value = _state.value.copy(isEditSheetOpen = false)
+                        _state.value = _state.value.copy(
+                            isEditSheetOpen = false,
+                            wine = event.wine,
+                        )
                         _effect.send(WineDetailEffect.ShowSnackbar(context.getString(R.string.wine_updated)))
                     }
                     .onFailure { e ->

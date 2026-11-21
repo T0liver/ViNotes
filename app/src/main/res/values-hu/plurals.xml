@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="tasting_count">
+        <item quantity="one">%d kóstolás</item>
+        <item quantity="other">%d kóstolás</item>
+    </plurals>
+    <plurals name="day_count">
+        <item quantity="one">%d nap</item>
+        <item quantity="other">%d nap</item>
+    </plurals>
+</resources>

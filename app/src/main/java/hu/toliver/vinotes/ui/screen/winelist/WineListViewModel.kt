@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.domain.WineYears
 import hu.toliver.vinotes.domain.model.WineWithStats
 import hu.toliver.vinotes.domain.usecases.wine.DeleteWineUseCase
 import hu.toliver.vinotes.domain.usecases.wine.GetWinesWithStatsUseCase
@@ -97,6 +98,18 @@ class WineListViewModel @Inject constructor(
                 _state.update { it.copy(editingWine = null) }
 
             is WineListEvent.WineSaved -> viewModelScope.launch {
+                if (!WineYears.isValid(event.wine.year)) {
+                    _effect.send(
+                        WineListEffect.ShowSnackbar(
+                            context.getString(
+                                R.string.invalid_wine_year,
+                                WineYears.MIN_YEAR,
+                                WineYears.maxYear(),
+                            ),
+                        ),
+                    )
+                    return@launch
+                }
                 runCatching {
                     if (event.isNew) addWine(event.wine) else updateWine(event.wine)
                 }.onSuccess {

@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
@@ -100,7 +101,11 @@ fun StreakSection(data: FullStatsData, modifier: Modifier = Modifier) {
                     color = colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = stringResource(R.string.amount_day, data.longestStreak),
+                    text = pluralStringResource(
+                        R.plurals.day_count,
+                        data.longestStreak,
+                        data.longestStreak,
+                    ),
                     style = typography.titleMedium,
                     color = colorScheme.primary
                 )

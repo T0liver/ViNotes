@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.toliver.vinotes.R
+import hu.toliver.vinotes.ui.util.userFacingErrorMessage
 import hu.toliver.vinotes.domain.model.Taste
 import hu.toliver.vinotes.domain.usecases.location.GetCurrentLocationUseCase
 import hu.toliver.vinotes.domain.usecases.location.ReverseGeocodeUseCase
@@ -131,7 +132,12 @@ class AddTastingViewModel @Inject constructor(
                                             longitude = longitude,
                                         )
                                     }
-                                    emitLocationError(error.message ?: context.getString(R.string.reverse_geocoding_failed))
+                                    emitLocationError(
+                                        userFacingErrorMessage(
+                                            context,
+                                            error.message ?: context.getString(R.string.reverse_geocoding_failed),
+                                        ),
+                                    )
                                 }
                         }
                         .onFailure { error ->
@@ -147,8 +153,9 @@ class AddTastingViewModel @Inject constructor(
     }
 
     private suspend fun emitLocationError(message: String) {
-        _state.update { it.copy(locationError = message, isLoadingLocation = false) }
-        _effect.send(AddTastingEffect.ShowLocationError(message))
+        val friendly = userFacingErrorMessage(context, message)
+        _state.update { it.copy(locationError = friendly, isLoadingLocation = false) }
+        _effect.send(AddTastingEffect.ShowLocationError(friendly))
     }
 
     private fun loadForEdit(tasteId: String) {
