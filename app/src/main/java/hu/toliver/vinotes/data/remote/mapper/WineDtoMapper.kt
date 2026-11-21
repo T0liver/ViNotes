@@ -4,9 +4,19 @@ import hu.toliver.vinotes.data.remote.dto.WineDto
 import hu.toliver.vinotes.domain.model.Wine
 import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
+import java.text.Normalizer
+import java.util.Locale
+
+fun parseWineColour(raw: String): WineColour? {
+    val canonical = Normalizer.normalize(raw.trim(), Normalizer.Form.NFD)
+        .replace(Regex("\\p{M}+"), "")
+        .uppercase(Locale.ROOT)
+    return WineColour.entries.firstOrNull { it.name == canonical }
+}
 
 fun String.toWineColour(): WineColour =
-    runCatching { WineColour.valueOf(this) }.getOrDefault(WineColour.RED)
+    parseWineColour(this)
+        ?: throw IllegalArgumentException("Unknown wine colour: $this")
 
 fun String.toWineSweetness(): WineSweetness =
     runCatching { WineSweetness.valueOf(this) }.getOrDefault(WineSweetness.DRY)
