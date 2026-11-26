@@ -11,9 +11,9 @@ import hu.toliver.vinotes.data.local.entity.toEntity
 import hu.toliver.vinotes.data.remote.api.CatalogApi
 import hu.toliver.vinotes.domain.repository.AppPreferencesRepository
 import hu.toliver.vinotes.data.remote.dto.FullCatalogDto
+import hu.toliver.vinotes.data.remote.mapper.parseWineColour
 import hu.toliver.vinotes.data.remote.mapper.toDomain
 import hu.toliver.vinotes.domain.model.Wine
-import hu.toliver.vinotes.domain.model.enums.WineColour
 import hu.toliver.vinotes.domain.model.enums.WineSweetness
 import hu.toliver.vinotes.domain.model.sync.CatalogDelta
 import hu.toliver.vinotes.domain.model.sync.CatalogManifest
@@ -184,7 +184,7 @@ class CatalogSyncRepositoryImpl @Inject constructor(
         }
         if (wine.volume <= 0) invalidCatalog("$wineLabel has an invalid volume")
 
-        if (WineColour.entries.none { it.name == wine.colour }) {
+        if (parseWineColour(wine.colour) == null) {
             invalidCatalog("$wineLabel has an invalid colour value")
         }
 

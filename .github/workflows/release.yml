@@ -65,7 +65,7 @@ jobs:
         run: |
           VERSION=$(grep "versionName" app/build.gradle.kts | awk '{print $3}' | tr -d \")
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-        
+
       - name: Check if Tag Exists and Modify
         id: f_tag
         run: |
@@ -73,11 +73,13 @@ jobs:
           git fetch --tags --prune
           if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
             echo "TAG_EXISTS=true" >> $GITHUB_OUTPUT
-            new_version="${VERSION}-build-${{ github.run_number }}"
-            echo "VERSION=$new_version" >> $GITHUB_OUTPUT
+            N=2
+            while git rev-parse "v${VERSION}-build-${N}" >/dev/null 2>&1; do
+              N=$((N + 1))
+            done
+            echo "VERSION=${VERSION}-build-${N}" >> $GITHUB_OUTPUT
           else
             echo "TAG_EXISTS=false" >> $GITHUB_OUTPUT
-            # keep original version
             echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           fi
 

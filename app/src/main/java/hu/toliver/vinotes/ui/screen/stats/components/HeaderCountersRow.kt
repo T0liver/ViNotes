@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
+import kotlin.math.round
 import hu.toliver.vinotes.domain.model.FullStatsData
 
 @Composable
@@ -32,7 +33,7 @@ fun HeaderCountersRow(
             playAnimations = playAnimations,
         )
         AnimatedStatCounter(
-            targetValue = data.averageRating.toInt(),
+            targetValue = round(data.averageRating).toInt(),
             label = stringResource(R.string.average),
             modifier = Modifier.weight(1f),
             playAnimations = playAnimations,

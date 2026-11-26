@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.toliver.vinotes.R
+import kotlin.math.round
 
 @Composable
 fun PeriodStatsRow(
@@ -26,7 +27,7 @@ fun PeriodStatsRow(
             onPlayed = onPlayed,
         )
         AnimatedStatCounter(
-            targetValue = avgRating.toInt(),
+            targetValue = round(avgRating).toInt(),
             label = stringResource(R.string.average_score),
             modifier = Modifier.weight(1f),
             playAnimations = playAnimations,

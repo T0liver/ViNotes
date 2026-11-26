@@ -88,7 +88,11 @@ fun WineCard(
                 }
 
                 Text(
-                    text = "${item.wine.producer} · ${item.wine.year} · ${item.wine.country}",
+                    text = buildList {
+                        if (item.wine.producer.isNotBlank()) add(item.wine.producer)
+                        add(item.wine.year.toString())
+                        if (item.wine.country.isNotBlank()) add(item.wine.country)
+                    }.joinToString(" · "),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,

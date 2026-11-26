@@ -35,7 +35,7 @@ class PerformDeltaSyncUseCase @Inject constructor(
             }
 
             if (delta.updated.isNotEmpty()) {
-                wineRepository.insertAll(delta.updated, fromCatalog = true).getOrThrow()
+                wineRepository.updateAll(delta.updated, fromCatalog = true).getOrThrow()
             }
 
             if (delta.removedIds.isNotEmpty()) {

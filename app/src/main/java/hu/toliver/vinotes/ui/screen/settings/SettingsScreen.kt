@@ -2,6 +2,7 @@ package hu.toliver.vinotes.ui.screen.settings
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -128,32 +129,47 @@ fun SettingsScreen(
                     Text(stringResource(R.string.cancel))
                 }
             },
-            title = { Text(stringResource(R.string.settings)) },
+            title = { Text(stringResource(R.string.theme)) },
             text = {
                 Column {
                     val current = state.themeMode
                     Row(
-                        Modifier.fillMaxWidth(),
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.LIGHT)) },
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        RadioButton(selected = current == ThemeMode.LIGHT, onClick = { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.LIGHT)) })
+                        RadioButton(
+                            selected = current == ThemeMode.LIGHT,
+                            onClick = null,
+                        )
                         Text(text = stringResource(R.string.light))
                     }
                     Row(
-                        Modifier.fillMaxWidth(),
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.DARK)) },
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        RadioButton(selected = current == ThemeMode.DARK, onClick = { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.DARK)) })
+                        RadioButton(
+                            selected = current == ThemeMode.DARK,
+                            onClick = null,
+                        )
                         Text(text = stringResource(R.string.dark))
                     }
                     Row(
-                        Modifier.fillMaxWidth(),
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.SYSTEM)) },
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        RadioButton(selected = current == ThemeMode.SYSTEM, onClick = { viewModel.onEvent(SettingsEvent.ThemeSelected(ThemeMode.SYSTEM)) })
+                        RadioButton(
+                            selected = current == ThemeMode.SYSTEM,
+                            onClick = null,
+                        )
                         Text(text = stringResource(R.string.system_settings))
                     }
                 }

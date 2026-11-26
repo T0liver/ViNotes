@@ -41,7 +41,7 @@ class DashboardViewModel @Inject constructor(
     private val _effect = Channel<DashboardEffect>(Channel.BUFFERED)
     val effect: Flow<DashboardEffect> = _effect.receiveAsFlow()
 
-    private var loadJob: Job? = null
+    private var observeJob: Job? = null
 
     init {
         onEvent(DashboardEvent.LoadData)
@@ -49,8 +49,10 @@ class DashboardViewModel @Inject constructor(
 
     fun onEvent(event: DashboardEvent) {
         when (event) {
-            DashboardEvent.LoadData,
-            DashboardEvent.RefreshRequested -> loadDashboard()
+            DashboardEvent.LoadData -> observeDashboard()
+            DashboardEvent.RefreshRequested -> {
+                if (observeJob?.isActive != true) observeDashboard()
+            }
 
             is DashboardEvent.TastingCardClicked -> viewModelScope.launch {
                 _effect.send(DashboardEffect.NavigateToTastingDetail(event.tasteId))
@@ -99,17 +101,17 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    private fun loadDashboard() {
-        loadJob?.cancel()
-        loadJob = viewModelScope.launch {
+    private fun observeDashboard() {
+        if (observeJob?.isActive == true) return
+        observeJob = viewModelScope.launch {
             _state.update { it.copy(isLoading = true, errorMessage = null) }
 
             try {
                 combine(
-                        getRecentTastings(limit = 5),
-                            getDashboardStats(),
-                            getAppPreferences(),
-                        ) { tastings, stats, prefs ->
+                    getRecentTastings(limit = 5),
+                    getDashboardStats(),
+                    getAppPreferences(),
+                ) { tastings, stats, prefs ->
                     _state.update {
                         it.copy(
                             isLoading = false,
@@ -118,12 +120,11 @@ class DashboardViewModel @Inject constructor(
                             totalTastings = stats.totalTastings,
                             averageRating = stats.averageRating,
                             topRegion = stats.topRegion,
-                                    username = prefs.username,
-                                    showWelcomeDialog = !prefs.welcomeShown,
+                            username = prefs.username,
+                            showWelcomeDialog = !prefs.welcomeShown,
                         )
                     }
                 }.collect()
-
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
