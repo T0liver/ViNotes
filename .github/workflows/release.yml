@@ -64,24 +64,23 @@ jobs:
         id: get_version
         run: |
           VERSION=$(grep "versionName" app/build.gradle.kts | awk '{print $3}' | tr -d \")
-          VERSION_CODE=$(grep "versionCode" app/build.gradle.kts | awk '{print $3}')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
 
       - name: Check if Tag Exists and Modify
         id: f_tag
         run: |
           VERSION="${{ steps.get_version.outputs.VERSION }}"
-          VERSION_CODE="${{ steps.get_version.outputs.VERSION_CODE }}"
-          RELEASE_VERSION="${VERSION}-build-${VERSION_CODE}"
           git fetch --tags --prune
-          if git rev-parse "v${RELEASE_VERSION}" >/dev/null 2>&1; then
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
             echo "TAG_EXISTS=true" >> $GITHUB_OUTPUT
-            new_version="${VERSION}-build-${{ github.run_number }}"
-            echo "VERSION=$new_version" >> $GITHUB_OUTPUT
+            N=2
+            while git rev-parse "v${VERSION}-build-${N}" >/dev/null 2>&1; do
+              N=$((N + 1))
+            done
+            echo "VERSION=${VERSION}-build-${N}" >> $GITHUB_OUTPUT
           else
             echo "TAG_EXISTS=false" >> $GITHUB_OUTPUT
-            echo "VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           fi
 
       - name: Download artifacts
